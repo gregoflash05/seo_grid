@@ -110,7 +110,7 @@ class CampaignView(APIView):
 @api_view(['GET'])
 def search (request):
     """
-        This endpoint (...v1/check_keyword) gives a ranking of the keyword given 
+        This endpoint (.../search) gives a ranking of the keyword given 
         and suggest other words with higher ranking, the only required output
         is the keyword in question.
     """
