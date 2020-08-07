@@ -1,30 +1,22 @@
 {% load static %}
-{% load socialaccount %}
-{% providers_media_js %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-     <!-- font family -->
-   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-
-    <!-- stylesheet -->
-    <link rel="stylesheet" href="{% static 'registration/css/login.css' %}">
-
-    <title>Sign In Page</title>
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Crenly</title>
+   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="{% static 'accounts/css/global-form-styling.css' %}">
+   <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-      <script>
+    {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> {% endcomment %}
+
+    <script>
     $(document).ready(function(){
      $("form").submit(function(event){
       event.preventDefault();
       var email = $("#email").val();
-      var password = $("#password").val();
+      var password = $("#psw1").val();
       var submit =    $("#submit").val();
 
           if(email==''){
@@ -32,13 +24,16 @@
     }else{
             $("#email").css({"border-color": "green"});
                 if(password==''){
-                  $("#password1").css({"background-color": "transparent", "border-color": "red"});
+                   $(".error_message").html("<p style='' class='error-alert'>Password field is empty</p>");
+                  $("#psw1").css({"background-color": "transparent", "border-color": "red"});
     }else{
-                $("#password1").css({"border-color": "green"});
+                $("#psw1").css({"border-color": "green"});
+             
+       $(".success_message").html("<p style='' class='error-alert'>Please wait...</p>");
 $.ajax({
 
     type: "POST",
-    url: window.location.protocol + "//" + window.location.host +"/login/",
+    url: window.location.protocol + "//" + window.location.host +"/loging /",
 //    contentType: "application/json",
 //    dataType: "json",
     data: {       csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
@@ -52,15 +47,16 @@ $(".error_message").html(response);
         
     },
     error: function(response) {
- $(".error_message").html("<p class='alert alert-danger' style='text-align:center'>An error occured<p>");
+ $(".error_message").html("<p class='error-alert' style='text-align:center'>An error occured<p>");
      }       
 
             
             });
 
 
-          }
+
       }
+    }
 
 
 
@@ -68,75 +64,69 @@ $(".error_message").html(response);
      });   
     });
 </script>
-  </head>
-  <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-md navbar-light sticky-top">
-      <div>
-        <h2 id = "logo" style = "font-weight: bold;">
-         Invator
- 
-        </h2>      
-   </div>
-      <button
-        type="button"
-        class="navbar-toggler"
-        data-toggle="collapse"
-        data-target="#navbarResponsive"
-      >
-        <span class="navbar-toggler-icon nav-right"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="btn btn-primary" href="#" role="button" id="nav-btn">Dark</a>
-           
-             
-          
-          </li>
-        </ul>
-      </div>
-    </nav>
-    
-
-    <div class = "body container-fluid container">
-        <div class=" container-fluid top">
-            <h1 class = "text-primary text-center">SIGN IN</h1><br>
-        </div>
-        <div class=" container-fluid">
-            <form id = "form" method="POST">   
+</head>
+<body>
+   <div class="wrapper">
+      <section class="section-hero d-none">
+          <div class="custom-container">
+             <div class="section-hero__content">
+                  <div class="logo text-center">
+                     <img class="logo-img" src="{% static 'accounts/images/crenly-logo.svg' %}' " alt="crenly logo">
+                  </div>
+                   <h1 class="heading__title font-weight-bold text-center">Digital Marketing just got easier!</h1>
+                   <h3 class="heading__sub-title font-weight-bold text-center">Be Visible. Rank top on Search Engines</h3>
+             </div>
+          </div>
+      </section>
+      <section class="section-form">
+         <div class="section-form__container">
+            <div class="mobile-nav">
+               <div class="logo d-none-md">
+                  <img class="logo-img" src="{% static 'accounts/images/logo-mobile.svg' %}' " alt="crenly logo">
+               </div>
+               <div class="text-right">
+                  <a class="btn btn-tour font-weight-bold" href="#">Quick Tour</a>
+               </div>
+            </div>
+            <div class="section-form__text">
+               <h2 class="text-center font-weight-bold section-form__text-title">Welcome</h2>
+               <h4 class="text-center section-form__text-sub-title">Sign in with your social media</h4>
+               <ul class="list-unstyled d-flex justify-content-center">
+                  <a class="list-link" href="#"><li class="list-item"><img src="{% static 'accounts/images/facebook.svg' %}' %}" alt="facebook logo"></li></a>
+                  <a class="list-link" href="#"><li  class="list-item"><img src="{% static 'accounts/images/twitter.svg' %}" alt="twitter logo"></li></a>
+                  <a class="list-link" href="#"><li  class="list-item"><img src="{% static 'accounts/images/linkedin.svg' %}" alt="linkedin logo"></li></a>
+                  <a class="list-link" href="#"><li  class="list-item"><img src="{% static 'accounts/images/instagram.svg' %}" alt="instagram logo"></li></a>
+               </ul>
+               <div class="or">
+                  <div class="line"></div>
+                  <p class="or__text">OR</p>
+                  <div class="line"></div>
+               </div>
+               <h4 class="text-center section-form__text-sub-title">Sign in with your email</h4>
+            </div>
+            <form>
             {% csrf_token %}
-                <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                    <small class="form-text text-muted email">Your email address will remain confidential.</small>
-                </div><br>
-                <div class="form-group">
-                     <label for="password">Password</label>
-                     <input type="password" name="password" class="form-control" id="password">
-                </div><br><br>
-                <div class = "form-lower">
-                  <button id="submit" type="submit" class="btn btn-primary">Submit</button><br><br>
-                  <p class="error_message"></p>
-                  <small id="sign-up class="form-text text-muted">Don't have an account yet? <a href="../register/">Sign up</a></small>
-                  
-                  <small " class="form-text text-muted"><a href="../reset_password/">Forgot password?</a></small><br>
-                    <a class="btn btn-outline-dark" href="{% provider_login_url "google" %}" role="button" style="text-transform:none">
-                            <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
-                            Sign in with Google
-                          </a>
-                </div>
-                
-            </form>       
-        </div>
-    </div>
-    
-
-    {% comment %} <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> {% endcomment %}
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-    <script src = "{% static 'registration/js/login.js' %}"></script>
-  </body>
+               <div class="form-group">
+                  <label class="input-label" for="email">Email Address</label>
+                  <div class="input-container">
+                     <input class="input-field" type="email" name="email" placeholder="Someone@gmail.com" id="email">
+                     <img class="input-icon" src="{% static 'accounts/images/mail.svg' %}" alt="mail icon">
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label class="input-label" for="psw1">Password</label>
+                  <div class="input-container">
+                     <input class="input-field" type="password" name="psw1" placeholder="**************" id="psw1">
+                     <img class="input-icon" src="{% static 'accounts/images/password.svg' %}" alt="password icon">
+                  </div>
+               </div>
+               <div class="btn-submit-container">
+                  <button class="btn btn-submit font-weight-bold" type="submit" id="submit">Log In</button>
+               </div>
+            </form>
+            <p class="text-center form__alternative-text">Don't have an account? <a class="link font-weight-bold" href="#">Sign Up</a></p>
+         </div>
+      </section>
+   </div>
+</body>
 </html>
