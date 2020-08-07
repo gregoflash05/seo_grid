@@ -112,6 +112,7 @@ env.bak/
 venv.bak/
 fenv/
 femvenv/
+seo_grid/
 
 # Spyder project settings
 .spyderproject
