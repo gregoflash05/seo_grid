@@ -73,7 +73,7 @@ docs/_build/
 
 # PyBuilder
 target/
-
+tempCodeRunnerFile.py
 # Jupyter Notebook
 .ipynb_checkpoints
 
@@ -83,6 +83,7 @@ ipython_config.py
 
 # pyenv
 .python-version
+
 
 # pipenv
 #   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
@@ -102,13 +103,16 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+*.env
 .venv
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+fenv/
+femvenv/
+seo_grid/
 
 # Spyder project settings
 .spyderproject
@@ -127,3 +131,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+ferrum.py
