@@ -61,7 +61,7 @@ def login(request):
             else:
                 return JsonResponse("<p class='error-alert' style='text-align:center'>Email address does not exist<p>", safe=False)
 
-        return render(request, "registration/login.html")
+        return render(request, "accounts/login.html")
 
 def dashboard(request):
     r_user = request.user

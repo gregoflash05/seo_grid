@@ -1,0 +1,25 @@
+@media (min-width: 768px) {
+
+   .section-hero {
+      position: relative;
+      background: url('../images/google.svg') no-repeat center center / cover;
+   }
+}
+
+.error-alert{
+   background-color:#DC143C;
+   margin-top:10px;
+   border-radius:4px;
+   text-align:center;
+   padding:10;
+   line-height:25px
+}
+
+.success-alert{
+   background-color:green;
+   margin-top:10px;
+   border-radius:4px;
+   text-align:center;
+   padding:10;
+   line-height:25px
+}
