@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import KeywordSearch
+from . import views
+from .views import search
+
 
 urlpatterns = [
-    path("search", KeywordSearch.as_view(), name="Search")
-
+    path('rank', views.AverageRanker.as_view(), name = "ranker"),
+    path('search', search), 
 ]
