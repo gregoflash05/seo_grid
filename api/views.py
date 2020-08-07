@@ -34,8 +34,9 @@ def data(request):
     #     headers=False  # don`t generate misc headers
     # )
 
-    
-    # page = requests.get('https://freetools.seobility.net/en/seocheck/check?url=https%3A%2F%2Fstart.ng&crawltype=1', headers=header.generate())
+    # domain = site.split('https://')[1]    
+    # print(domain)
+    # page = requests.get(f'https://freetools.seobility.net/en/seocheck/check?url=https%3A%2F%2F{domain}&crawltype=1', headers=header.generate())
     # soup = BeautifulSoup(page.content, 'html.parser')
     # # print(soup.prettify())
     # row = soup.find_all(class_="col-md-12 td tr")
