@@ -1,0 +1,110 @@
+{% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
+<!doctype html>
+<html lang="en">
+  <head>
+  <style>
+  .form-group input{
+      margin-bottom:10px;
+  }
+   .form-group li{
+      padding-top:10px;
+      color:red;
+  }
+     .helptext{
+      display:none
+  }
+  {% comment %} .form-group li{
+      color:red
+  } {% endcomment %}
+  </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="{% static 'registration/css/signup.css' %}">
+
+   <!-- font family -->
+   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+
+    <title>Password reset</title> 
+ 
+  </head>
+  <body>
+
+     <!-- Navigation -->
+     <nav class="navbar navbar-expand-md navbar-light ">
+        <div>
+          <h2 id = "logo" style = "font-weight: bold;">
+           Invator
+   
+          </h2>      
+     </div>
+        <button
+          type="button"
+          class="navbar-toggler"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+        >
+          <span class="navbar-toggler-icon nav-right"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+             
+                <a class="btn btn-primary" href="#" role="button" id="nav-btn">Dark</a>
+            
+            </li>
+          </ul>
+        </div>
+      </nav>
+    
+
+    <div class = "body container-fluid container">
+        <div class="container container-fluid top">
+            <h5 class = "text-primary text-center">Enter new password <br><br>
+            Please enter your new password twice so that we can verify you typed it in correctly</h5><br>
+        </div>
+   
+        <div class="container container-fluid">
+            <form id = "form" method="POST">
+            {% csrf_token %}   
+            
+                <div class="form-group"><br>
+                 {{form}}
+                </div><br><br>
+
+                <div class = "form-lower">
+                    <button id="submit" type="submit" class="btn btn-primary">update password</button><br><br>
+                    <p class="error_message"></p>
+                      
+                    <!-- <small id="sign-up" class="form-text text-muted"><a href="../index.html">Login</a></small>   
+                    <small id="skip" class="form-text text-muted "><a href="#">Skip for now</a></small> -->
+                </div>
+                
+               
+            </form>       
+        </div>
+<br><br><br>
+    </div>
+
+
+    
+
+
+
+
+
+   
+    {% comment %} <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script src = "{% static 'registration/js/signup.js' %}"></script>
+  </body>
+</html>
