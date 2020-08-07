@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .serializers import CampaignSerializer
@@ -10,6 +11,7 @@ import json
 import requests
 from bs4 import BeautifulSoup as bs4
 import re
+import os
 from fake_headers import Headers
 from rest_framework.decorators import api_view
 from .compare import get_title, url_check, has_site_map, ssl_cert
@@ -19,6 +21,7 @@ import sys
 import logging
 from pysitemap import crawler
 import random
+from serpapi import GoogleSearchResults
 
 header = Headers(
         headers=True  # generate misc headers
@@ -113,6 +116,29 @@ class CampaignView(APIView):
 				}, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def search (request):
+    """
+        This endpoint (.../search) gives a ranking of the keyword given 
+        and suggest other words with higher ranking, the only required output
+        is the keyword in question.
+    """
+    if request.method == "GET":
+
+        word_search = request.data ["word_search"]
+
+        params = {
+            "engine": "google",
+            "q": word_search,
+            "api_key": "73f760a8e5e3e7974840c5d7b99a76e07f5311a0fb82d0cd1623866e5dc7c1ac"
+        }
+
+        client = GoogleSearchResults(params)
+        results = client.get_dict()
+        return Response ({'data': results}, status=status.HTTP_200_OK)
+        #client = GoogleSearchResults(params)
+        #results = client.get_dict()
+
 @api_view(['POST', ])
 def get_seo_data(request):
 	if request.method == 'POST':
@@ -153,5 +179,3 @@ def get_seo_data(request):
 				}
 		return Response(seo_data, status=status.HTTP_200_OK)
 		# return seo_data
-
-		
