@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .serializers import CampaignSerializer
@@ -13,6 +14,7 @@ from bs4 import BeautifulSoup as bs4
 import re
 import os
 from fake_headers import Headers
+from seoanalyzer import analyze
 from rest_framework.decorators import api_view
 from .compare import get_title, url_check, has_site_map, ssl_cert
 from .compare import loadtime, ssl_cert, out_of_bound, is_responsive 
@@ -26,6 +28,30 @@ from serpapi import GoogleSearchResults
 header = Headers(
         headers=True  # generate misc headers
     )
+    
+@api_view(['POST', ])
+@permission_classes([AllowAny, ])
+def data(request):
+    site = request.data.get('site_url')
+    output = analyze(site)
+    return Response(output)
+
+    # header = Headers(
+    #     # generate any browser & os headeers
+    #     headers=False  # don`t generate misc headers
+    # )
+
+    # domain = site.split('https://')[1]    
+    # print(domain)
+    # page = requests.get(f'https://freetools.seobility.net/en/seocheck/check?url=https%3A%2F%2F{domain}&crawltype=1', headers=header.generate())
+    # soup = BeautifulSoup(page.content, 'html.parser')
+    # # print(soup.prettify())
+    # row = soup.find_all(class_="col-md-12 td tr")
+    # print(row)
+    # print(row.find('span'))
+    # return Response('yoo')
+
+
 
 class AverageRanker(APIView):
     def post(self, request):
