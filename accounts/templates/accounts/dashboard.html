@@ -1,0 +1,13 @@
+<html>
+    <head>
+    <title>Dashboard</title>
+<link src"https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+    {% if user.is_authenticated %}
+    <p>{{ user.first_name}} : {{user.profile.company}}</p><br>
+ <a class="button" href="../logout">logout</a>
+    {% else %}
+<a class="button" href="../login">login</a>
+    {% endif %}
+</html>
