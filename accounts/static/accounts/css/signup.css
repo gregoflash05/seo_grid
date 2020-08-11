@@ -1,0 +1,8 @@
+@media (min-width: 768px) {
+   
+   .section-hero {
+      position: relative;
+      background: url('../images/hand.svg') no-repeat center center / cover;
+   }
+
+}
