@@ -1,1 +1,1 @@
-web: gunicorn seo-grid.wgsi
+web: gunicorn seo_grid.wsgi.py
