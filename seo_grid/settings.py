@@ -27,8 +27,8 @@ SECRET_KEY = '2-gd&!pe5z15*2kqncf=scipmu84e58*y@lsfswkg9m-)3)1nl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['https://app-seo-grid.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['https://app-seo-grid.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
