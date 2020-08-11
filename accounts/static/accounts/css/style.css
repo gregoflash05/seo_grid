@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
+
+body {
+    background-color: white;
+    font-family: 'Lato', sans-serif;
+    /*padding-left: 100px;
+    padding-right: 100px;*/
+    margin: 0;
+}
+
+.brand-logo {
+    background-color:#1561AD; /*Fallback for unsupported bowsers*/
+    background-image: linear-gradient(99.86deg, #1561AD 46.65%, #1AA7A2 64.09%);
+    background-image: conic-gradient(99.86deg, #1561AD 46.65%, #1AA7A2 64.09%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    font-size: 48px;
+}
+
+.brand-logo__dot {
+    font-size: 60px;
+    line-height: 0px;
+   color: #FC5226;
+   background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: #FC5226;
+    -moz-text-fill-color: #FC5226;
+}
+
+.login {
+    background-color: white;
+    border-style: none;
+    border: 1px solid #FC5226;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #FC5226;
+    font-family: 'Lato', sans-serif;
+}
+
+.free-trial {
+    background-color: #FC5226;
+    border-radius: 8px;
+    border-style: none;
+    color: white;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+}
+
+.intro {
+    margin-top: 100px;
+    /*padding: auto 100px;*/
+}
+
+.intro__title {
+    font-weight: bold;
+    font-size: 64px;
+    color: #1561AD;
+}
+
+.intro__description {
+    font-size: 32px;
+    color: #65AEE7;
+}
+
+
+.step1 {
+    margin-top: 100px;
+}
+
+.section__heading {
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    color: #1561AD;
+}
+
+.section__description {
+    text-align: center;
+    font-weight: 500;
+    font-size: 32px;
+    color: #65AEE7;
+}
+
+.step__number {
+    background-color: #FC5226;
+    color: white;
+    font-weight: 900;
+    font-size: 32px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+.step__title {
+    font-weight: bold;
+    font-size: 32px;
+    color: #1561AD;
+
+}
+
+.step__description {
+    font-weight: 500;
+    font-size: 24px;
+    color: #65AEE7;
+}
+
+.step2 {
+    background-color: #F0F9FF;
+    padding-top: 100px;
+    padding-bottom: 80px;
+}
+
+@media screen and (max-width:768px) {
+
+}
+
+@media screen and (max-width:992px) {
+    
+}
