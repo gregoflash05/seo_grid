@@ -21,9 +21,12 @@
   <header class="container-fluid d-flex justify-content-between pt-4 px-5">
     <h2 class="brand-logo mb-0">crenly<span class="brand-logo__dot">.</span></h2>
     <div>
-      
+     {% if user.is_authenticated %}
+     <a href="/dashboard/"><button class="login px-4 py-3 mr-3">Dashboard</button></a>
+     {% else %} 
       <a href="/login/"><button class="login px-4 py-3 mr-3">LOG IN</button></a>
       <a href="/signup/"><button class="free-trial px-4 py-3">START FREE TRIAL</button></a>
+      {% endif %}
     </div>
   </header>
   <!---------------header end------------------->
@@ -32,7 +35,10 @@
     <div class="col pl-5">
       <h1 class="intro__title">The Best Keyword <br> SEO Grid Tool.</h1>
       <p class="intro__description">Track your keywords. Stay on top of<br> Google’s search results.</p>
-      <button class="free-trial px-4 py-3 mt-5">START FREE TRIAL</button>
+      
+           {% if user.is_authenticated %}
+     {% else %} 
+      <button class="free-trial px-4 py-3 mt-5">START FREE TRIAL</button>      {% endif %}
     </div>
     <div class="col">
       <img class="img-fluid" src="{% static 'accounts/img/introimg.png' %}">
