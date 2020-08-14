@@ -13,8 +13,8 @@ urlpatterns = [
     path('campaign/', views.CampaignInfoView, name='campaign'),
     path('campaign_user/', views.CampaignInfoByUser, name='campaign'),
 
-    path('Keyword/<int:pk>/', views.Keyword_info_by_id, name='Keywords'),
-    path('Keyword/', views.KeywordsInfoView, name='Keywords'),
-    path('Keyword_campaign/', views.KeywordsInfoByCampaign, name='Keywords'),
+    path('keyword/<int:pk>/', views.Keyword_info_by_id, name='Keywords'),
+    path('keyword/', views.KeywordsInfoView, name='Keywords'),
+    path('keyword_campaign/', views.KeywordsInfoByCampaign, name='Keywords'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
