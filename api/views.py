@@ -37,6 +37,12 @@ def campaign_test(link, campaign_name, user_campaign_details):
                     return 'TrueC'
                     break
 
+def keyword_test(keyword, campaign_keyword_details):
+            for i in campaign_keyword_details:
+                if i['keyword'] == keyword:
+                    return 'TrueK'
+                    break
+
 
 def dashboard(request):
 
@@ -181,12 +187,20 @@ def KeywordsInfoView(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+        keyword = request.data['keyword']
+        campaign = request.data['campaign']
         serializer = KeywordsSerializer(data = request.data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+        campaign_keyword_details = Keywords.objects.filter(campaign=campaign)
+        campaign_keyword_details = KeywordsSerializer(campaign_keyword_details, many=True).data
+        if keyword_test(keyword, campaign_keyword_details) == "TrueK":
+            return Response('The key word ' + keyword + ' already exists for this campaign')
+        elif keyword == "" or keyword == " ":
+            return Response('Keyword field cannot be empty')
+        else:
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors)
 
 
 @api_view(['POST' ])
