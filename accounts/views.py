@@ -72,3 +72,6 @@ def dashboard(request):
 def logout(request):
     auth.logout(request)
     return redirect("/login")
+
+def homepage(request):
+    return render(request, "accounts/index.html")
