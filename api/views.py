@@ -83,9 +83,9 @@ def DashboardInfoView(request):
 
 
 #//////////////////////////////////////Compare/////////////////////////////////////////
-{
-    "url": "https://www.zarpcourier.com"
-}
+# {
+#     "url": "https://www.zarpcourier.com"
+# }
 
 @api_view(['POST', ])
 def test(request):
