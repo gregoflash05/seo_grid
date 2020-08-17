@@ -93,7 +93,7 @@ def test(request):
         data = request.data
         base_url, link, user_id = data['url'], data['url'], request.user.id
         # base_path = "/media/{}".format(user_id)
-        if generate_sitemap(base_url, 2000, user_id):
+        if generate_sitemap(base_url, 100, user_id):
             return Response('Check', status=status.HTTP_200_OK)
         else:
             return Response("failed", status=status.HTTP_200_OK)
