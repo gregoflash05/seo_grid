@@ -18,7 +18,7 @@ class Campaign(models.Model):
 
 class Keywords(models.Model):
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=True)
-    keyword = models.CharField(max_length=1000000000, blank=True, null=True)
+    keyword = models.CharField(max_length=9999999, blank=True, null=True)
     ranking = models.IntegerField(blank=True, null=True)
     top_rank = models.IntegerField(blank=True, null=True)
     competitor_one = models.CharField(max_length=1000, blank=True, null=True)
@@ -44,6 +44,9 @@ class Keywords(models.Model):
     competitor_organic_search_traffic = models.IntegerField(blank=True, null=True)
     competitor_mobile_responsiveness = models.CharField(max_length=255, blank=True, null=True)
     time = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.campaign.campaign_name
 
 
 # class Site(models.Model):

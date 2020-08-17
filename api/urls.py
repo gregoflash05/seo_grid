@@ -17,4 +17,10 @@ urlpatterns = [
     path('keyword/', views.KeywordsInfoView, name='Keywords'),
     path('keyword_campaign/', views.KeywordsInfoByCampaign, name='Keywords'),
 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('keyword_dash/', views.DashboardInfoView, name='Dashboard'),
+
+    path('keyword_compare/', views.get_seo_data, name='compare'),
+
+    path('test/', views.test, name='test'),
+
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

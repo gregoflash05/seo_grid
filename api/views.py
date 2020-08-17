@@ -18,15 +18,21 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 import re
 import os
+from django.conf import settings
 from fake_headers import Headers
 from rest_framework import status
 from accounts.models import Profile
+import random, time
+from .d_scrapers import get_competitors
+from .ranker import rank
+from .compare import get_title, url_check, has_site_map, ssl_cert
+from .compare import loadtime, ssl_cert, out_of_bound, is_responsive
+import sys
+import logging
+from pysitemap import crawler
+from .sitemap import generate_sitemap
 
 # Create your views here.
-
-# >> place = Birthplace.objects.get(city="Dallas")
-# >> place.person_set.all()
-# [<Person: John Smith>, <Person: Maria Lee>]
 
 def campaign_test(link, campaign_name, user_campaign_details):
             for i in user_campaign_details:
@@ -43,7 +49,7 @@ def keyword_test(keyword, campaign_keyword_details):
                     return 'TrueK'
                     break
 
-
+#//////////////////////////////////////dashboard/////////////////////////////////////////
 def dashboard(request):
 
     r_user = request.user
@@ -61,6 +67,105 @@ def dashboard(request):
     if r_user.is_authenticated:
         return render(request, "api/dashboard.html", context)
     return redirect("/login")
+
+@api_view(['POST', ])
+def DashboardInfoView(request):
+    if request.method == 'POST':
+        keyword = request.data['keyword']
+        website = request.data['website']
+        website_rank = rank(keyword, website)
+        links = get_competitors(keyword)[:2]
+        return Response({'rank':website_rank, 'competitor1': links[0], 'competitor2': links[1]})
+
+# {"website": "en.wikipedia.org",
+#  "keyword": "Greg",}
+#//////////////////////////////////////End dashboard/////////////////////////////////////////
+
+
+#//////////////////////////////////////Compare/////////////////////////////////////////
+{
+    "url": "https://www.zarpcourier.com"
+}
+
+@api_view(['POST', ])
+def test(request):
+    if request.method == 'POST':
+        data = request.data
+        base_url, link, user_id = data['url'], data['url'], request.user.id
+        # base_path = "/media/{}".format(user_id)
+        if generate_sitemap(base_url, 2000, user_id):
+            return Response('Check', status=status.HTTP_200_OK)
+        else:
+            return Response("failed", status=status.HTTP_200_OK)
+
+@api_view(['POST', ])
+def get_seo_data(request):
+    if request.method == 'POST':
+        data = request.data
+        base_url, link, user_id = data['url'], data['url'], request.user.id
+        path = '{}.xml'.format(user_id)
+        if generate_sitemap(base_url, 2000, user_id):
+            check_url = url_check(path)
+            out_of_bound_links = out_of_bound(base_url, path)
+        time.sleep(float(5))
+        title = get_title(base_url)
+        responsive = is_responsive(base_url)
+        site_map = has_site_map(base_url)
+        ssl_status = ssl_cert(base_url)
+        indexed = check_url['indexed']
+        broken = check_url['broken']
+        run_time = loadtime(base_url)
+        seo_data = {'title':title, 'responsive' : responsive, 'site_map' : site_map, 'ssl_cert' : ssl_status,
+				'indexed' : indexed, 'broken' : broken, 'load_time' : run_time, 'out_of_bound' : out_of_bound_links
+				}
+        os.remove(path)
+        return Response(seo_data, status=status.HTTP_200_OK)
+
+
+
+
+
+
+
+	# if request.method == 'POST':
+	# 	data = request.data
+	# 	user_id, base_url, link = data['url'], data['url'], request.user.id
+    #     link = link.split('/')
+    #     link = link[0] + link[1] + '//' + link[2]
+	# #    file = user_id + '.xml'
+	# 	# file = '{}.xml'.format(user_id)
+	# 	# if __name__ == '__main__':
+	# 	# 	if '--iocp' in sys.argv:
+	# 	# 		from asyncio import events, windows_events
+	# 	# 		sys.argv.remove('--iocp')
+	# 	# 		logging.info('using iocp')
+	# 	# 		el = windows_events.ProactorEventLoop()
+	# 	# 		events.set_event_loop(el)
+
+	# 	# 	# root_url = sys.argv[1]
+	# 	# 	root_url = link
+	# 	# 	crawler(root_url, out_file = file)
+	# 	# user_id = user_id 
+	# 	# link = link
+    #     generate_sitemap(base_url, user_id)
+    #     time.sleep(float(5))
+    #     user_id = user_id
+    #     path = '{}.xml'.format(user_id)
+    #     title = get_title(base_url)
+    #     responsive = is_responsive(base_url)
+    #     site_map = has_site_map(base_url)
+    #     ssl_status = ssl_cert(base_url)
+    #     check_url = url_check(path)
+    #     indexed = check_url['indexed']
+    #     broken = check_url['broken']
+    #     load_time = random.randint(2, 4)
+    #     out_of_bound_links = out_of_bound(base_url, path)
+    #     seo_data = {'title':title, 'responsive' : responsive, 'site_map' : site_map, 'ssl_cert' : ssl_status,
+	# 			'indexed' : indexed, 'broken' : broken, 'load_time' : load_time, 'out_of_bound' : out_of_bound_links
+	# 			}
+    #     return Response(seo_data, status=status.HTTP_200_OK)
+	# 	# return seo_data
+#//////////////////////////////////////Compare/////////////////////////////////////////
 
 #//////////////////////////////////////campaign/////////////////////////////////////////
 @api_view(['POST', 'GET'])
