@@ -143,12 +143,15 @@ def has_site_map(baseurl):
     
 def loadtime(url):
     start_time = time.time()
-    stream = urllib.request.urlopen(url)
-    output = stream.read()
+    try:
+        stream = urllib.request.urlopen(url)
+        output = stream.read()
+        stream.close()
+    except:
+        print(' ')
     end_time = time.time()
-    stream.close()
     return end_time - start_time
-
+    
 def ssl_cert(domain):
     try:
         requests.get(domain, verify=True)
