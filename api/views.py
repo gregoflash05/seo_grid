@@ -104,7 +104,7 @@ def get_seo_data(request):
         data = request.data
         base_url, link, user_id = data['url'], data['url'], request.user.id
         path = '{}.xml'.format(user_id)
-        if generate_sitemap(base_url, 2000, user_id):
+        if generate_sitemap(base_url, 100, user_id):
             check_url = url_check(path)
             out_of_bound_links = out_of_bound(base_url, path)
         time.sleep(float(5))

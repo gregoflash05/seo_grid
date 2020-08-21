@@ -188,3 +188,8 @@ def is_responsive(url):
         return 'Yes' 
     else:     
         return 'No'
+
+line = "https://www.momandpopgems.com"
+query = {'q': 'site:' + line}
+google = "https://www.google.com/search?" + urlencode(query)
+print(google)
