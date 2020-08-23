@@ -48,6 +48,12 @@ class Keywords(models.Model):
     def __str__(self):
         return self.campaign.campaign_name
 
+class Subscribers(models.Model):
+    email = models.CharField(max_length=250, blank=True, null=True)
+    def __str__(self):
+        return self.email
+
+
 
 # class Site(models.Model):
 #     est_traffic = models.FloatField(blank=True, null=True)

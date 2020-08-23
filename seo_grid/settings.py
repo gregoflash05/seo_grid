@@ -92,28 +92,33 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'seo_grid.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
 
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+} 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dcrksvtrroevuf',
-        'USER': 'hblxhaclviqwbj',
-        'PASSWORD': 'ff58bdf5aa3e5d2d07487430efd67e1253313db5d315f96c4ce742f0afaf3189',
-        'HOST': 'ec2-52-1-95-247.compute-1.amazonaws.com',
-        'POST': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'dcrksvtrroevuf',
+#         'USER': 'hblxhaclviqwbj',
+#         'PASSWORD': 'ff58bdf5aa3e5d2d07487430efd67e1253313db5d315f96c4ce742f0afaf3189',
+#         'HOST': 'ec2-52-1-95-247.compute-1.amazonaws.com',
+#         'POST': '5432',
+#     }
+# }
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

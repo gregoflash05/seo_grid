@@ -34,7 +34,19 @@
             </div>
             <div class="section-form__text">
                <h2 class="text-center font-weight-bold section-form__text-title">Create Account</h2>
-               <h4 class="text-center section-form__text-sub-title">Start your free tier</h4>
+               <h4 class="text-center section-form__text-sub-title">Sign up with your social media</h4>
+               <ul class="list-unstyled d-flex justify-content-center">
+                  <a class="list-link" href="#"><li class="list-item"><img src="{% static 'accounts/images/facebook.svg' %}" alt="facebook logo"></li></a>
+                  <a class="list-link" href="#"><li  class="list-item"><img src="{% static 'accounts/images/twitter.svg' %}" alt="twitter logo"></li></a>
+                  <a class="list-link" href="#"><li  class="list-item"><img src="{% static 'accounts/images/linkedin.svg' %}" alt="linkedin logo"></li></a>
+                  <a class="list-link" href="#"><li  class="list-item"><img src="{% static 'accounts/images/instagram.svg' %}" alt="instagram logo"></li></a>
+               </ul>
+               <div class="or">
+                  <div class="line"></div>
+                  <p class="or__text">OR</p>
+                  <div class="line"></div>
+               </div>
+               <h4 class="text-center section-form__text-sub-title">Sign up with your email</h4>
             </div>
             <form>
             {% csrf_token %}
@@ -74,15 +86,15 @@
                   </div>
                </div>
                <div class="btn-submit-container">
-                  <button class="btn btn-submit font-weight-bold" type="submit">Sign Up</button>
+                  <button class="btn btn-submit font-weight-bold" type="submit" id="submit">Sign Up</button>
                </div>
                <p class="error_message"></p>
             </form>
-            <p class="text-center form__alternative-text">Already have an account? <a class="link font-weight-bold" href="login">Login</a></p>
+            <p class="text-center form__alternative-text">Already have an account? <a class="link font-weight-bold" href="/login">Login</a></p>
          </div>
       </section>
    </div>
-      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> {% endcomment %}
 
     <script>
