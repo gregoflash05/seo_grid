@@ -155,12 +155,8 @@
           <ul class="list-unstyled mt-3 mb-4">
             <li class="text-muted">Per user Per Month</li>
           </ul>
-                        {% if user.is_authenticated %}
-        
-        {% else %}
          <button type="button" class="mt-5 btn btn-lg btn-primary d-block mx-auto btn-start btn-start-red px-4">Get
             Started</button>
-        {% endif %}
           
         </div>
         <hr style="width: 84%; border:1px solid #CCCCCC;" class="mx-auto">
@@ -245,8 +241,6 @@
 
   </div>
   <!--------------- testimonial end------------------->
-  {% if user.is_authenticated %}
-  {% else %}
   <!--------------- newsletter start------------------->
   <div class="container-fluid newsletter d-flex">
     <div class="align-self-center mx-auto">
@@ -261,7 +255,6 @@
     </div>
   </div>
   <!--------------- newsletter end------------------->
-  {% endif %}
 
   <!--------------- footer start------------------->
   <div class="container-fluid footer-wrapper d-flex justify-content-between">
