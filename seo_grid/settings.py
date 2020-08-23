@@ -92,7 +92,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'seo_grid.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
 
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+} 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -166,6 +171,6 @@ MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = "/"
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'

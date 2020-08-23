@@ -143,12 +143,15 @@ def has_site_map(baseurl):
     
 def loadtime(url):
     start_time = time.time()
-    stream = urllib.request.urlopen(url)
-    output = stream.read()
+    try:
+        stream = urllib.request.urlopen(url)
+        output = stream.read()
+        stream.close()
+    except:
+        print(' ')
     end_time = time.time()
-    stream.close()
     return end_time - start_time
-
+    
 def ssl_cert(domain):
     try:
         requests.get(domain, verify=True)
@@ -185,3 +188,8 @@ def is_responsive(url):
         return 'Yes' 
     else:     
         return 'No'
+
+line = "https://www.momandpopgems.com"
+query = {'q': 'site:' + line}
+google = "https://www.google.com/search?" + urlencode(query)
+print(google)

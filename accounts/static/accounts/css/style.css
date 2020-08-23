@@ -1,123 +1,538 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
 
+html{
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: white;
     font-family: 'Lato', sans-serif;
     /*padding-left: 100px;
     padding-right: 100px;*/
     margin: 0;
+    overflow-x: hidden;
 }
 
-.brand-logo {
-    background-color:#1561AD; /*Fallback for unsupported bowsers*/
-    background-image: linear-gradient(99.86deg, #1561AD 46.65%, #1AA7A2 64.09%);
-    background-image: conic-gradient(99.86deg, #1561AD 46.65%, #1AA7A2 64.09%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
+a.anchor {
+    display: block;
+    position: relative;
+    top: -30px;
+    visibility: hidden;
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(0, 120, 77)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  }
+  
+  .custom-toggler.navbar-toggler {
+    /* border-color: rgb(0, 120, 77);*/
+    border: none;
+  }  
+
+.navbar-brand {
+font-size: 32px;
+color: #00784D !important;
+}
+
+.navbar-brand__dot {
     font-size: 48px;
-}
-
-.brand-logo__dot {
-    font-size: 60px;
     line-height: 0px;
-   color: #FC5226;
-   background-clip: text;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: #FC5226;
-    -moz-text-fill-color: #FC5226;
 }
 
-.login {
-    background-color: white;
-    border-style: none;
-    border: 1px solid #FC5226;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #FC5226;
-    font-family: 'Lato', sans-serif;
-}
+.error-alert{
+    background-color:#DC143C;
+    margin-top:10px;
+    border-radius:4px;
+    text-align:center;
+    padding:10;
+    line-height:25px
+ }
+ 
+ .success-alert{
+    background-color:green;
+    margin-top:10px;
+    border-radius:4px;
+    text-align:center;
+    padding:10;
+    line-height:25px
+ }
 
-.free-trial {
-    background-color: #FC5226;
-    border-radius: 8px;
-    border-style: none;
-    color: white;
-    font-size: 14px;
-    font-family: 'Lato', sans-serif;
-}
 
-.intro {
-    margin-top: 100px;
-    /*padding: auto 100px;*/
+.nav-item {
+        font-weight: 600;
+        padding-left: 20px;
+        
+    }
+
+.nav-link {
+        padding: 1.1rem 20px;
+        color: #454545 !important;
+    }
+
+.signup {
+    color: #FF3737 !important;
 }
 
 .intro__title {
     font-weight: bold;
-    font-size: 64px;
-    color: #1561AD;
+    font-size: 48px;
+    color: #00784D;
 }
 
 .intro__description {
-    font-size: 32px;
-    color: #65AEE7;
+    font-size: 20px;
+    color: #353535;
 }
 
+.text-red {
+    color: #FF3737;
+}
 
-.step1 {
-    margin-top: 100px;
+.free-trial {
+    background-color: #FF3737;
+    border-radius: 8px;
+    border-style: none;
+    color: white;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
 }
 
 .section__heading {
-    text-align: center;
+    color: #00784D;
     font-weight: bold;
-    font-size: 50px;
-    color: #1561AD;
-}
-
-.section__description {
-    text-align: center;
-    font-weight: 500;
-    font-size: 32px;
-    color: #65AEE7;
-}
-
-.step__number {
-    background-color: #FC5226;
-    color: white;
-    font-weight: 900;
-    font-size: 32px;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-}
-
-.step__title {
-    font-weight: bold;
-    font-size: 32px;
-    color: #1561AD;
-
-}
-
-.step__description {
-    font-weight: 500;
     font-size: 24px;
-    color: #65AEE7;
+    text-align: center;
 }
 
-.step2 {
-    background-color: #F0F9FF;
-    padding-top: 100px;
-    padding-bottom: 80px;
+.steps {
+    background-color: #00784D;
+    background-image: url("../img/stepsbgimg.png");
+    background-repeat: no-repeat;
+    background-position: bottom 40%;
+    /* background-size: contain;
+    height: 300px; */
 }
 
-@media screen and (max-width:768px) {
-
+.steps__title {
+    color: #24FE95;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
-@media screen and (max-width:992px) {
+.steps__description {
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+  /* Styling your custom slick dots start */
+  .custom-dots span {
+      color: white;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 1px 2px;
+}
+
+/* Styling your custom slick dots active state */
+.slick-active .custom-dots span {
+    border: 1px solid white;
+}
+
+.card-container {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.card {
+    box-shadow: 0px 5px 20px rgba(41, 202, 125, 0.2);
+    border: none;
+    width: 335px;
+}
+
+.card-height {
+    height: 400px;
+}
+
+.price-plan {
+    font-weight: bold;
+    font-size: 22px;
+    color: #000000;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.plan-clients {
+    font-size: 18px;
+    color: #979797;
+    text-align: center;
+}
+
+.text-muted {
+    font-size: 16px;
+    vertical-align: super;
+    color: #979797;
+    text-align: center;
+}
+
+.pricing-card-title {
+    font-size: 36px;
+    color: black;
+    text-align: center;
+}
+
+.btn-start {
+    background-color: white;
+    color: #FF3737;
+    border: 1px solid #FF3737;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.btn-start:hover,.btn-start:active, .btn-start:focus {
+    background-color: #FF3737 !important;
+    border: none;
+}
+
+.btn-start-red {
+    background-color: #FF3737;
+    color: white;
+}
+
+.testimonial-wrapper {
+    background-image: url("../img/testimonialellipse.png");
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+
+/* Slick slider control buttons */
+.slick-prev {
+    left: 0px;
+    z-index: 2;
+  }
+  .slick-next {
+    right: 2px;
+  }
+
+  /* Slick slider slide margin */
+  .slick-slide {
+      margin: auto 1%;
+  }
+
+  /* Styling your custom slick dots start */
+.pager__item {
+    height: 6px;
+    width: 20px;
+    border: 1px solid #00B071;
+    border-radius: 10px;
+}
+
+/* Styling your custom slick dots active state */
+.slick-active .pager__item {
+    background-color: #00B071;
+}
+/* Styling your custom slick dots end */
+
+  .text-resize {
+    font-size: 13px;
+  }
+
+  .client__greet {
+    position: relative;
+    bottom: 65px; 
+    background-color: white; 
+    padding: 0.5rem; 
+    width: 68%;
+    left: 12px;
+    border-radius: 5px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 0.6rem;
+  }
+
+  .testimonial__img {
+      width: 200px;
+  }
+
+.newsletter {
+    background-image: url("../img/newsletterbgimg.png");
+    background-color: #00B071;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 200px;
+}
+
+.newsletter__info {
+    text-align: center;
+    color: white;
+    font-weight: 600;
+}
+
+.send-email__btn {
+    background-color: #00B071;
+    border: none;
+}
+
+.send-email__btn:hover, .send-email__btn:active, .send-email__btn:focus {
+    background-color: #00784D !important;
+    border: none;
+}
+
+.footer-wrapper {
+    fill: #00B071;
+    color: #00B071;
+    font-weight: 600;
+}
+
+.vertical-dots
+{
+    /* right:10px;  */
+    list-style: none;
+    display: block;
+    position: absolute;
+    text-align: right;
+    top: 1px;
+    left: -40px;
+}
+.vertical-dots li
+{
+    position: relative;
+    /* width: 20px;
+    height: 20px; */
+    cursor: pointer;
+    margin: 10px;
+}
+
+@media (min-width: 576px) {
+    .steps {
+        background-size: 70%;
+        background-position: right;
+    }
+}
+
+@media screen and (min-width:768px) {
+    .section__heading {
+        font-size: 36px;
+        margin-top: 70px !important;
+    }
+
+    .card-container {
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+
+    .newsletter__info {
+        font-size: 24px;
+    }
+
+    .footer-wrapper {
+        font-size: 24px;
+    }
+
+    .newsletter {
+        height: 411px;
+    }
+
+    .slick-prev, .slick-next {
+        width: initial;
+        height: initial;
+      }
+
+      .text-resize {
+        font-size: 22px;
+      }
+
+      .testimonial__img {
+        width: 300px;
+    }
+
+    .client__greet {
+        font-size: 2vw;
+    }
+
+    .steps {
+        background-color: #00784D;
+        background-image: url("../img/stepsbgimg.png");
+        background-repeat: no-repeat;
+        background-position: bottom right;
+        background-size: 70%;
+       /*  height: 674px; */
+    }
+
+    .steps__title {
+        color: #24FE95;
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+    
+    .steps__description {
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .vertical-dots
+{
+    /* right:10px;  */
+    list-style: none;
+    display: block;
+    position: absolute;
+    top: 10%;
+    margin-top: -10px;
+    text-align: right;
+    /* top: 50px; */
+}
+.vertical-dots li
+{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+    
     
 }
+
+@media (min-width: 992px) {
+
+    .navbar {
+        padding: 0px;
+    }
+
+    .signup {
+        background-color: #FF3737;
+        color: white !important;
+    }
+
+    .intro__title {
+        font-weight: bold;
+        font-size: 64px;
+        color: #00784D;
+    }
+    
+    .intro__description {
+        font-size: 32px;
+        color: #353535;
+    }
+
+    .section__heading {
+        font-size: 48px;
+        margin-top: 70px !important;
+    }
+    
+    .client__greet {
+        font-size: 1.1rem;
+    }
+
+    .testimonial__img {
+        width: 400px;
+    }
+
+    /* .slick-slide {
+        margin-left: 1%;
+    } */
+
+    .steps {
+        background-size: 60%;
+    }
+
+    .steps__title {
+        font-size: 2rem;
+    }
+    
+    .steps__description {
+        font-size: 1.5rem;
+    }
+
+    /* Styling your custom slick dots start */
+  .custom-dots span {
+    color: white;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 20px;
+  padding: 2px 3px;
+}
+
+/* Styling your custom slick dots active state */
+.slick-active .custom-dots span {
+  border: 1px solid white;
+}
+
+.vertical-dots
+{
+    /* right:10px;  */
+    list-style: none;
+    display: block;
+    position: absolute;
+    top: 10%;
+    margin-top: -10px;
+    text-align: right;
+    /* top: 50px; */
+}
+.vertical-dots li
+{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin: 30px;
+}
+    
+}
+
+
+/* 
+.vertical-dots li button
+{
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+.vertical-dots li button:hover,
+.vertical-dots li button:focus
+{
+    outline: none;
+}
+.vertical-dots li button:hover:before,
+.vertical-dots li button:focus:before
+{
+    opacity: 1;
+}
+.vertical-dots li button:before
+{
+    font-family: 'slick';
+    font-size: 6px;
+    line-height: 20px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 20px;
+    height: 20px;
+
+    content: '•';
+    text-align: center;
+
+    opacity: .25;
+    color: black;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.vertical-dots li.slick-active button:before
+{
+    opacity: .75;
+    color: black;
+} */

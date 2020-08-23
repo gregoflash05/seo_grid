@@ -21,6 +21,9 @@ urlpatterns = [
 
     path('keyword_compare/', views.get_seo_data, name='compare'),
 
+    path('subscribe/', views.SubscribersInfoView, name='subscribe'),
+    path('subscribe/<int:pk>/', views.Subscriber_info_by_id, name='subscribe'),
+
     path('test/', views.test, name='test'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

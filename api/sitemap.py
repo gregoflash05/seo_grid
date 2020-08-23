@@ -7,6 +7,7 @@ import colorama
 colorama.init()
 
 GREEN = colorama.Fore.GREEN
+RED = colorama.Fore.RED
 GRAY = colorama.Fore.LIGHTBLACK_EX
 RESET = colorama.Fore.RESET
 
@@ -25,44 +26,54 @@ def is_valid(url):
     return bool(parsed.netloc) and bool(parsed.scheme)
 
 
-def get_all_website_links(url):
+def get_all_website_links(url, max_urls):
     """
     Returns all URLs that is found on `url` in which it belongs to the same website
     """
-    # all URLs of `url`
-    urls = set()
-    # domain name of the URL without the protocol
-    try:
-        domain_name = urlparse(url).netloc
-        soup = BeautifulSoup(requests.get(url).content, "html.parser")
-    except:
-        soup = BeautifulSoup('<div><div>', "html.parser")
-    for a_tag in soup.findAll("a"):
-        href = a_tag.attrs.get("href")
-        if href == "" or href is None:
-            # href empty tag
-            continue
-        # join the URL if it's relative (not absolute link)
-        href = urljoin(url, href)
-        parsed_href = urlparse(href)
-        # remove URL GET parameters, URL fragments, etc.
-        href = parsed_href.scheme + "://" + parsed_href.netloc + parsed_href.path
-        if not is_valid(href):
-            # not a valid URL
-            continue
-        if href in internal_urls:
-            # already in the set
-            continue
-        if domain_name not in href:
-            # external link
-            if href not in external_urls:
-                print(f"{GRAY}[!] External link: {href}{RESET}")
-                external_urls.add(href)
-            continue
-        print(f"{GREEN}[*] Internal link: {href}{RESET}")
-        urls.add(href)
-        internal_urls.add(href)
-    return urls
+    total_length = len(internal_urls) + len(external_urls)
+    if total_length < max_urls:
+        # all URLs of `url`
+        urls = set()
+        # domain name of the URL without the protocol
+        try:
+            domain_name = urlparse(url).netloc
+            soup = BeautifulSoup(requests.get(url).content, "html.parser")
+        except:
+            soup = BeautifulSoup('<div><div>', "html.parser")
+        for a_tag in soup.findAll("a"):
+            href = a_tag.attrs.get("href")
+            if href == "" or href is None:
+                # href empty tag
+                continue
+            # join the URL if it's relative (not absolute link)
+            href = urljoin(url, href)
+            parsed_href = urlparse(href)
+            # remove URL GET parameters, URL fragments, etc.
+            href = parsed_href.scheme + "://" + parsed_href.netloc + parsed_href.path
+            if not is_valid(href):
+                # not a valid URL
+                continue
+            if href in internal_urls:
+                # already in the set
+                continue
+            if domain_name not in href:
+                # external link
+                if href not in external_urls:
+                    print(f"{GRAY}[!] External link: {href}{RESET}")
+                    external_urls.add(href)
+                continue
+            print(f"{GREEN}[*] Internal link: {href}{RESET}")
+            urls.add(href)
+            internal_urls.add(href)
+            total_length = len(internal_urls) + len(external_urls)
+            
+            # if len(internal_urls) + len(external_urls) > max_urls:
+            #     break
+        return urls
+    else:
+        p = 2
+
+# { "url" : "https://www.alisonbrooksarchitects.com"}
 
 
 def crawl(url, max_urls=50):
@@ -74,11 +85,18 @@ def crawl(url, max_urls=50):
     """
     global total_urls_visited
     total_urls_visited += 1
-    links = get_all_website_links(url)
-    for link in links:
-        if total_urls_visited > max_urls:
-            break
-        crawl(link, max_urls=max_urls)
+    total_length = len(internal_urls) + len(external_urls)
+    # print(f"{RED}[*] Total links: {total_length}")
+    # print(f"{RED}[*] Max links: {max_urls}")
+    links = get_all_website_links(url, max_urls)
+    if total_length > max_urls:
+        p=2
+    else:
+        for link in links:
+            if total_length > max_urls:
+                break
+            else:
+                crawl(link, max_urls=max_urls)
 
 
 #if __name__ == "__main__":

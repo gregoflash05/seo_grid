@@ -10,8 +10,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, auth
 from django.http import HttpResponse
 from django.http import JsonResponse
-from .serializers import CampaignSerializer, KeywordsSerializer
-from .models import Campaign, Keywords
+from .serializers import CampaignSerializer, KeywordsSerializer, SubscribersSerializer
+from .models import Campaign, Keywords, Subscribers
 from bs4 import BeautifulSoup as bs4
 from bs4 import BeautifulSoup
 from rest_framework.decorators import api_view
@@ -48,6 +48,64 @@ def keyword_test(keyword, campaign_keyword_details):
                 if i['keyword'] == keyword:
                     return 'TrueK'
                     break
+
+
+
+#//////////////////////////////////////Subscribers/////////////////////////////////////////
+@api_view(['POST', 'GET'])
+def SubscribersInfoView(request):
+    """
+    This view gets all Subscribers in the db
+    also saves new Subscribers 
+    """
+
+    if request.method == 'GET':
+        Subscribers_details = Subscribers.objects.all()
+        serializer = SubscribersSerializer(Subscribers_details, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        # email = request.data['email']
+        serializer = SubscribersSerializer(data = request.data)
+        if serializer.is_valid():
+            email = serializer.validated_data.get("email")
+            if Subscribers.objects.filter(email=email).exists():
+                    return Response("<p class='error-alert' style='text-align:center'>You've already subscribed with this email<p>")
+            else:
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response("<p class='success-alert' style='text-align:center'>You've successfully subscribed<p>")
+                return Response("<p class='error-alert' style='text-align:center'>An error occurred, please try again later<p>")
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def Subscriber_info_by_id(request, pk):
+    """
+    This view gets all subscriber by id, updates and deletes it
+    """
+    try:
+        subscribers_details = Subscribers.objects.get(pk=pk)
+
+    except Subscribers.DoesNotExist:
+        return Response('There is no subscriber for this id')
+
+    if request.method == 'GET':
+        serializer = SubscribersSerializer(subscribers_details)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = SubscribersSerializer(subscribers_details, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+    elif request.method == 'DELETE':
+        subscribers_details.delete()
+        return Response('Subscriber deleted')
+
+#//////////////////////////////////////End Subscribers/////////////////////////////////////////
+
 
 #//////////////////////////////////////dashboard/////////////////////////////////////////
 def dashboard(request):
@@ -93,7 +151,7 @@ def test(request):
         data = request.data
         base_url, link, user_id = data['url'], data['url'], request.user.id
         # base_path = "/media/{}".format(user_id)
-        if generate_sitemap(base_url, 2000, user_id):
+        if generate_sitemap(base_url, 100, user_id):
             return Response('Check', status=status.HTTP_200_OK)
         else:
             return Response("failed", status=status.HTTP_200_OK)
@@ -104,7 +162,7 @@ def get_seo_data(request):
         data = request.data
         base_url, link, user_id = data['url'], data['url'], request.user.id
         path = '{}.xml'.format(user_id)
-        if generate_sitemap(base_url, 2000, user_id):
+        if generate_sitemap(base_url, 100, user_id):
             check_url = url_check(path)
             out_of_bound_links = out_of_bound(base_url, path)
         time.sleep(float(5))

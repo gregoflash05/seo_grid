@@ -75,3 +75,6 @@ def logout(request):
 
 def homepage(request):
     return render(request, "accounts/index.html")
+
+def landingpage(request):
+    return render(request, "accounts/indexo.html")
