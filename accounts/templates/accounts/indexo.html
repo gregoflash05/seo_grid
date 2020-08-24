@@ -19,14 +19,23 @@
   <!-- custom CSS -->
   <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/style.css' %}">
   
-  <title>Crenly | SEO Grid</title>
+  <title>SEO Grid</title>
+
+  <link rel="apple-touch-icon" sizes="120x120" href="{% static 'accounts/img/favicon/apple-touch-icon.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'accounts/img/favicon/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'accounts/img/favicon/favicon-16x16.png' %}">
+<link rel="manifest" href="{% static 'accounts/img/favicon/site.webmanifest' %}">
+<link rel="mask-icon" href="{% static 'accounts/img/favicon/safari-pinned-tab.svg' %}" color="#2ec632">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
 </head>
 
 <body>
 
   <!--navbar start-->
   <nav class="fixed-top navbar navbar-expand-lg navbar-light bg-white px-md-5">
-    <a id="brand-icon" class="navbar-brand" href="#">crenly<span class="navbar-brand__dot">.</span>
+    {% comment %} <a id="brand-icon" class="navbar-brand" href="#">crenly<span class="navbar-brand__dot">.</span> {% endcomment %}
+    <a id="brand-icon" class="navbar-brand"><img class="img-fluid" src="{% static 'accounts/img/log.PNG' %}" alt="" style="width:150.11px !important; height:32px !important"></span>
     </a>
     <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse"
       data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -92,21 +101,21 @@
   </div>
   <!---------------intro end------------------->
   <!--------------- sub-intro start------------------->
-  <h3 class="section__heading mt-5">Stay Visible On the Internet<br>Let <span class="text-red">Crenly</span> help you.
+  <h3 class="section__heading mt-5">Stay Visible On the Internet<br>Let <span class="text-red">SEO GRID</span> help you.
   </h3>
-  <img class="img-fluid d-block mx-auto px-5 campdash" src="{% static 'accounts/img/crenlydashb.png' %}" alt="crenly dashboard screenshot">
+  <img class="img-fluid d-block mx-auto px-5 campdash" src="{% static 'accounts/img/dashboard.png' %}" alt="SEO GRID dashboard screenshot">
   <!--------------- sub-intro end------------------->
   <!--------------- how it works start------------------->
   <div id="process" class="steps pt-md-5 pt-3 px-md-5 px-3 mt-md-n5 mt-n4">
-    <h3 class="section__heading text-white text-left mt-4">How Crenly Works</h3>
+    <h3 class="section__heading text-white text-left mt-4">How SEO GRID Works</h3>
     <div class="steps__slider">
       <div class="d-sm-flex justify-content-end">
         <div class="align-self-center col-5 col-sm-4 col-md-4">
           <h5 class="steps__title">Create a Campaign</h5>
-          <p class="steps__description">Input details of your website, Crenly will take care of the data.</p>
+          <p class="steps__description">Input details of your website, SEO GRID will take care of the data.</p>
         </div>
         <div class=" col-sm-8">
-          <img class="img-fluid" src="{% static 'accounts/img/createcampaign.png' %}" alt="">
+          <img class="img-fluid" src="{% static 'accounts/img/createseocampaign.png' %}" alt="">
         </div>
       </div>
       <div class="d-sm-flex justify-content-end">
@@ -115,7 +124,7 @@
           <p class="steps__description">Enter Keyword</p>
         </div>
         <div class=" col-sm-8">
-          <img class="img-fluid" src="{% static 'accounts/img/keyword.png' %}" alt="">
+          <img class="img-fluid" src="{% static 'accounts/img/addkeyword.png' %}" alt="">
         </div>
       </div>
       <div class="d-sm-flex justify-content-end">
@@ -133,7 +142,7 @@
           <p class="steps__description">Enter Keyword</p>
         </div>
         <div class=" col-sm-8">
-          <img class="img-fluid" src="{% static 'accounts/img/compare.png' %}" alt="">
+          <img class="img-fluid" src="{% static 'accounts/img/seocompare.png' %}" alt="">
         </div>
       </div>
     </div>
@@ -213,7 +222,7 @@
     <div class="testimonial__slider">
       <div class="d-flex justify-content-between">
         <div style="width: 50%;" class="align-self-center">
-          <h5 class="text-resize">“With Crenly, we’ve seen a <b>30% revenue growth</b> over quarter and now we rolling
+          <h5 class="text-resize">“With SEO GRID, we’ve seen a <b>30% revenue growth</b> over quarter and now we rolling
             it out across the entire
             customer lifestlye.”</h5>
           <p class="">Abam Maxwell. C.M.O</p>
@@ -226,7 +235,7 @@
       </div>
       <div class="d-flex justify-content-between">
         <div style="width: 50%;" class="align-self-center">
-          <h5 class="text-resize">“With Crenly, we’ve seen a <b>30% revenue growth</b> over quarter and now we rolling
+          <h5 class="text-resize">“With SEO GRID, we’ve seen a <b>30% revenue growth</b> over quarter and now we rolling
             it out across the entire
             customer lifestlye.”</h5>
           <p class="">Abam Maxwell. C.M.O</p>
@@ -258,7 +267,9 @@
 
   <!--------------- footer start------------------->
   <div class="container-fluid footer-wrapper d-flex justify-content-between">
-    <a id="brand-icon" class="navbar-brand my-3" href="#">crenly<span class="navbar-brand__dot">.</span>
+    {% comment %} <a id="brand-icon" class="navbar-brand my-3" href="#">crenly<span class="navbar-brand__dot">.</span>
+    </a> {% endcomment %}
+    <a id="brand-icon" class="navbar-brand"><img class="img-fluid" src="{% static 'accounts/img/log.PNG' %}" alt="" style="width:150.11px !important; height:32px !important"></span>
     </a>
     <div class="my-4 d-flex align-items-center">
       <svg class="mr-3" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 448 512">
