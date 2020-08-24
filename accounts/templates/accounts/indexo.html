@@ -253,11 +253,12 @@
   <!--------------- newsletter start------------------->
   <div class="container-fluid newsletter d-flex">
     <div class="align-self-center mx-auto">
-      <p class="newsletter__info">Subscribe to our news letter, we promise not to spam you.</p>
+    <p class="newsletter__info" style="font-size:40px;">LAUNCHING SOON!</p>
+      <p class="newsletter__info">Be the first to know once we launch</p>
       <form class="form-row justify-content-center">
       {% csrf_token %}
         <input type="email" class="form-control mb-2 mr-sm-2 col-7 col-lg-8" id="inlineFormInputName2"
-          placeholder="Email" required>
+          placeholder="Email" style="width:752px;height: 45px;" required>
         <button type="submit" class="btn btn-primary mb-2 send-email__btn" id="submit">SEND</button>
         <p class="error_message mb-2 mr-sm-2 col-9 col-lg-9" ></p>
       </form>
