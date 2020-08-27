@@ -1,0 +1,365 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+    <!-- iconify -->
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <!-- bootsrap css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+      integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous" />
+    <!-- bootstrap select css -->
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="//unpkg.com/bootstrap-select-country@4.0.0/dist/css/bootstrap-select-country.min.css"
+      type="text/css" />
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static 'api/css/campaign-dashboard-v2.css' %}" />
+    <title>SEO Grid | Campaign Dashboard — Create a Campaign</title>
+  </head>
+
+  <body>
+    <div class="d-flex collapsed-sidebar">
+      <aside class="flex-auto sidebar sticky-top bg-main" style="width: 315px; height: 100vh;">
+        <div class="brand-logo">
+          <img class="brand-logo__img" src="{% static 'api/images/Brand Logo.svg' %}" alt="" />
+          <span style="right: 3rem;" class="sidebar-toggler flex-auto position-absolute">
+            <ion-icon name="menu-outline"></ion-icon>
+          </span>
+        </div>
+        <div class="px-4">
+          <a href="#" data-toggle="modal" data-target="#createCampaignModal" style="position: relative;"
+            class="add-campaigns-btn w-100 text-center d-flex"><svg class="mr-3" width="24" height="20"
+              viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20.8752 6.6665H20.0418V0.83316C20.0417 0.372903 19.6685 -9.76378e-05 19.2082 1.91716e-08C19.1021 1.91716e-08 18.997 0.0203126 18.8984 0.0598148L6.58921 4.99984H2.50002C1.1193 4.99984 0 6.11914 0 7.49986V10.8332C0 12.214 1.1193 13.3333 2.50002 13.3333H2.54167V19.1666C2.54167 19.6269 2.91477 20 3.37502 20H6.7084C7.16866 20 7.54175 19.6269 7.54175 19.1666V13.7149L18.8985 18.2733C18.997 18.3133 19.1023 18.3337 19.2085 18.3333C19.6688 18.3333 20.0419 17.9602 20.0419 17.5V11.6665H20.8752C22.256 11.6665 23.3753 10.5472 23.3753 9.16652C23.3753 7.7858 22.2559 6.6665 20.8752 6.6665ZM5.87504 18.3333H4.20838V13.3333H5.87504V18.3333ZM5.91669 11.6665H2.50002C2.03976 11.6665 1.66666 11.2934 1.66666 10.8332V7.49981C1.66666 7.03955 2.03976 6.66646 2.50002 6.66646H5.91669V11.6665ZM18.3751 16.2674L7.58341 11.9341V6.39653L18.3751 2.06564V16.2674ZM20.8752 9.99988H20.0418V8.33322H20.8752C21.3354 8.33322 21.7085 8.70631 21.7085 9.16657C21.7085 9.62683 21.3354 9.99988 20.8752 9.99988Z"
+                fill="#29CA7D" />
+            </svg>
+            Campaigns
+            <span style="
+                height: 30px;
+                width: 30px;
+                border-radius: 5px;
+                background-color: #29ca7d;
+                float: right;
+                position: absolute;
+                right: 15px;
+                bottom: 10px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+              ">
+              <img style="height: 60%; width: 60%;" src="{% static 'api/images/add.svg' %}" alt="" />
+            </span>
+          </a>
+        </div>
+        <nav class="nav side-navbar flex-column">
+        </nav>
+      </aside>
+
+      <main class="col px-0">
+        <nav class="navbar top-navbar py-3 px-0">
+          <div class="container-fluid px-2rem">
+            <span class="sidebar-toggler flex-auto position-absolute">
+              <ion-icon name="menu-outline"></ion-icon>
+            </span>
+            <a class="navbar-brand font-weight-bold" href="#">Create a Campaign</a>
+            <!-- <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#topNav"
+              aria-controls="topNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button> -->
+
+            <div class="" id="topNav">
+              <!--collapse navbar-collapse-->
+              <div class="ml-auto my-0">
+                {% comment %} <a href="#" class="notification-section mr-4 d-inline-block">
+                  <img src="{% static 'api/images/bell-icon.svg' %}" alt="" />
+                  <span class="notification-section__badge d-flex align-items-center justify-content-center text-white">
+                    2
+                  </span>
+                </a> {% endcomment %}
+
+                <span class="d-inline-block avatar-section">
+                  <a id="dropdownBtn" href="#">
+                    <span class="d-inline-block" style="
+                        height: 40px;
+                        width: 40px;
+                        border-radius: 50%;
+                        vertical-align: middle;
+                      ">
+                      <img style="height: 100%; width: 100%; object-fit: cover;" src="{% static 'api/images/avatar.png' %}"
+                        alt="" />
+                    </span>
+                    <span class="avatar-name">
+                      {{name}}
+                    </span>
+                    <span class="iconify caret" data-icon="carbon:caret-down" data-inline="false"></span>
+                  </a>
+                  <div class="dropdown-holder closed bg-white position-absolute">
+                    <nav class="dropdown-nav d-flex flex-column px-4">
+                      <a class="dropdown-nav-link active" href="#"><span class="iconify"
+                          data-icon="ant-design:user-outlined" data-inline="false"></span><span
+                          class="dropdown-nav-link__desc">
+                          My Profile
+                        </span>
+                      </a>
+                      <a class="dropdown-nav-link" href="#"><span class="iconify" data-icon="clarity:settings-line"
+                          data-inline="false"></span>
+                        <span class="dropdown-nav-link__desc">
+                          Subscription
+                        </span>
+                      </a>
+                      <a class="dropdown-nav-link" href="../logout"><span class="iconify" data-icon="carbon:logout"
+                          data-inline="false"></span>
+                        <span class="dropdown-nav-link__desc danger">
+                          Logout
+                        </span>
+                      </a>
+                    </nav>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <section class="main-content">
+          <div class="container-fluid px-2rem pt-5">
+            <!-- Inner Container Start -->
+            <form>
+            {% csrf_token %}
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label class="text-dark" for="campaignName">Campaign name</label>
+                  <input type="text" class="form-control" id="campaignName" placeholder="Hotels NG">
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="text-dark" for="websiteLink">Website's baselink</label>
+                  <input type="url" class="form-control" id="websiteLink" placeholder="https://www.hotels.ng">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="language" class="text-dark">Select Language</label>
+                  <select class="form-control selectpicker" data-live-search="true" id="language" data-flag="true">
+                    <option value="AF">Afrikaans</option>
+                    <option value="SQ">Albanian</option>
+                    <option value="AR">Arabic</option>
+                    <option value="HY">Armenian</option>
+                    <option value="EU">Basque</option>
+                    <option value="BN">Bengali</option>
+                    <option value="BG">Bulgarian</option>
+                    <option value="CA">Catalan</option>
+                    <option value="KM">Cambodian</option>
+                    <option value="ZH">Chinese (Mandarin)</option>
+                    <option value="HR">Croatian</option>
+                    <option value="CS">Czech</option>
+                    <option value="DA">Danish</option>
+                    <option value="NL">Dutch</option>
+                    <option value="EN" selected>English</option>
+                    <option value="ET">Estonian</option>
+                    <option value="FJ">Fiji</option>
+                    <option value="FI">Finnish</option>
+                    <option value="FR">French</option>
+                    <option value="KA">Georgian</option>
+                    <option value="DE">German</option>
+                    <option value="EL">Greek</option>
+                    <option value="GU">Gujarati</option>
+                    <option value="HE">Hebrew</option>
+                    <option value="HI">Hindi</option>
+                    <option value="HU">Hungarian</option>
+                    <option value="IS">Icelandic</option>
+                    <option value="ID">Indonesian</option>
+                    <option value="GA">Irish</option>
+                    <option value="IT">Italian</option>
+                    <option value="JA">Japanese</option>
+                    <option value="JW">Javanese</option>
+                    <option value="KO">Korean</option>
+                    <option value="LA">Latin</option>
+                    <option value="LV">Latvian</option>
+                    <option value="LT">Lithuanian</option>
+                    <option value="MK">Macedonian</option>
+                    <option value="MS">Malay</option>
+                    <option value="ML">Malayalam</option>
+                    <option value="MT">Maltese</option>
+                    <option value="MI">Maori</option>
+                    <option value="MR">Marathi</option>
+                    <option value="MN">Mongolian</option>
+                    <option value="NE">Nepali</option>
+                    <option value="NO">Norwegian</option>
+                    <option value="FA">Persian</option>
+                    <option value="PL">Polish</option>
+                    <option value="PT">Portuguese</option>
+                    <option value="PA">Punjabi</option>
+                    <option value="QU">Quechua</option>
+                    <option value="RO">Romanian</option>
+                    <option value="RU">Russian</option>
+                    <option value="SM">Samoan</option>
+                    <option value="SR">Serbian</option>
+                    <option value="SK">Slovak</option>
+                    <option value="SL">Slovenian</option>
+                    <option value="ES">Spanish</option>
+                    <option value="SW">Swahili</option>
+                    <option value="SV">Swedish </option>
+                    <option value="TA">Tamil</option>
+                    <option value="TT">Tatar</option>
+                    <option value="TE">Telugu</option>
+                    <option value="TH">Thai</option>
+                    <option value="BO">Tibetan</option>
+                    <option value="TO">Tonga</option>
+                    <option value="TR">Turkish</option>
+                    <option value="UK">Ukrainian</option>
+                    <option value="UR">Urdu</option>
+                    <option value="UZ">Uzbek</option>
+                    <option value="VI">Vietnamese</option>
+                    <option value="CY">Welsh</option>
+                    <option value="XH">Xhosa</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="country" class="text-dark">Select Country</label>
+                  {% comment %} <select class="form-control selectpicker countrypicker" data-default="NG" id="country"
+                    data-flag="true" data-live-search="true"></select> {% endcomment %}
+
+                    <select class="form-control selectpicker countrypicker" data-default="NG" id="country"
+                    data-flag="true" data-live-search="true"></select>
+                </div>
+                <div class="input-group col-md-12">
+                  <input type="text" class="form-control rounded" placeholder="Enter a keyword" aria-label="" id="keyword">
+                  <div class="ml-2 input-group-append">
+                    <button class="btn btn-dark rounded" type="submit" id="submit" style="background-color:green !important">Create Campaign</button>
+                  </div>
+                  <div class=" col-md-12">
+                  <p class="error_message" style="padding:7px; line-height:20px"></p>
+                  </div>
+                </div>
+                
+                {% comment %} <div class="mt-3 col-md-12">
+                  <h6 class="text-dark">Keywords</h6>
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+                      <span>
+                        <span class="iconify" data-icon="entypo:list" data-inline="false"></span> &nbsp;
+                        hotels in ikeja
+                      </span>
+                      <a href="#" class="keyword-delete-button">
+                        <span class="iconify text-danger" data-icon="eva:close-square-fill" data-inline="false"></span>
+                      </a>
+                    </li>
+                  </ul>
+                </div> {% endcomment %}
+              </div>
+            </form>
+            <!-- Inner Container End -->
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Bootstrap JS set -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"
+      integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="//unpkg.com/bootstrap-select-country@4.0.0/dist/js/bootstrap-select-country.min.js"></script>
+
+    <!-- custom js -->
+    <!-- <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script> -->
+    <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
+    <script src="{% static 'api/js/campaign-dashboard.js' %}"></script>
+  </body>
+  
+    {% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> {% endcomment %}
+
+    <script>
+    $(document).ready(function(){
+     $("form").submit(function(event){
+      event.preventDefault();
+      var link = $("#websiteLink").val();
+      var keyword = $("#keyword").val();
+    //  var language = $("#language").val();
+      var language = $("#language option:selected").html();
+      var country =  $("#country option:selected").html();
+      var campaign_name =  $("#campaignName").val();
+      var submit =    $("#submit").val();
+      console.log(link + ' ' + keyword + ' ' + language + ' ' + country + ' ' + campaign_name);
+          if(campaign_name==''){
+            $("#campaignName").css({"background-color": "transparent", "border-color": "red"});
+            $(".error_message").html("<p style='' class='error-alert' style='padding:7px'>Campaign Name is empty</p>");
+    }else{
+            $("#campaignName").css({"border-color": "green"});
+                if(link==''){
+                   $(".error_message").html("<p style='' class='error-alert' style='padding:7px'>Website link is empty</p>");
+                  $("#websiteLink").css({"background-color": "transparent", "border-color": "red"});
+    }else{
+           $("#websiteLink").css({"border-color": "green"});     
+           if(language==''){
+                   $(".error_message").html("<p style='' class='error-alert' style='padding:7px'>Select language</p>");
+                  $("#language").css({"background-color": "transparent", "border-color": "red"});
+    }else{
+           $("#language").css({"border-color": "green"});
+           if(country==''){
+                   $(".error_message").html("<p style='' class='error-alert' style='padding:7px'>Select country</p>");
+                  $("#country").css({"background-color": "transparent", "border-color": "red"});
+    }else{
+           $("#country").css({"border-color": "green"});
+           if(keyword==''){
+                   $(".error_message").html("<p style='' class='error-alert' style='padding:7px'>Enter keyword</p>");
+                  $("#keyword").css({"background-color": "transparent", "border-color": "red"});
+    }else{
+           $("#keyword").css({"border-color": "green"});
+       $(".error_message").html("<p style='padding:7px' class='success-alert'>Please wait...</p>");
+$.ajax({
+
+    type: "POST",
+    url: window.location.protocol + "//" + window.location.host +"/create_campaign/",
+//    contentType: "application/json",
+//    dataType: "json",
+    data: {       csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+                  link : link,
+                  keyword : keyword,
+                  language : language,
+                  country : country,
+                  campaign_name : campaign_name,
+                  submit : submit
+    },
+    success: function(response) {
+$(".error_message").html(response);
+
+        
+    },
+    error: function(response) {
+ $(".error_message").html("<p class='error-alert' style='text-align:center;padding:7px'>An error occured<p>");
+     }       
+
+            
+            });
+
+
+    }
+          }
+      }
+    }
+    }
+
+
+     });   
+    });
+</script>
+
+</html>
