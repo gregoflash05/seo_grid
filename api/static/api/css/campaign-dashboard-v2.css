@@ -1,6 +1,10 @@
 :root {
   --main-color: #29ca7d;
+  --main-color-dark: #24ae6b;
   --dash-secondary-color: #101830;
+  --dark: #454545;
+  --primary: var(--main-color);
+  --primary-dark: var(--main-color-dark);
 }
 
 /* Utility Classes */
@@ -41,6 +45,41 @@
   line-height: 43px;
 }
 
+.btn-primary {
+  color: #fff;
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:focus {
+  color: #fff;
+  background-color: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgb(41 202 125 / 0.5);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgb(41 202 125 / 0.5);
+}
+
+.btn-primary:hover,
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.text-dark {
+  color: var(--dark) !important;
+}
+
+.text-secondary {
+  color: var(--dash-secondary-color) !important;
+}
+
 @media only screen and (min-width: 480px) {
   .px-2rem {
     padding-left: 16px;
@@ -57,7 +96,7 @@
 
 /* Main Classes */
 body {
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
   background-color: #fafafa;
 }
 
@@ -67,6 +106,21 @@ body {
   color: #454545;
 }
 
+/* Modal Styles */
+.modal-header,
+.modal-footer {
+  border: 0;
+}
+
+.modal input:focus {
+  border-color: initial;
+  box-shadow: none;
+}
+
+.keyword-delete-button {
+  font-size: 1.4em;
+}
+
 @media only screen and (max-width: 992px) {
   .sidebar-toggler {
     font-size: 2rem;
@@ -74,7 +128,7 @@ body {
     cursor: pointer;
     display: inline-block;
     -webkit-transform: translateY(5px);
-            transform: translateY(5px);
+    transform: translateY(5px);
   }
   .navbar-brand {
     padding-left: 40px;
@@ -91,7 +145,7 @@ body {
 aside.sidebar {
   position: fixed;
   -webkit-transform: translateX(0);
-          transform: translateX(0);
+  transform: translateX(0);
   -webkit-transition: -webkit-transform 0.5s ease;
   transition: -webkit-transform 0.5s ease;
   transition: transform 0.5s ease;
@@ -101,7 +155,7 @@ aside.sidebar {
 
 .collapsed-sidebar aside {
   -webkit-transform: translateX(-100%);
-          transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 
 @media only screen and (min-width: 992px) {
@@ -109,7 +163,7 @@ aside.sidebar {
     position: -webkit-sticky;
     position: sticky;
     -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
     -webkit-transition: -webkit-transform 0s ease;
     transition: -webkit-transform 0s ease;
     transition: transform 0s ease;
@@ -125,7 +179,7 @@ aside.sidebar {
 
 .brand-logo__img {
   -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   max-width: 135px;
   width: 100%;
 }
@@ -152,12 +206,12 @@ aside.sidebar {
   color: #ffffff;
   background-color: #c1eeda;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .add-campaigns-btn:focus {
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .add-campaigns-btn:hover {
@@ -195,6 +249,7 @@ aside.sidebar {
 .top-navbar {
   background: #ffffff;
   border-bottom: 1.5px solid #f2f2f2;
+  z-index: 1;
 }
 
 .top-navbar a {
@@ -216,6 +271,63 @@ aside.sidebar {
   right: 0;
   color: #454545;
   top: calc(50% - 8px);
+}
+
+.top-navbar .avatar-section .dropdown-holder {
+  top: calc(100% + 18px);
+  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  border: 1px solid #efefef;
+  border-radius: 0px 0px 10px 10px;
+  right: 0;
+}
+
+.top-navbar .avatar-section .dropdown-holder.closed {
+  display: none;
+}
+
+.top-navbar .avatar-section .dropdown-holder .dropdown-nav {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.top-navbar .avatar-section .dropdown-holder .dropdown-nav .dropdown-nav-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 12px 0px;
+  font-size: 16px;
+  line-height: 21px;
+  color: #454545;
+}
+
+.top-navbar
+  .avatar-section
+  .dropdown-holder
+  .dropdown-nav
+  .dropdown-nav-link
+  .danger {
+  color: #ff3737;
+}
+
+.top-navbar
+  .avatar-section
+  .dropdown-holder
+  .dropdown-nav
+  .dropdown-nav-link
+  svg {
+  font-size: 16px;
+}
+
+.top-navbar
+  .avatar-section
+  .dropdown-holder
+  .dropdown-nav
+  .dropdown-nav-link__desc {
+  margin-left: 9px;
 }
 
 .top-navbar .avatar-name {
@@ -252,7 +364,7 @@ aside.sidebar {
   border-radius: 50%;
   background-color: #f8444f;
   -webkit-transform: translate(6px, -6px);
-          transform: translate(6px, -6px);
+  transform: translate(6px, -6px);
   font-size: 9px;
 }
 
@@ -330,6 +442,7 @@ aside.sidebar {
 }
 
 .add-keyword-btn {
+  display: inline-block;
   background-color: #29ca7d;
   color: white;
   border-radius: 5px;
@@ -338,7 +451,6 @@ aside.sidebar {
   font-weight: 700;
   font-size: 14px;
   line-height: 18px;
-  float: right;
 }
 
 .add-keyword-btn:hover {
@@ -350,12 +462,12 @@ aside.sidebar {
   color: #ffffff;
   background-color: #20a063;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .add-keyword-btn:focus {
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .add-keyword-btn__icon {
@@ -451,12 +563,12 @@ aside.sidebar {
   color: #ffffff;
   background-color: #e6e6e6;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .export-btn:focus {
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .export-btn:hover {
@@ -490,12 +602,12 @@ aside.sidebar {
   color: #ffffff;
   background-color: #007d50;
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .compare-btn:focus {
   -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
 }
 
 .compare-btn:hover {
@@ -516,4 +628,80 @@ aside.sidebar {
 ::-webkit-scrollbar-thumb {
   background-color: var(--main-color);
   border-radius: 4px;
+}
+/*# sourceMappingURL=campaign-dashboard-v2.css.map */
+
+/* Boostrap Select */
+/*
+Make bootstrap-select work with bootstrap 4 see:
+https://github.com/silviomoreto/bootstrap-select/issues/1135
+*/
+.dropdown-toggle.btn-default {
+  color: #292b2c;
+  background-color: #fff;
+  border-color: #ccc;
+}
+.bootstrap-select.show > .dropdown-menu > .dropdown-menu {
+  display: block;
+}
+.bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden {
+  display: none;
+}
+.bootstrap-select > .dropdown-menu > .dropdown-menu li a {
+  display: block;
+  width: 100%;
+  padding: 3px 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #292b2c;
+  text-align: inherit;
+  white-space: nowrap;
+  background: 0 0;
+  border: 0;
+  text-decoration: none;
+}
+.bootstrap-select > .dropdown-menu > .dropdown-menu li a:hover {
+  background-color: #f4f4f4;
+}
+.bootstrap-select > .dropdown-toggle {
+  width: 100%;
+}
+.dropdown-menu > li.active > a {
+  color: #fff !important;
+  background-color: #337ab7 !important;
+}
+.bootstrap-select .check-mark {
+  line-height: 14px;
+}
+.bootstrap-select .check-mark::after {
+  font-family: 'FontAwesome';
+  content: '\f00c';
+}
+.bootstrap-select button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Make filled out selects be the same size as empty selects */
+.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+  display: inline !important;
+}
+
+
+.error-alert{
+ background-color:#DC143C;
+ margin-top:10px;
+ border-radius:4px;
+ text-align:center;
+ padding:10;
+ line-height:25px
+}
+
+.success-alert{
+ background-color:green;
+ margin-top:10px;
+ border-radius:4px;
+ text-align:center;
+ padding:10;
+ line-height:25px
 }
