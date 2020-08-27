@@ -4,6 +4,9 @@
         $("#edit_campaign_country option:selected").html(main_country);
         var csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
 
+
+
+
      $("#add_campaign_submit").click(function(event){
       event.preventDefault();
       var link = $("#add_campaign_websiteLink").val();

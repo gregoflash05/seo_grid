@@ -23,6 +23,7 @@
   </head>
 
   <body>
+
     <div class="d-flex collapsed-sidebar">
       <aside class="flex-auto sidebar sticky-top bg-main" style="width: 315px; height: 100vh;">
         <div class="brand-logo">
@@ -511,7 +512,7 @@
           </div>
 
           <div class="modal-footer d-flex justify-content-between">
-            <button type="button" class="btn btn-clear text-danger delete-campaign-button" id="delete_campaign_submit">Delete campaign</button>
+            <a type="button" class="btn btn-clear text-danger delete-campaign-button" id="delete_campaign_submit2" data-toggle="modal" data-target="#confirm_delete">Delete campaign</a>
             <button type="button" class="btn btn-primary" id="edit_campaign_submit">Save</button>
           </div>
           <p class="edit_campaign_error_message" style="margin:7px; padding-top:7px; padding-bottom:7px"></p>
@@ -690,7 +691,49 @@
       </div>
     </div>
 
+
+    <!-- confirm delete Modal -->
+    <div class="modal fade" id="confirm_delete" tabindex="-1" role="dialog" aria-labelledby="addKeywordModalLabel"
+      aria-hidden="true" style"max-width:100px !important">
+      <div class="modal-dialog modal-dialog-centered" role="document" style"max-width:100px !important">
+        <div class="modal-content" style"max-width:100px !important">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="" style"color:red !important">Are you sure you want delete this campaign?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% comment %} <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label class="text-dark" for="keywordName">Enter new keyword</label>
+                <input type="text" class="form-control" id="keywordName" placeholder="">
+              </div>
+            </form>
+          </div> delete_campaign_submit{% endcomment %}
+
+          {% comment %} <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="add_keyword_submit">
+              <svg class="add-keyword-btn__icon" width="14" height="16" viewBox="0 0 14 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13 6.5H8.5V2C8.5 1.44781 8.05219 1 7.5 1H6.5C5.94781 1 5.5 1.44781 5.5 2V6.5H1C0.447812 6.5 0 6.94781 0 7.5V8.5C0 9.05219 0.447812 9.5 1 9.5H5.5V14C5.5 14.5522 5.94781 15 6.5 15H7.5C8.05219 15 8.5 14.5522 8.5 14V9.5H13C13.5522 9.5 14 9.05219 14 8.5V7.5C14 6.94781 13.5522 6.5 13 6.5Z"
+                  fill="white" />
+              </svg>
+              Add keyword
+            </button>
+          </div> {% endcomment %}
+          <div class="modal-footer d-flex justify-content-between">
+            <a type="button" class="btn btn-clear text-danger delete-campaign-button" id="delete_campaign_submit">Delete</a>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancel</button>
+          </div>
+          <p class="delete_campaign_error_message" style="margin:7px; padding-top:7px; padding-bottom:7px"></p>
+        </div>
+      </div>
+    </div>
+
     <!-- Bootstrap JS set -->
+
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
       integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
