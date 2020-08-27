@@ -1,0 +1,52 @@
+
+
+
+.table-light {
+    background-color: white;
+}
+
+.table-light td, .table-light th {
+    border-color: #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+}
+
+.border-green {
+    border-left: 2px solid #29CA7D !important;
+    border-right: 2px solid #29CA7D !important;
+}
+
+.border-bottom-green {
+    border-bottom: 2px solid #29CA7D !important;
+
+}
+
+.text-green {
+    color: #29CA7D;
+}
+/* table th {
+    empty-cells: hide;
+} */
+.unsee {
+    visibility: hidden;
+    background-color: transparent !important;
+    opacity: 0 !important;
+}
+
+.compare1 {
+    color: white;
+    background-color: #29CA7D;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.compare2 {
+    color: white;
+    background-color: #454545;
+    border-radius: 10px 10px 0px 0px;
+}
+
+@media screen and (max-width: 768px) {
+    td {
+    white-space: nowrap;
+    }
+}

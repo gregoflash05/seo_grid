@@ -1,0 +1,361 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- iconify -->
+  <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <!-- custom css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'api/css/compare/campaign-dashboard-v2.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'api/css/compare/compare.css' %}">
+  <title>SEO Grid | Compare keywords</title>
+</head>
+
+<body>
+  <div class="d-flex collapsed-sidebar">
+    <aside class="flex-auto sidebar sticky-top bg-main" style="width: 315px; height: 100vh;">
+      <div class="brand-logo">
+        <img class="brand-logo__img" src="{% static 'accounts/img/log.PNG' %}" alt="" />
+        <span style="right: 3rem;" class="sidebar-toggler flex-auto position-absolute">
+          <ion-icon name="menu-outline"></ion-icon>
+        </span>
+      </div>
+      <div class="px-4">
+        <a style="position: relative;" class="add-campaigns-btn w-100 text-center d-flex">
+        <svg class="mr-3"
+            width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M20.8752 6.6665H20.0418V0.83316C20.0417 0.372903 19.6685 -9.76378e-05 19.2082 1.91716e-08C19.1021 1.91716e-08 18.997 0.0203126 18.8984 0.0598148L6.58921 4.99984H2.50002C1.1193 4.99984 0 6.11914 0 7.49986V10.8332C0 12.214 1.1193 13.3333 2.50002 13.3333H2.54167V19.1666C2.54167 19.6269 2.91477 20 3.37502 20H6.7084C7.16866 20 7.54175 19.6269 7.54175 19.1666V13.7149L18.8985 18.2733C18.997 18.3133 19.1023 18.3337 19.2085 18.3333C19.6688 18.3333 20.0419 17.9602 20.0419 17.5V11.6665H20.8752C22.256 11.6665 23.3753 10.5472 23.3753 9.16652C23.3753 7.7858 22.2559 6.6665 20.8752 6.6665ZM5.87504 18.3333H4.20838V13.3333H5.87504V18.3333ZM5.91669 11.6665H2.50002C2.03976 11.6665 1.66666 11.2934 1.66666 10.8332V7.49981C1.66666 7.03955 2.03976 6.66646 2.50002 6.66646H5.91669V11.6665ZM18.3751 16.2674L7.58341 11.9341V6.39653L18.3751 2.06564V16.2674ZM20.8752 9.99988H20.0418V8.33322H20.8752C21.3354 8.33322 21.7085 8.70631 21.7085 9.16657C21.7085 9.62683 21.3354 9.99988 20.8752 9.99988Z"
+              fill="#29CA7D" />
+          </svg>
+          Campaigns
+          {% comment %} <span style="
+                  height: 30px;
+                  width: 30px;
+                  border-radius: 5px;
+                  background-color: #29ca7d;
+                  float: right;
+                  position: absolute;
+                  right: 15px;
+                  bottom: 10px;
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                ">
+            <img style="height: 60%; width: 60%;" src="https://seo-dashboard.netlify.app/assets/images/add.svg"
+              alt="" />
+          </span> {% endcomment %}
+        </a>
+      </div>
+      <nav class="nav side-navbar flex-column">
+      {% for campaign in campaigns %}
+        {% if campaign.campaign_name == index_campaign %}
+        <a class="nav-link side-navbar-link active">{{campaign.campaign_name}}</a>
+        {% else %}
+        <a class="nav-link side-navbar-link" href="../../dashboard/{{campaign.id}}">{{campaign.campaign_name}}</a>
+        {% endif %}
+        {% endfor %}
+        {% comment %} <a class="nav-link side-navbar-link active" href="#">hotels.ng</a>
+        <a class="nav-link side-navbar-link" href="#">hng.tech</a>
+        <a class="nav-link side-navbar-link" href="#">zuri.tech</a>
+        <a class="nav-link side-navbar-link" href="#" aria-disabled="true">start.ng</a> {% endcomment %}
+      </nav>
+    </aside>
+    <main class="col px-0">
+      <nav class="navbar top-navbar py-3 px-0">
+        <div class="container-fluid px-2rem">
+          <span class="sidebar-toggler flex-auto position-absolute">
+            <ion-icon name="menu-outline"></ion-icon>
+          </span>
+          <a class="navbar-brand font-weight-bold" href="#">Compare Keywords</a>
+          <!-- <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#topNav"
+                aria-controls="topNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button> -->
+
+          <div class="" id="topNav">
+            <!--collapse navbar-collapse-->
+            <div class="ml-auto my-2 my-lg-0">
+              {% comment %} <a href="#" class="notification-section mr-4 d-inline-block">
+                <img src="https://seo-dashboard.netlify.app/assets/images/bell-icon.svg" alt="" />
+                <span class="notification-section__badge d-flex align-items-center justify-content-center text-white">
+                  2
+                </span>
+              </a> {% endcomment %}
+              <span class="d-inline-block avatar-section">
+                <a id="dropdownBtn" href="#">
+                  <span class="d-inline-block" style="
+                      height: 40px;
+                      width: 40px;
+                      border-radius: 50%;
+                      vertical-align: middle;
+                    ">
+                    <img style="height: 100%; width: 100%; object-fit: cover;" src="https://seogrid.thepuredev.net/assets/images/avatar.png" alt="">
+                  </span>
+                  <span class="avatar-name">
+                    Mark Spencer
+                  </span>
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" class="iconify caret" data-icon="carbon:caret-down" data-inline="false" style="transform: rotate(360deg);"><path d="M24 12l-8 10l-8-10z" fill="currentColor"></path></svg>
+                </a>
+                <div class="dropdown-holder bg-white position-absolute">
+                  <nav class="dropdown-nav d-flex flex-column px-4">
+                    <a class="dropdown-nav-link active" href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024" class="iconify" data-icon="ant-design:user-outlined" data-inline="false" style="transform: rotate(360deg);"><path d="M858.5 763.6a374 374 0 0 0-80.6-119.5a375.63 375.63 0 0 0-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1c-.4.2-.8.3-1.2.5c-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 0 0-80.6 119.5A371.7 371.7 0 0 0 136 901.8a8 8 0 0 0 8 8.2h60c4.4 0 7.9-3.5 8-7.8c2-77.2 33-149.5 87.8-204.3c56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 0 0 8-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z" fill="currentColor"></path></svg><span class="dropdown-nav-link__desc">
+                        My Profile
+                      </span>
+                    </a>
+                    <a class="dropdown-nav-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36" class="iconify" data-icon="clarity:settings-line" data-inline="false" style="transform: rotate(360deg);"><path class="clr-i-outline clr-i-outline-path-1" d="M18.1 11c-3.9 0-7 3.1-7 7s3.1 7 7 7s7-3.1 7-7s-3.1-7-7-7zm0 12c-2.8 0-5-2.2-5-5s2.2-5 5-5s5 2.2 5 5s-2.2 5-5 5z" fill="currentColor"></path><path class="clr-i-outline clr-i-outline-path-2" d="M32.8 14.7l-2.8-.9l-.6-1.5l1.4-2.6c.3-.6.2-1.4-.3-1.9l-2.4-2.4c-.5-.5-1.3-.6-1.9-.3l-2.6 1.4l-1.5-.6l-.9-2.8C21 2.5 20.4 2 19.7 2h-3.4c-.7 0-1.3.5-1.4 1.2L14 6c-.6.1-1.1.3-1.6.6L9.8 5.2c-.6-.3-1.4-.2-1.9.3L5.5 7.9c-.5.5-.6 1.3-.3 1.9l1.3 2.5c-.2.5-.4 1.1-.6 1.6l-2.8.9c-.6.2-1.1.8-1.1 1.5v3.4c0 .7.5 1.3 1.2 1.5l2.8.9l.6 1.5l-1.4 2.6c-.3.6-.2 1.4.3 1.9l2.4 2.4c.5.5 1.3.6 1.9.3l2.6-1.4l1.5.6l.9 2.9c.2.6.8 1.1 1.5 1.1h3.4c.7 0 1.3-.5 1.5-1.1l.9-2.9l1.5-.6l2.6 1.4c.6.3 1.4.2 1.9-.3l2.4-2.4c.5-.5.6-1.3.3-1.9l-1.4-2.6l.6-1.5l2.9-.9c.6-.2 1.1-.8 1.1-1.5v-3.4c0-.7-.5-1.4-1.2-1.6zm-.8 4.7l-3.6 1.1l-.1.5l-.9 2.1l-.3.5l1.8 3.3l-2 2l-3.3-1.8l-.5.3c-.7.4-1.4.7-2.1.9l-.5.1l-1.1 3.6h-2.8l-1.1-3.6l-.5-.1l-2.1-.9l-.5-.3l-3.3 1.8l-2-2l1.8-3.3l-.3-.5c-.4-.7-.7-1.4-.9-2.1l-.1-.5L4 19.4v-2.8l3.4-1l.2-.5c.2-.8.5-1.5.9-2.2l.3-.5l-1.7-3.3l2-2l3.2 1.8l.5-.3c.7-.4 1.4-.7 2.2-.9l.5-.2L16.6 4h2.8l1.1 3.5l.5.2c.7.2 1.4.5 2.1.9l.5.3l3.3-1.8l2 2l-1.8 3.3l.3.5c.4.7.7 1.4.9 2.1l.1.5l3.6 1.1v2.8z" fill="currentColor"></path></svg>
+                      <span class="dropdown-nav-link__desc">
+                        Subscription
+                      </span>
+                    </a>
+                    <a class="dropdown-nav-link" href="../../../../logout"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" class="iconify" data-icon="carbon:logout" data-inline="false" style="transform: rotate(360deg);"><path d="M6 30h12a2.002 2.002 0 0 0 2-2v-3h-2v3H6V4h12v3h2V4a2.002 2.002 0 0 0-2-2H6a2.002 2.002 0 0 0-2 2v24a2.002 2.002 0 0 0 2 2z" fill="currentColor"></path><path d="M20.586 20.586L24.172 17H10v-2h14.172l-3.586-3.586L22 10l6 6l-6 6l-1.414-1.414z" fill="currentColor"></path></svg>
+                      <span class="dropdown-nav-link__desc danger">
+                        Logout
+                      </span>
+                    </a>
+                  </nav>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <section class="main-content">
+        <div class="mb-5 bg-white pt-3 border-bottom">
+          <div class="container-fluid px-2rem">
+            <!-- Main Content Header Section -->
+            <div class="main-content-top">
+              <div class="f-28 main-content-top__header font-weight-bold mb-3">
+                {% comment %} Hotels in Ikeja {% endcomment %}
+              {{keyword}}
+              </div>
+              <div class="main-content-top__subtext mb-4">
+                <a href="{{index_link}}" class="main-content-top__subtext-content"><svg class="main-content-top__inner-logo"
+                    width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M9.86041 3.1143C10.0141 2.95516 10.198 2.82822 10.4013 2.7409C10.6046 2.65357 10.8232 2.6076 11.0444 2.60568C11.2657 2.60376 11.4851 2.64592 11.6899 2.7297C11.8947 2.81348 12.0807 2.9372 12.2371 3.09365C12.3936 3.2501 12.5173 3.43614 12.6011 3.64092C12.6849 3.84569 12.727 4.0651 12.7251 4.28635C12.7232 4.50759 12.6772 4.72624 12.5899 4.92952C12.5026 5.13281 12.3756 5.31668 12.2165 5.47038L9.71711 7.96976C9.40464 8.28213 8.9809 8.45761 8.53907 8.45761C8.09724 8.45761 7.6735 8.28213 7.36104 7.96976C7.20391 7.818 6.99346 7.73402 6.77501 7.73592C6.55657 7.73782 6.34761 7.82544 6.19315 7.97991C6.03868 8.13437 5.95106 8.34333 5.94916 8.56177C5.94726 8.78022 6.03124 8.99067 6.183 9.1478C6.80793 9.77254 7.65541 10.1235 8.53907 10.1235C9.42273 10.1235 10.2702 9.77254 10.8952 9.1478L13.3945 6.64842C14.0016 6.0199 14.3375 5.17811 14.3299 4.30434C14.3223 3.43057 13.9718 2.59473 13.3539 1.97686C12.7361 1.35899 11.9002 1.00851 11.0265 1.00092C10.1527 0.993327 9.31089 1.32922 8.68237 1.93627L7.43268 3.18595C7.35311 3.26281 7.28964 3.35474 7.24598 3.45638C7.20232 3.55803 7.17933 3.66735 7.17837 3.77797C7.17741 3.88859 7.19849 3.9983 7.24038 4.10069C7.28227 4.20307 7.34413 4.29609 7.42236 4.37432C7.50058 4.45254 7.5936 4.51441 7.69599 4.5563C7.79838 4.59819 7.90808 4.61927 8.01871 4.6183C8.12933 4.61734 8.23865 4.59436 8.34029 4.5507C8.44194 4.50703 8.53387 4.44356 8.61072 4.36399L9.86041 3.1143ZM5.69479 7.27993C6.00725 6.96756 6.43099 6.79207 6.87282 6.79207C7.31465 6.79207 7.73839 6.96756 8.05086 7.27993C8.12772 7.3595 8.21965 7.42297 8.32129 7.46663C8.42294 7.5103 8.53226 7.53328 8.64288 7.53424C8.7535 7.5352 8.86321 7.51412 8.9656 7.47223C9.06798 7.43034 9.161 7.36848 9.23923 7.29026C9.31745 7.21203 9.37931 7.11901 9.4212 7.01662C9.46309 6.91424 9.48417 6.80453 9.48321 6.69391C9.48225 6.58329 9.45927 6.47396 9.41561 6.37232C9.37194 6.27067 9.30847 6.17874 9.2289 6.10189C8.60397 5.47714 7.75648 5.12618 6.87282 5.12618C5.98917 5.12618 5.14168 5.47714 4.51675 6.10189L2.01737 8.60127C1.69909 8.90868 1.44521 9.2764 1.27056 9.68298C1.0959 10.0896 1.00397 10.5268 1.00013 10.9693C0.996281 11.4118 1.0806 11.8506 1.24816 12.2602C1.41572 12.6697 1.66317 13.0418 1.97607 13.3547C2.28896 13.6676 2.66104 13.9151 3.0706 14.0826C3.48015 14.2502 3.91897 14.3345 4.36146 14.3307C4.80394 14.3268 5.24123 14.2349 5.64781 14.0602C6.05439 13.8856 6.42211 13.6317 6.72953 13.3134L7.97921 12.0637C8.05879 11.9869 8.12225 11.8949 8.16592 11.7933C8.20958 11.6917 8.23256 11.5823 8.23353 11.4717C8.23449 11.3611 8.21341 11.2514 8.17152 11.149C8.12963 11.0466 8.06776 10.9536 7.98954 10.8754C7.91132 10.7971 7.8183 10.7353 7.71591 10.6934C7.61352 10.6515 7.50381 10.6304 7.39319 10.6314C7.28257 10.6323 7.17325 10.6553 7.0716 10.699C6.96996 10.7427 6.87803 10.8061 6.80118 10.8857L5.55149 12.1354C5.39778 12.2945 5.21392 12.4215 5.01063 12.5088C4.80734 12.5961 4.5887 12.6421 4.36745 12.644C4.14621 12.6459 3.9268 12.6038 3.72202 12.52C3.51725 12.4362 3.33121 12.3125 3.17476 12.156C3.01831 11.9996 2.89459 11.8135 2.8108 11.6088C2.72702 11.404 2.68487 11.1846 2.68679 10.9633C2.68871 10.7421 2.73468 10.5235 2.822 10.3202C2.90933 10.1169 3.03627 9.93301 3.19541 9.7793L5.69479 7.27993Z"
+                      fill="#4F4F4F" />
+                  </svg>
+                  {{index_link}}
+                </a>
+                <span class="main-content-top__subtext-content">
+                  <svg class="main-content-top__inner-logo" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M2.83512 6.66695C2.72322 7.10255 2.66678 7.55054 2.66712 8.00028C2.66712 8.46028 2.72579 8.90695 2.83512 9.33362H4.73379C4.64391 8.447 4.64391 7.55357 4.73379 6.66695H2.83512ZM3.38045 5.33362H4.94445C5.12179 4.52228 5.37779 3.79562 5.69179 3.19095C4.72391 3.65723 3.9186 4.40377 3.38045 5.33362ZM13.1658 6.66695H11.2671C11.357 7.55357 11.357 8.447 11.2671 9.33362H13.1658C13.3902 8.4589 13.3902 7.54167 13.1658 6.66695ZM12.6205 5.33362C12.0823 4.40377 11.277 3.65723 10.3091 3.19095C10.6238 3.79562 10.8791 4.52228 11.0565 5.33362H12.6205ZM6.07512 6.66695C6.02517 7.10964 6.00024 7.55479 6.00045 8.00028C6.00045 8.45695 6.02579 8.90362 6.07512 9.33362H9.92579C10.0262 8.44756 10.0262 7.553 9.92579 6.66695H6.07512ZM6.31379 5.33362H9.68712C9.56579 4.83248 9.39078 4.34589 9.16512 3.88228C8.74645 3.04562 8.29845 2.66695 8.00045 2.66695C7.70179 2.66695 7.25445 3.04562 6.83579 3.88228C6.62579 4.30362 6.44912 4.79362 6.31379 5.33362ZM3.38045 10.667C3.9186 11.5968 4.72391 12.3433 5.69179 12.8096C5.37712 12.205 5.12179 11.4783 4.94445 10.667H3.38045ZM12.6205 10.667H11.0565C10.8791 11.4783 10.6231 12.205 10.3091 12.8096C11.277 12.3433 12.0823 11.5968 12.6205 10.667ZM6.31379 10.667C6.44912 11.207 6.62579 11.697 6.83579 12.1183C7.25445 12.955 7.70245 13.3336 8.00045 13.3336C8.29912 13.3336 8.74645 12.955 9.16512 12.1183C9.37512 11.697 9.55179 11.207 9.68712 10.667H6.31379ZM8.00045 14.667C4.31845 14.667 1.33379 11.6823 1.33379 8.00028C1.33379 4.31828 4.31845 1.33362 8.00045 1.33362C11.6825 1.33362 14.6671 4.31828 14.6671 8.00028C14.6671 11.6823 11.6825 14.667 8.00045 14.667Z"
+                      fill="#4F4F4F" />
+                  </svg>
+                  {{index_language}}
+                </span>
+                <span class="main-content-top__subtext-content">
+                  <svg class="main-content-top__inner-logo" width="14" height="17" viewBox="0 0 14 17" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M1.93372 3.57961C0.785085 5.24178 0.519571 7.34653 1.22281 9.20652C1.41165 9.71637 1.71142 10.2107 2.11087 10.6731C2.11091 10.6731 2.11095 10.6732 2.11099 10.6732L6.51634 15.8478C6.62548 15.9761 6.78538 16.05 6.95372 16.05C7.12205 16.05 7.28196 15.9761 7.39109 15.8478L11.7952 10.6746C11.7953 10.6746 11.7953 10.6746 11.7953 10.6745C12.1965 10.2095 12.4959 9.7157 12.6832 9.20984C13.3879 7.34652 13.1223 5.24178 11.9737 3.57961C10.8192 1.90874 8.98898 0.95 6.95372 0.95C4.91846 0.95 3.08821 1.90874 1.93372 3.57961ZM11.6075 8.8073L11.6074 8.80764C11.4673 9.18614 11.2382 9.56173 10.9258 9.92418C10.9246 9.9254 10.9228 9.92735 10.9209 9.92979L6.95372 14.5895L2.98304 9.92563L2.98282 9.92538C2.66997 9.56286 2.44049 9.18684 2.29884 8.80415L2.29872 8.80382C1.72791 7.29416 1.94436 5.58531 2.87876 4.23297L2.8386 4.20523L2.87876 4.23297C3.81589 2.87661 5.30084 2.09895 6.95372 2.09895C8.60656 2.09895 10.0913 2.87657 11.0285 4.23297L11.0696 4.20455L11.0285 4.23298C11.9631 5.58529 12.1797 7.29415 11.6075 8.8073Z"
+                      fill="#4F4F4F" stroke="#4F4F4F" stroke-width="0.1" />
+                    <path
+                      d="M6.95367 4.06188C5.30665 4.06188 3.9666 5.40174 3.9666 7.04895C3.9666 8.69615 5.30647 10.036 6.95367 10.036C8.60088 10.036 9.94074 8.69615 9.94074 7.04895C9.94074 5.40192 8.6007 4.06188 6.95367 4.06188ZM6.95367 8.88704C5.94019 8.88704 5.11555 8.0624 5.11555 7.04892C5.11555 6.03544 5.94019 5.21079 6.95367 5.21079C7.96715 5.21079 8.7918 6.03544 8.7918 7.04892C8.7918 8.0624 7.96715 8.88704 6.95367 8.88704Z"
+                      fill="#4F4F4F" stroke="#4F4F4F" stroke-width="0.1" />
+                  </svg>
+                  {{index_country}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--<span>Dashboard</span><span>Compare Keywords</span>-->
+        <div class="container-fluid px-2rem">
+          <!-- Inner Container Start -->
+          <!-- Add New Button -->
+          <div class="h-54 d-none"></div>
+
+          <!-- Stats Cards Section -->
+          <div class="row mb-5">
+            <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
+              <div class="stats-card w-100 p-3">
+                <div class="stats-card__header f-16 mb-4">
+                  Est. Traffic Per Day
+                </div>
+                <div class="stats-card__counts">
+                  <div class="stats-card__count-main mb-4">
+                    90.1K
+                  </div>
+                  <div class="stats-card__count-secondary danger-stats">
+                    <span class="iconify" data-icon="bi-arrow-down-square-fill" data-inline="false"></span>-2%
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
+              <div class="stats-card w-100 p-3">
+                <div class="stats-card__header f-16 mb-4">
+                  avg. position
+                </div>
+                <div class="stats-card__counts">
+                  <div class="stats-card__count-main mb-4">
+                    7.33
+                  </div>
+                  <div class="stats-card__count-secondary">
+                    <span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>+28%
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
+              <div class="stats-card w-100 p-3">
+                <div class="stats-card__header f-16 mb-4">
+                  Backlinks
+                </div>
+                <div class="stats-card__counts">
+                  <div class="stats-card__count-main mb-4">
+                    39k
+                  </div>
+                  <div class="stats-card__count-secondary">
+                    <span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>+18%
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
+              <div class="stats-card w-100 p-3">
+                <div class="stats-card__header f-16 mb-4">
+                  keywords
+                </div>
+                <div class="stats-card__counts">
+                  <div class="stats-card__count-main mb-4">
+                    3
+                  </div>
+                  <div class="stats-card__count-secondary">
+                    <span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>+18%
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Comparison tables -->
+          <div class="table-responsive position-relative">
+            <table class="table border">
+              <thead class=" text-center">
+                <tr>
+
+                  <th class="unsee" scope="col"></th>
+                  <th class="compare1" scope="col">{{trimmed_index_link}}</th>
+                  <th class="compare2" scope="col">tripsadvisor</th>
+                  <th class="unsee" scope="col"></th>
+                </tr>
+              </thead>
+              <thead class="table-light">
+                <tr>
+                  <th class="text-green" scope="col">Issue</th>
+                  <th class="text-green border-green" scope="col">Details</th>
+                  <th class="text-green" scope="col">Details</th>
+                  <th class="text-green" scope="col">Recommendation</th>
+                </tr>
+              </thead>
+              <tbody class="table-light">
+                <tr>
+                  <th scope="row">Page Title</th>
+                  <td class="border-green">Top Hotels in Ikeja | Hotels.ng</td>
+                  <td>Read reviews, compare and book</td>
+                  <td>Keep your titles under 60 characters</td>
+                </tr>
+                <tr>
+                  <th scope="row">Search Engine Indexed Pages</th>
+                  <td class="border-green">56</td>
+                  <td>643</td>
+                  <td>Make your site links followable to boost your site
+                    visibility.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Site Map</th>
+                  <td class="border-green">No</td>
+                  <td>Yes</td>
+                  <td>Add a sitemap to make it easy for search engines to crawl your site.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Page Load Time</th>
+                  <td class="border-green">40 seconds</td>
+                  <td>3 seconds</td>
+                  <td>Optimize your website Images and Scripts to increase site load time.</td>
+                </tr>
+                <tr>
+                  <th scope="row">SSL Certificate</th>
+                  <td class="border-green">No</td>
+                  <td>Yes</td>
+                  <td>SSL is a great ranking signal for search engines, consider getting one.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Backlinks</th>
+                  <td class="border-green">231</td>
+                  <td>6326</td>
+                  <td>Backlinks are a very important signal for ranking, the more the better.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Outbound Links</th>
+                  <td class="border-green">1287</td>
+                  <td>34</td>
+                  <td>Consider making your outbound links no-follow</td>
+                </tr>
+                <tr>
+                  <th scope="row">Mobile Responsiveness</th>
+                  <td class="border-green">No</td>
+                  <td>Yes</td>
+                  <td>Mobile responsive website makes your website accessible on any device.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Brokeb Links</th>
+                  <td class="border-green">5</td>
+                  <td>0</td>
+                  <td>Broken links leak your site SEO juice, find and link or remove them.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Organic Search Traffic</th>
+                  <td class="border-green border-bottom-green">633</td>
+                  <td>588</td>
+                  <td>Submitting your sitemap and making your site crawlable is recommended.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+
+  <!--ionicons js-->
+  <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
+  <!-- custom js -->
+  <script type="text/javascript" src="{% static 'api/js/compare/campaign-dashboard.js' %}"></script>
+</body>
+
+</html>
