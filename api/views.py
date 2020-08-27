@@ -232,60 +232,62 @@ def delete_keyword(request, pk):
 def dashboard(request):
 
     r_user = request.user
-    user = User()
-    name = r_user.first_name
-    name = name.upper()
-    campaigns = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
-    index = campaigns[0]
-    index_campaign, index_link, index_language, index_country, index_id = index['campaign_name'], index['link'], index['language'], index['country'], index['id'] 
-    # print(name)
-    campaign_keyword_details = KeywordsSerializer(Keywords.objects.filter(campaign=index_id), many=True).data
-    profile = Profile.objects.get(user=r_user)
-    company = profile.company
-    company =  company.upper()
-    context ={
-        'company' : company,
-        'name' : name,
-        'campaigns' : campaigns,
-        'index_campaign' : index_campaign, 'index_link' : index_link, 'index_language' : index_language, 'index_country' : index_country, 'index_id':index_id,
-        'campaign_keyword_details' : campaign_keyword_details
-
-    }
     if r_user.is_authenticated:
         if Campaign.objects.filter(user=r_user).exists():
+            user = User()
+            name = r_user.first_name
+            name = name.upper()
+            campaigns = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
+            index = campaigns[0]
+            index_campaign, index_link, index_language, index_country, index_id = index['campaign_name'], index['link'], index['language'], index['country'], index['id'] 
+            # print(name)
+            campaign_keyword_details = KeywordsSerializer(Keywords.objects.filter(campaign=index_id), many=True).data
+            profile = Profile.objects.get(user=r_user)
+            company = profile.company
+            company =  company.upper()
+            context ={
+                'company' : company,
+                'name' : name,
+                'campaigns' : campaigns,
+                'index_campaign' : index_campaign, 'index_link' : index_link, 'index_language' : index_language, 'index_country' : index_country, 'index_id':index_id,
+                'campaign_keyword_details' : campaign_keyword_details
+
+            }
+            
             return render(request, "api/dashboard.html", context)
         else:
             return redirect("/create_campaign")
     return redirect("/login")
 
 def camp_dashboard(request, pk):
-    
     r_user = request.user
-    user = User()
-    name = r_user.first_name
-    name = name.upper()
-    campaigns = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
-    if campaigns[0]['id'] == pk:
-        return redirect("/dashboard")
-    for k in campaigns:
-        if k['id'] == pk:
-            index = k
-    index_campaign, index_link, index_language, index_country, index_id = index['campaign_name'], index['link'], index['language'], index['country'], index['id'], 
-    # print(name)
-    campaign_keyword_details = KeywordsSerializer(Keywords.objects.filter(campaign=index_id), many=True).data
-    profile = Profile.objects.get(user=r_user)
-    company = profile.company
-    company =  company.upper()
-    context ={
-        'company' : company,
-        'name' : name,
-        'campaigns' : campaigns,
-        'index_campaign' : index_campaign, 'index_link' : index_link, 'index_language' : index_language, 'index_country' : index_country, 'index_id':index_id,
-        'campaign_keyword_details' : campaign_keyword_details 
-
-    }
     if r_user.is_authenticated:
         if Campaign.objects.filter(user=r_user).exists():
+            user = User()
+            name = r_user.first_name
+            name = name.upper()
+            campaigns = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
+            if campaigns[0]['id'] == pk:
+                return redirect("/dashboard")
+            for k in campaigns:
+                if k['id'] == pk:
+                    index = k
+            index_campaign, index_link, index_language, index_country, index_id = index['campaign_name'], index['link'], index['language'], index['country'], index['id'], 
+            # print(name)
+            campaign_keyword_details = KeywordsSerializer(Keywords.objects.filter(campaign=index_id), many=True).data
+            profile = Profile.objects.get(user=r_user)
+            company = profile.company
+            company =  company.upper()
+            context ={
+                'company' : company,
+                'name' : name,
+                'campaigns' : campaigns,
+                'index_campaign' : index_campaign, 'index_link' : index_link, 'index_language' : index_language, 'index_country' : index_country, 'index_id':index_id,
+                'campaign_keyword_details' : campaign_keyword_details 
+
+            }
+        
+        
             return render(request, "api/dashboard.html", context)
         else:
             return redirect("/create_campaign")
