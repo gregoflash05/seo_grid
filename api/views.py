@@ -31,23 +31,13 @@ import sys
 import logging
 from pysitemap import crawler
 from .sitemap import generate_sitemap
+from django.views.decorators.csrf import csrf_exempt
+from django.http import QueryDict
+from .dt_validate import campaign_test, keyword_test, edit_campaign_test
 
 # Create your views here.
 
-def campaign_test(link, campaign_name, user_campaign_details):
-            for i in user_campaign_details:
-                if i['link'] == link:
-                    return 'TrueL'
-                    break
-                elif i['campaign_name'] == campaign_name:
-                    return 'TrueC'
-                    break
 
-def keyword_test(keyword, campaign_keyword_details):
-            for i in campaign_keyword_details:
-                if i['keyword'] == keyword:
-                    return 'TrueK'
-                    break
 
 
 
@@ -106,15 +96,11 @@ def Subscriber_info_by_id(request, pk):
 
 #//////////////////////////////////////End Subscribers/////////////////////////////////////////
 
-
-#//////////////////////////////////////dashboard/////////////////////////////////////////
-def dashboard(request):
-
+#//////////////////////////////////////Create campaign page/////////////////////////////////////////
+def Createcampaignpage(request):
     r_user = request.user
-    user = User()
     name = r_user.first_name
     name = name.upper()
-    # print(name)
     profile = Profile.objects.get(user=r_user)
     company = profile.company
     company =  company.upper()
@@ -123,7 +109,186 @@ def dashboard(request):
         'name' : name
     }
     if r_user.is_authenticated:
-        return render(request, "api/dashboard.html", context)
+        cad = request.POST
+        if request.method == "POST":
+            link, language, country, campaign_name, user, keyword = cad['link'], cad['language'], cad['country'], cad['campaign_name'], r_user.id, cad['keyword']
+            user_campaign_details = Campaign.objects.filter(user=r_user)
+            user_campaign_details = CampaignSerializer(user_campaign_details, many=True).data
+            if campaign_test(link, campaign_name, user_campaign_details) == "TrueL":
+                return JsonResponse("<p class='error-alert' style='text-align:center'>Website link already exists in another Campaign<p>", safe=False)
+            elif campaign_test(link, campaign_name, user_campaign_details) == "TrueC":
+                return JsonResponse("<p class='error-alert' style='text-align:center'>Campagin with the name "+campaign_name+" already exists<p>", safe=False)
+            else:
+                parsed_data = {"user" : user, 
+                                "link": link, 
+                                "language": language, 
+                                "country": country,
+                                "campaign_name": campaign_name}
+                serializer = CampaignSerializer(data = parsed_data)
+
+                if serializer.is_valid():
+                    serializer.save()
+                    campaigns = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
+                    for l in campaigns:
+                        if l['campaign_name'] == campaign_name:
+                            campaign = l['id']
+                    # Campaign.objects.get(campaign_name=campaign_name).id
+                    parsed_data = {"campaign" : campaign, 
+                                "keyword": keyword}
+                    serializer = KeywordsSerializer(data = parsed_data)
+                    if serializer.is_valid():
+                        serializer.save()
+                        return JsonResponse("<p class='success-alert' style='text-align:center'>Campaign successfully created<p><script>window.location.href = '../../dashboard/{}';</script>".format(campaign), safe=False)
+                    return JsonResponse("<p class='error-alert' style='text-align:center'>An error occured while adding keyword.<p>", safe=False)
+                return JsonResponse("<p class='error-alert' style='text-align:center'>An error occured, try again later.<p>", safe=False)
+        return render(request, "api/create_campaign.html", context)
+    return redirect("/login")
+#//////////////////////////////////////End Create campaign page/////////////////////////////////////////
+
+#////////////////////////////////////// Edit campaign /////////////////////////////////////////
+@csrf_exempt
+def edit_campaign_info_by_id(request, pk):
+    r_user = request.user
+    
+    if r_user.is_authenticated:
+        try:
+            campaign_details = Campaign.objects.get(pk=pk)
+
+        except Campaign.DoesNotExist:
+            return Response('There are no campaign details for this id')
+
+        if request.method == 'PUT':
+            user = request.user.id
+            put_dict = {k: v[0] if len(v)==1 else v for k, v in QueryDict(request.body).lists()}
+            link = put_dict['link']
+            language = put_dict['language']
+            country = put_dict['country']
+            campaign_name = put_dict['campaign_name']
+            user_campaign_details = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
+            if edit_campaign_test(pk, link, campaign_name, user_campaign_details) == "TrueL":
+                return JsonResponse("<p class='error-alert' style='text-align:center'>Website link already exists in another Campaign<p>", safe=False)
+                    
+            elif edit_campaign_test(pk, link, campaign_name, user_campaign_details) == "TrueC":
+                # if campaign_name == CampaignSerializer(campaign_details).data['campaign_name']:
+                #     pass
+                return JsonResponse("<p class='error-alert' style='text-align:center'>Campagin with the name "+campaign_name+" already exists<p>", safe=False)
+            else:
+                parsed_data = {"user" : user, 
+                                    "link": link, 
+                                    "language": language, 
+                                    "country": country,
+                                    "campaign_name": campaign_name,}
+                serializer = CampaignSerializer(campaign_details, data=parsed_data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return JsonResponse("<p class='success-alert' style='text-align:center'>Changes saved<p><script>window.location.href = '../../dashboard/{}';</script>".format(pk), safe=False)
+                return JsonResponse("<p class='error-alert' style='text-align:center'>An error occured.<p>", safe=False)
+
+        elif request.method == 'DELETE':
+            campaign_details.delete()
+            return JsonResponse("<p class='success-alert' style='text-align:center'>Campaign deleted<p><script>window.location.href = '../../dashboard';</script>", safe=False)
+#//////////////////////////////////////End Edit campaign /////////////////////////////////////////
+
+#////////////////////////////////////// Edit keyword /////////////////////////////////////////
+@csrf_exempt
+def add_a_keyword(request):
+
+    if request.method == 'POST':
+        keyword = request.POST['keyword']
+        campaign = request.POST['campaign']
+        serializer = KeywordsSerializer(data = request.POST)
+        campaign_keyword_details = Keywords.objects.filter(campaign=campaign)
+        campaign_keyword_details = KeywordsSerializer(campaign_keyword_details, many=True).data
+        if keyword_test(keyword, campaign_keyword_details) == "TrueK":
+            return JsonResponse("<p class='error-alert' style='text-align:center'>The key word " + keyword + " already exists for this campaign<p>", safe=False)
+        elif keyword == "" or keyword == " ":
+            return JsonResponse("<p class='error-alert' style='text-align:center'>Keyword field cannot be empty.<p>", safe=False)
+        else:
+            if serializer.is_valid():
+                serializer.save()
+                return JsonResponse("<p class='success-alert' style='text-align:center'>Keyword saved<p><script>window.location.href = '../../dashboard/{}';</script>".format(campaign), safe=False)
+            return JsonResponse("<p class='error-alert' style='text-align:center'>An error occured.<p>", safe=False)
+
+
+
+@csrf_exempt
+def delete_keyword(request, pk):
+    try:
+        keywords_details = Keywords.objects.get(pk=pk)
+
+    except Campaign.DoesNotExist:
+        return Response('There are no Keyword for this id')
+
+    del_dict = {k: v[0] if len(v)==1 else v for k, v in QueryDict(request.body).lists()}
+    campaign = del_dict['campaign']
+    if request.method == 'DELETE':
+        keywords_details.delete()
+        # return Response('keyword deleted')
+        return JsonResponse("<p class='success-alert' style='text-align:center'>keyword deleted<p><script>window.location.href = '../../dashboard/{}';</script>".format(campaign), safe=False)
+#//////////////////////////////////////End Edit keyword /////////////////////////////////////////
+
+
+#//////////////////////////////////////dashboard/////////////////////////////////////////
+def dashboard(request):
+
+    r_user = request.user
+    user = User()
+    name = r_user.first_name
+    name = name.upper()
+    campaigns = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
+    index = campaigns[0]
+    index_campaign, index_link, index_language, index_country, index_id = index['campaign_name'], index['link'], index['language'], index['country'], index['id'] 
+    # print(name)
+    campaign_keyword_details = KeywordsSerializer(Keywords.objects.filter(campaign=index_id), many=True).data
+    profile = Profile.objects.get(user=r_user)
+    company = profile.company
+    company =  company.upper()
+    context ={
+        'company' : company,
+        'name' : name,
+        'campaigns' : campaigns,
+        'index_campaign' : index_campaign, 'index_link' : index_link, 'index_language' : index_language, 'index_country' : index_country, 'index_id':index_id,
+        'campaign_keyword_details' : campaign_keyword_details
+
+    }
+    if r_user.is_authenticated:
+        if Campaign.objects.filter(user=r_user).exists():
+            return render(request, "api/dashboard.html", context)
+        else:
+            return redirect("/create_campaign")
+    return redirect("/login")
+
+def camp_dashboard(request, pk):
+    
+    r_user = request.user
+    user = User()
+    name = r_user.first_name
+    name = name.upper()
+    campaigns = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
+    if campaigns[0]['id'] == pk:
+        return redirect("/dashboard")
+    for k in campaigns:
+        if k['id'] == pk:
+            index = k
+    index_campaign, index_link, index_language, index_country, index_id = index['campaign_name'], index['link'], index['language'], index['country'], index['id'], 
+    # print(name)
+    campaign_keyword_details = KeywordsSerializer(Keywords.objects.filter(campaign=index_id), many=True).data
+    profile = Profile.objects.get(user=r_user)
+    company = profile.company
+    company =  company.upper()
+    context ={
+        'company' : company,
+        'name' : name,
+        'campaigns' : campaigns,
+        'index_campaign' : index_campaign, 'index_link' : index_link, 'index_language' : index_language, 'index_country' : index_country, 'index_id':index_id,
+        'campaign_keyword_details' : campaign_keyword_details 
+
+    }
+    if r_user.is_authenticated:
+        if Campaign.objects.filter(user=r_user).exists():
+            return render(request, "api/dashboard.html", context)
+        else:
+            return redirect("/create_campaign")
     return redirect("/login")
 
 @api_view(['POST', ])
@@ -138,6 +303,38 @@ def DashboardInfoView(request):
 # {"website": "en.wikipedia.org",
 #  "keyword": "Greg",}
 #//////////////////////////////////////End dashboard/////////////////////////////////////////
+
+#//////////////////////////////////////Compare page/////////////////////////////////////////
+def compare_page(request, pk):
+    r_user = request.user
+    keyword_details = Keywords.objects.get(pk=pk)
+    keyword_detail = KeywordsSerializer(keyword_details).data
+    campaign_id, keyword = keyword_detail['campaign'], keyword_detail['keyword']
+    name = r_user.first_name
+    name = name.upper()
+    campaigns = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
+    for k in campaigns:
+        if k['id'] == campaign_id:
+            index = k
+    index_campaign, index_link, index_language, index_country, index_id = index['campaign_name'], index['link'], index['language'], index['country'], index['id'] 
+    # print(name)
+    trimmed_index_link = index_link.split('/')[2]
+    profile = Profile.objects.get(user=r_user)
+    company = profile.company
+    company =  company.upper()
+    context ={
+        'company' : company,
+        'name' : name,
+        'campaigns' : campaigns,
+        'index_campaign' : index_campaign, 'index_link' : index_link, 'index_language' : index_language, 'index_country' : index_country, 'index_id':index_id,
+        'keyword' : keyword, 'trimmed_index_link' : trimmed_index_link
+
+    }
+    
+    if r_user.is_authenticated:
+        return render(request, "api/compare.html", context)
+    return redirect("/login")
+#//////////////////////////////////////Compare page/////////////////////////////////////////
 
 
 #//////////////////////////////////////Compare/////////////////////////////////////////
