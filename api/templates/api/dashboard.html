@@ -1,69 +1,46 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
     <!-- iconify -->
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
     <!-- bootsrap css -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
-      integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+      integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous" />
+    <!-- bootstrap select css -->
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="//unpkg.com/bootstrap-select-country@4.0.0/dist/css/bootstrap-select-country.min.css"
+      type="text/css" />
+
     <!-- custom css -->
     <link rel="stylesheet" href="{% static 'api/css/campaign-dashboard-v2.css' %}" />
     <title>SEO Grid | Campaign Dashboard</title>
   </head>
+
   <body>
     <div class="d-flex collapsed-sidebar">
-      <aside
-        class="flex-auto sidebar sticky-top bg-main"
-        style="width: 315px; height: 100vh;"
-      >
+      <aside class="flex-auto sidebar sticky-top bg-main" style="width: 315px; height: 100vh;">
         <div class="brand-logo">
-          <img
-            class="brand-logo__img"
-            src="{% static 'api/images/Brand Logo.svg' %}"
-            alt=""
-          />
-          <span
-            style="right: 3rem;"
-            class="sidebar-toggler flex-auto position-absolute"
-          >
+          <img class="brand-logo__img" src="{% static 'accounts/img/log.PNG' %}" alt="" />
+          <span style="right: 3rem;" class="sidebar-toggler flex-auto position-absolute">
             <ion-icon name="menu-outline"></ion-icon>
           </span>
         </div>
         <div class="px-4">
-          <a
-            href="#"
-            style="position: relative;"
-            class="add-campaigns-btn w-100 text-center d-flex"
-            ><svg
-              class="mr-3"
-              width="24"
-              height="20"
-              viewBox="0 0 24 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+          <a href="#" data-toggle="modal" data-target="#createCampaignModal" style="position: relative;"
+            class="add-campaigns-btn w-100 text-center d-flex"><svg class="mr-3" width="24" height="20"
+              viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M20.8752 6.6665H20.0418V0.83316C20.0417 0.372903 19.6685 -9.76378e-05 19.2082 1.91716e-08C19.1021 1.91716e-08 18.997 0.0203126 18.8984 0.0598148L6.58921 4.99984H2.50002C1.1193 4.99984 0 6.11914 0 7.49986V10.8332C0 12.214 1.1193 13.3333 2.50002 13.3333H2.54167V19.1666C2.54167 19.6269 2.91477 20 3.37502 20H6.7084C7.16866 20 7.54175 19.6269 7.54175 19.1666V13.7149L18.8985 18.2733C18.997 18.3133 19.1023 18.3337 19.2085 18.3333C19.6688 18.3333 20.0419 17.9602 20.0419 17.5V11.6665H20.8752C22.256 11.6665 23.3753 10.5472 23.3753 9.16652C23.3753 7.7858 22.2559 6.6665 20.8752 6.6665ZM5.87504 18.3333H4.20838V13.3333H5.87504V18.3333ZM5.91669 11.6665H2.50002C2.03976 11.6665 1.66666 11.2934 1.66666 10.8332V7.49981C1.66666 7.03955 2.03976 6.66646 2.50002 6.66646H5.91669V11.6665ZM18.3751 16.2674L7.58341 11.9341V6.39653L18.3751 2.06564V16.2674ZM20.8752 9.99988H20.0418V8.33322H20.8752C21.3354 8.33322 21.7085 8.70631 21.7085 9.16657C21.7085 9.62683 21.3354 9.99988 20.8752 9.99988Z"
-                fill="#29CA7D"
-              />
+                fill="#29CA7D" />
             </svg>
             Campaigns
-            <span
-              style="
+            <span style="
                 height: 30px;
                 width: 30px;
                 border-radius: 5px;
@@ -75,34 +52,35 @@
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-              "
-            >
-              <img
-                style="height: 60%; width: 60%;"
-                src="{% static 'api/images/add.svg' %}"
-                alt=""
-              />
+              ">
+              <img style="height: 60%; width: 60%;" src="{% static 'api/images/add.svg' %}" alt="" />
             </span>
           </a>
         </div>
+        <input type="hidden" id="index_country" value="{{index_country}}">
         <nav class="nav side-navbar flex-column">
-          <a class="nav-link side-navbar-link active" href="#">hotels.ng</a>
+        {% for campaign in campaigns %}
+        {% if campaign.campaign_name == index_campaign %}
+        <a class="nav-link side-navbar-link active">{{campaign.campaign_name}}</a>
+        {% else %}
+        <a class="nav-link side-navbar-link" href="../../dashboard/{{campaign.id}}">{{campaign.campaign_name}}</a>
+        {% endif %}
+        {% endfor %}
+          {% comment %} <a class="nav-link side-navbar-link active" href="#">hotels.ng</a>
           <a class="nav-link side-navbar-link" href="#">hng.tech</a>
           <a class="nav-link side-navbar-link" href="#">zuri.tech</a>
-          <a class="nav-link side-navbar-link" href="#" aria-disabled="true"
-            >start.ng</a
-          >
+          <a class="nav-link side-navbar-link" href="#" aria-disabled="true">start.ng</a> {% endcomment %}
         </nav>
       </aside>
       <main class="col px-0">
+      <input type="hidden" id="index_id" value="{{index_id}}">
+      
         <nav class="navbar top-navbar py-3 px-0">
           <div class="container-fluid px-2rem">
             <span class="sidebar-toggler flex-auto position-absolute">
               <ion-icon name="menu-outline"></ion-icon>
             </span>
-            <a class="navbar-brand font-weight-bold" href="#"
-              >Campaign Dashboard</a
-            >
+            <a class="navbar-brand font-weight-bold" href="#">Campaign Dashboard</a>
             <!-- <button
               class="navbar-toggler"
               type="button"
@@ -117,41 +95,53 @@
 
             <div class="" id="topNav">
               <!--collapse navbar-collapse-->
-              <div class="ml-auto my-2 my-lg-0">
-                <a href="#" class="notification-section mr-4 d-inline-block">
+              <div class="ml-auto my-0">
+                {% comment %} <a href="#" class="notification-section mr-4 d-inline-block">
                   <img src="{% static 'api/images/bell-icon.svg' %}" alt="" />
-                  <span
-                    class="notification-section__badge d-flex align-items-center justify-content-center text-white"
-                  >
+                  <span class="notification-section__badge d-flex align-items-center justify-content-center text-white">
                     2
                   </span>
-                </a>
+                </a> {% endcomment %}
 
-                <a href="/logout" class="d-inline-block avatar-section">
-                  <span
-                    class="d-inline-block"
-                    style="
-                      height: 40px;
-                      width: 40px;
-                      border-radius: 50%;
-                      vertical-align: middle;
-                    "
-                  >
-                    <img
-                      style="height: 100%; width: 100%; object-fit: cover;"
-                      src="{% static 'api/images/avatar.png' %}"
-                      alt=""
-                    />
-                  </span>
-                  <span class="avatar-name">
-                    {{name}}
-                  </span>
-                  <span
-                    class="iconify caret"
-                    data-icon="carbon:caret-down"
-                    data-inline="false"
-                  ></span>
-                </a>
+                <span class="d-inline-block avatar-section">
+                  <a id="dropdownBtn" href="#">
+                    <span class="d-inline-block" style="
+                        height: 40px;
+                        width: 40px;
+                        border-radius: 50%;
+                        vertical-align: middle;
+                      ">
+                      <img style="height: 100%; width: 100%; object-fit: cover;" src="{% static 'api/images/avatar.png' %}"
+                        alt="" />
+                    </span>
+                    <span class="avatar-name">
+                      {{name}}
+                    </span>
+                    <span class="iconify caret" data-icon="carbon:caret-down" data-inline="false"></span>
+                  </a>
+                  <div class="dropdown-holder closed bg-white position-absolute">
+                    <nav class="dropdown-nav d-flex flex-column px-4">
+                      <a class="dropdown-nav-link active" href="#"><span class="iconify"
+                          data-icon="ant-design:user-outlined" data-inline="false"></span><span
+                          class="dropdown-nav-link__desc">
+                          My Profile
+                        </span>
+                      </a>
+                      <a class="dropdown-nav-link" href="#"><span class="iconify" data-icon="clarity:settings-line"
+                          data-inline="false"></span>
+                        <span class="dropdown-nav-link__desc">
+                          Subscription
+                        </span>
+                      </a>
+                      <a class="dropdown-nav-link" href="../logout"><span class="iconify" data-icon="carbon:logout"
+                          data-inline="false"></span>
+                        <span class="dropdown-nav-link__desc danger">
+                          Logout
+                        </span>
+                      </a>
+                    </nav>
+                  </div>
+                </span>
               </div>
             </div>
           </div>
@@ -160,87 +150,61 @@
           <div class="mb-5 bg-white pt-3 border-bottom">
             <div class="container-fluid px-2rem">
               <!-- Main Content Header Section -->
-              <div class="main-content-top">
-                <div
-                  class="f-28 main-content-top__header font-weight-bold mb-3"
-                >
-                  {{company}}
-                  <a href="#" class="my-btn add-keyword-btn clearfix">
-                    <svg
-                      class="add-keyword-btn__icon"
-                      width="14"
-                      height="16"
-                      viewBox="0 0 14 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
+              <div class="main-content-top align-items-center d-flex justify-content-between">
+                <div>
+                  <div class="f-28 main-content-top__header font-weight-bold mb-3">
+                    {% comment %} Hotels.ng {% endcomment %}
+                    {{company}}
+                  </div>
+                  <div class="main-content-top__subtext mb-4">
+                    <a href="{{index_link}}" class="main-content-top__subtext-content"><svg class="main-content-top__inner-logo"
+                        width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                          d="M9.86041 3.1143C10.0141 2.95516 10.198 2.82822 10.4013 2.7409C10.6046 2.65357 10.8232 2.6076 11.0444 2.60568C11.2657 2.60376 11.4851 2.64592 11.6899 2.7297C11.8947 2.81348 12.0807 2.9372 12.2371 3.09365C12.3936 3.2501 12.5173 3.43614 12.6011 3.64092C12.6849 3.84569 12.727 4.0651 12.7251 4.28635C12.7232 4.50759 12.6772 4.72624 12.5899 4.92952C12.5026 5.13281 12.3756 5.31668 12.2165 5.47038L9.71711 7.96976C9.40464 8.28213 8.9809 8.45761 8.53907 8.45761C8.09724 8.45761 7.6735 8.28213 7.36104 7.96976C7.20391 7.818 6.99346 7.73402 6.77501 7.73592C6.55657 7.73782 6.34761 7.82544 6.19315 7.97991C6.03868 8.13437 5.95106 8.34333 5.94916 8.56177C5.94726 8.78022 6.03124 8.99067 6.183 9.1478C6.80793 9.77254 7.65541 10.1235 8.53907 10.1235C9.42273 10.1235 10.2702 9.77254 10.8952 9.1478L13.3945 6.64842C14.0016 6.0199 14.3375 5.17811 14.3299 4.30434C14.3223 3.43057 13.9718 2.59473 13.3539 1.97686C12.7361 1.35899 11.9002 1.00851 11.0265 1.00092C10.1527 0.993327 9.31089 1.32922 8.68237 1.93627L7.43268 3.18595C7.35311 3.26281 7.28964 3.35474 7.24598 3.45638C7.20232 3.55803 7.17933 3.66735 7.17837 3.77797C7.17741 3.88859 7.19849 3.9983 7.24038 4.10069C7.28227 4.20307 7.34413 4.29609 7.42236 4.37432C7.50058 4.45254 7.5936 4.51441 7.69599 4.5563C7.79838 4.59819 7.90808 4.61927 8.01871 4.6183C8.12933 4.61734 8.23865 4.59436 8.34029 4.5507C8.44194 4.50703 8.53387 4.44356 8.61072 4.36399L9.86041 3.1143ZM5.69479 7.27993C6.00725 6.96756 6.43099 6.79207 6.87282 6.79207C7.31465 6.79207 7.73839 6.96756 8.05086 7.27993C8.12772 7.3595 8.21965 7.42297 8.32129 7.46663C8.42294 7.5103 8.53226 7.53328 8.64288 7.53424C8.7535 7.5352 8.86321 7.51412 8.9656 7.47223C9.06798 7.43034 9.161 7.36848 9.23923 7.29026C9.31745 7.21203 9.37931 7.11901 9.4212 7.01662C9.46309 6.91424 9.48417 6.80453 9.48321 6.69391C9.48225 6.58329 9.45927 6.47396 9.41561 6.37232C9.37194 6.27067 9.30847 6.17874 9.2289 6.10189C8.60397 5.47714 7.75648 5.12618 6.87282 5.12618C5.98917 5.12618 5.14168 5.47714 4.51675 6.10189L2.01737 8.60127C1.69909 8.90868 1.44521 9.2764 1.27056 9.68298C1.0959 10.0896 1.00397 10.5268 1.00013 10.9693C0.996281 11.4118 1.0806 11.8506 1.24816 12.2602C1.41572 12.6697 1.66317 13.0418 1.97607 13.3547C2.28896 13.6676 2.66104 13.9151 3.0706 14.0826C3.48015 14.2502 3.91897 14.3345 4.36146 14.3307C4.80394 14.3268 5.24123 14.2349 5.64781 14.0602C6.05439 13.8856 6.42211 13.6317 6.72953 13.3134L7.97921 12.0637C8.05879 11.9869 8.12225 11.8949 8.16592 11.7933C8.20958 11.6917 8.23256 11.5823 8.23353 11.4717C8.23449 11.3611 8.21341 11.2514 8.17152 11.149C8.12963 11.0466 8.06776 10.9536 7.98954 10.8754C7.91132 10.7971 7.8183 10.7353 7.71591 10.6934C7.61352 10.6515 7.50381 10.6304 7.39319 10.6314C7.28257 10.6323 7.17325 10.6553 7.0716 10.699C6.96996 10.7427 6.87803 10.8061 6.80118 10.8857L5.55149 12.1354C5.39778 12.2945 5.21392 12.4215 5.01063 12.5088C4.80734 12.5961 4.5887 12.6421 4.36745 12.644C4.14621 12.6459 3.9268 12.6038 3.72202 12.52C3.51725 12.4362 3.33121 12.3125 3.17476 12.156C3.01831 11.9996 2.89459 11.8135 2.8108 11.6088C2.72702 11.404 2.68487 11.1846 2.68679 10.9633C2.68871 10.7421 2.73468 10.5235 2.822 10.3202C2.90933 10.1169 3.03627 9.93301 3.19541 9.7793L5.69479 7.27993Z"
+                          fill="#4F4F4F" />
+                      </svg>
+                      {{index_campaign}}
+                    </a>
+                    <span class="main-content-top__subtext-content">
+                      <svg class="main-content-top__inner-logo" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M2.83512 6.66695C2.72322 7.10255 2.66678 7.55054 2.66712 8.00028C2.66712 8.46028 2.72579 8.90695 2.83512 9.33362H4.73379C4.64391 8.447 4.64391 7.55357 4.73379 6.66695H2.83512ZM3.38045 5.33362H4.94445C5.12179 4.52228 5.37779 3.79562 5.69179 3.19095C4.72391 3.65723 3.9186 4.40377 3.38045 5.33362ZM13.1658 6.66695H11.2671C11.357 7.55357 11.357 8.447 11.2671 9.33362H13.1658C13.3902 8.4589 13.3902 7.54167 13.1658 6.66695ZM12.6205 5.33362C12.0823 4.40377 11.277 3.65723 10.3091 3.19095C10.6238 3.79562 10.8791 4.52228 11.0565 5.33362H12.6205ZM6.07512 6.66695C6.02517 7.10964 6.00024 7.55479 6.00045 8.00028C6.00045 8.45695 6.02579 8.90362 6.07512 9.33362H9.92579C10.0262 8.44756 10.0262 7.553 9.92579 6.66695H6.07512ZM6.31379 5.33362H9.68712C9.56579 4.83248 9.39078 4.34589 9.16512 3.88228C8.74645 3.04562 8.29845 2.66695 8.00045 2.66695C7.70179 2.66695 7.25445 3.04562 6.83579 3.88228C6.62579 4.30362 6.44912 4.79362 6.31379 5.33362ZM3.38045 10.667C3.9186 11.5968 4.72391 12.3433 5.69179 12.8096C5.37712 12.205 5.12179 11.4783 4.94445 10.667H3.38045ZM12.6205 10.667H11.0565C10.8791 11.4783 10.6231 12.205 10.3091 12.8096C11.277 12.3433 12.0823 11.5968 12.6205 10.667ZM6.31379 10.667C6.44912 11.207 6.62579 11.697 6.83579 12.1183C7.25445 12.955 7.70245 13.3336 8.00045 13.3336C8.29912 13.3336 8.74645 12.955 9.16512 12.1183C9.37512 11.697 9.55179 11.207 9.68712 10.667H6.31379ZM8.00045 14.667C4.31845 14.667 1.33379 11.6823 1.33379 8.00028C1.33379 4.31828 4.31845 1.33362 8.00045 1.33362C11.6825 1.33362 14.6671 4.31828 14.6671 8.00028C14.6671 11.6823 11.6825 14.667 8.00045 14.667Z"
+                          fill="#4F4F4F" />
+                      </svg>
+                      {{index_language}}
+                    </span>
+                    <span class="main-content-top__subtext-content">
+                      <svg class="main-content-top__inner-logo" width="14" height="17" viewBox="0 0 14 17" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M1.93372 3.57961C0.785085 5.24178 0.519571 7.34653 1.22281 9.20652C1.41165 9.71637 1.71142 10.2107 2.11087 10.6731C2.11091 10.6731 2.11095 10.6732 2.11099 10.6732L6.51634 15.8478C6.62548 15.9761 6.78538 16.05 6.95372 16.05C7.12205 16.05 7.28196 15.9761 7.39109 15.8478L11.7952 10.6746C11.7953 10.6746 11.7953 10.6746 11.7953 10.6745C12.1965 10.2095 12.4959 9.7157 12.6832 9.20984C13.3879 7.34652 13.1223 5.24178 11.9737 3.57961C10.8192 1.90874 8.98898 0.95 6.95372 0.95C4.91846 0.95 3.08821 1.90874 1.93372 3.57961ZM11.6075 8.8073L11.6074 8.80764C11.4673 9.18614 11.2382 9.56173 10.9258 9.92418C10.9246 9.9254 10.9228 9.92735 10.9209 9.92979L6.95372 14.5895L2.98304 9.92563L2.98282 9.92538C2.66997 9.56286 2.44049 9.18684 2.29884 8.80415L2.29872 8.80382C1.72791 7.29416 1.94436 5.58531 2.87876 4.23297L2.8386 4.20523L2.87876 4.23297C3.81589 2.87661 5.30084 2.09895 6.95372 2.09895C8.60656 2.09895 10.0913 2.87657 11.0285 4.23297L11.0696 4.20455L11.0285 4.23298C11.9631 5.58529 12.1797 7.29415 11.6075 8.8073Z"
+                          fill="#4F4F4F" stroke="#4F4F4F" stroke-width="0.1" />
+                        <path
+                          d="M6.95367 4.06188C5.30665 4.06188 3.9666 5.40174 3.9666 7.04895C3.9666 8.69615 5.30647 10.036 6.95367 10.036C8.60088 10.036 9.94074 8.69615 9.94074 7.04895C9.94074 5.40192 8.6007 4.06188 6.95367 4.06188ZM6.95367 8.88704C5.94019 8.88704 5.11555 8.0624 5.11555 7.04892C5.11555 6.03544 5.94019 5.21079 6.95367 5.21079C7.96715 5.21079 8.7918 6.03544 8.7918 7.04892C8.7918 8.0624 7.96715 8.88704 6.95367 8.88704Z"
+                          fill="#4F4F4F" stroke="#4F4F4F" stroke-width="0.1" />
+                      </svg>
+                      {{index_country}}
+                    </span>
+                  </div>
+                </div>
+
+
+                <div class="buttons">
+                  <a href="#" data-toggle="modal" data-target="#editCampaignModal" class="btn btn-clear text-secondary">
+                    <span class="iconify text-secondary mr-2" data-icon="clarity:edit-solid" data-inline="false"></span>
+                    Edit Campaign
+                  </a>
+                  <a href="#" data-toggle="modal" data-target="#addKeywordModal"
+                    class="my-btn add-keyword-btn clearfix">
+                    <svg class="add-keyword-btn__icon" width="14" height="16" viewBox="0 0 14 16" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M13 6.5H8.5V2C8.5 1.44781 8.05219 1 7.5 1H6.5C5.94781 1 5.5 1.44781 5.5 2V6.5H1C0.447812 6.5 0 6.94781 0 7.5V8.5C0 9.05219 0.447812 9.5 1 9.5H5.5V14C5.5 14.5522 5.94781 15 6.5 15H7.5C8.05219 15 8.5 14.5522 8.5 14V9.5H13C13.5522 9.5 14 9.05219 14 8.5V7.5C14 6.94781 13.5522 6.5 13 6.5Z"
-                        fill="white"
-                      />
+                        fill="white" />
                     </svg>
                     Add a Keyword
                   </a>
-                </div>
-                <div class="main-content-top__subtext mb-4">
-                  <a href="#" class="main-content-top__subtext-content"
-                    ><svg
-                      class="main-content-top__inner-logo"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M9.86041 3.1143C10.0141 2.95516 10.198 2.82822 10.4013 2.7409C10.6046 2.65357 10.8232 2.6076 11.0444 2.60568C11.2657 2.60376 11.4851 2.64592 11.6899 2.7297C11.8947 2.81348 12.0807 2.9372 12.2371 3.09365C12.3936 3.2501 12.5173 3.43614 12.6011 3.64092C12.6849 3.84569 12.727 4.0651 12.7251 4.28635C12.7232 4.50759 12.6772 4.72624 12.5899 4.92952C12.5026 5.13281 12.3756 5.31668 12.2165 5.47038L9.71711 7.96976C9.40464 8.28213 8.9809 8.45761 8.53907 8.45761C8.09724 8.45761 7.6735 8.28213 7.36104 7.96976C7.20391 7.818 6.99346 7.73402 6.77501 7.73592C6.55657 7.73782 6.34761 7.82544 6.19315 7.97991C6.03868 8.13437 5.95106 8.34333 5.94916 8.56177C5.94726 8.78022 6.03124 8.99067 6.183 9.1478C6.80793 9.77254 7.65541 10.1235 8.53907 10.1235C9.42273 10.1235 10.2702 9.77254 10.8952 9.1478L13.3945 6.64842C14.0016 6.0199 14.3375 5.17811 14.3299 4.30434C14.3223 3.43057 13.9718 2.59473 13.3539 1.97686C12.7361 1.35899 11.9002 1.00851 11.0265 1.00092C10.1527 0.993327 9.31089 1.32922 8.68237 1.93627L7.43268 3.18595C7.35311 3.26281 7.28964 3.35474 7.24598 3.45638C7.20232 3.55803 7.17933 3.66735 7.17837 3.77797C7.17741 3.88859 7.19849 3.9983 7.24038 4.10069C7.28227 4.20307 7.34413 4.29609 7.42236 4.37432C7.50058 4.45254 7.5936 4.51441 7.69599 4.5563C7.79838 4.59819 7.90808 4.61927 8.01871 4.6183C8.12933 4.61734 8.23865 4.59436 8.34029 4.5507C8.44194 4.50703 8.53387 4.44356 8.61072 4.36399L9.86041 3.1143ZM5.69479 7.27993C6.00725 6.96756 6.43099 6.79207 6.87282 6.79207C7.31465 6.79207 7.73839 6.96756 8.05086 7.27993C8.12772 7.3595 8.21965 7.42297 8.32129 7.46663C8.42294 7.5103 8.53226 7.53328 8.64288 7.53424C8.7535 7.5352 8.86321 7.51412 8.9656 7.47223C9.06798 7.43034 9.161 7.36848 9.23923 7.29026C9.31745 7.21203 9.37931 7.11901 9.4212 7.01662C9.46309 6.91424 9.48417 6.80453 9.48321 6.69391C9.48225 6.58329 9.45927 6.47396 9.41561 6.37232C9.37194 6.27067 9.30847 6.17874 9.2289 6.10189C8.60397 5.47714 7.75648 5.12618 6.87282 5.12618C5.98917 5.12618 5.14168 5.47714 4.51675 6.10189L2.01737 8.60127C1.69909 8.90868 1.44521 9.2764 1.27056 9.68298C1.0959 10.0896 1.00397 10.5268 1.00013 10.9693C0.996281 11.4118 1.0806 11.8506 1.24816 12.2602C1.41572 12.6697 1.66317 13.0418 1.97607 13.3547C2.28896 13.6676 2.66104 13.9151 3.0706 14.0826C3.48015 14.2502 3.91897 14.3345 4.36146 14.3307C4.80394 14.3268 5.24123 14.2349 5.64781 14.0602C6.05439 13.8856 6.42211 13.6317 6.72953 13.3134L7.97921 12.0637C8.05879 11.9869 8.12225 11.8949 8.16592 11.7933C8.20958 11.6917 8.23256 11.5823 8.23353 11.4717C8.23449 11.3611 8.21341 11.2514 8.17152 11.149C8.12963 11.0466 8.06776 10.9536 7.98954 10.8754C7.91132 10.7971 7.8183 10.7353 7.71591 10.6934C7.61352 10.6515 7.50381 10.6304 7.39319 10.6314C7.28257 10.6323 7.17325 10.6553 7.0716 10.699C6.96996 10.7427 6.87803 10.8061 6.80118 10.8857L5.55149 12.1354C5.39778 12.2945 5.21392 12.4215 5.01063 12.5088C4.80734 12.5961 4.5887 12.6421 4.36745 12.644C4.14621 12.6459 3.9268 12.6038 3.72202 12.52C3.51725 12.4362 3.33121 12.3125 3.17476 12.156C3.01831 11.9996 2.89459 11.8135 2.8108 11.6088C2.72702 11.404 2.68487 11.1846 2.68679 10.9633C2.68871 10.7421 2.73468 10.5235 2.822 10.3202C2.90933 10.1169 3.03627 9.93301 3.19541 9.7793L5.69479 7.27993Z"
-                        fill="#4F4F4F"
-                      />
-                    </svg>
-                    hotels.ng
-                  </a>
-                  <span class="main-content-top__subtext-content">
-                    <svg
-                      class="main-content-top__inner-logo"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M2.83512 6.66695C2.72322 7.10255 2.66678 7.55054 2.66712 8.00028C2.66712 8.46028 2.72579 8.90695 2.83512 9.33362H4.73379C4.64391 8.447 4.64391 7.55357 4.73379 6.66695H2.83512ZM3.38045 5.33362H4.94445C5.12179 4.52228 5.37779 3.79562 5.69179 3.19095C4.72391 3.65723 3.9186 4.40377 3.38045 5.33362ZM13.1658 6.66695H11.2671C11.357 7.55357 11.357 8.447 11.2671 9.33362H13.1658C13.3902 8.4589 13.3902 7.54167 13.1658 6.66695ZM12.6205 5.33362C12.0823 4.40377 11.277 3.65723 10.3091 3.19095C10.6238 3.79562 10.8791 4.52228 11.0565 5.33362H12.6205ZM6.07512 6.66695C6.02517 7.10964 6.00024 7.55479 6.00045 8.00028C6.00045 8.45695 6.02579 8.90362 6.07512 9.33362H9.92579C10.0262 8.44756 10.0262 7.553 9.92579 6.66695H6.07512ZM6.31379 5.33362H9.68712C9.56579 4.83248 9.39078 4.34589 9.16512 3.88228C8.74645 3.04562 8.29845 2.66695 8.00045 2.66695C7.70179 2.66695 7.25445 3.04562 6.83579 3.88228C6.62579 4.30362 6.44912 4.79362 6.31379 5.33362ZM3.38045 10.667C3.9186 11.5968 4.72391 12.3433 5.69179 12.8096C5.37712 12.205 5.12179 11.4783 4.94445 10.667H3.38045ZM12.6205 10.667H11.0565C10.8791 11.4783 10.6231 12.205 10.3091 12.8096C11.277 12.3433 12.0823 11.5968 12.6205 10.667ZM6.31379 10.667C6.44912 11.207 6.62579 11.697 6.83579 12.1183C7.25445 12.955 7.70245 13.3336 8.00045 13.3336C8.29912 13.3336 8.74645 12.955 9.16512 12.1183C9.37512 11.697 9.55179 11.207 9.68712 10.667H6.31379ZM8.00045 14.667C4.31845 14.667 1.33379 11.6823 1.33379 8.00028C1.33379 4.31828 4.31845 1.33362 8.00045 1.33362C11.6825 1.33362 14.6671 4.31828 14.6671 8.00028C14.6671 11.6823 11.6825 14.667 8.00045 14.667Z"
-                        fill="#4F4F4F"
-                      />
-                    </svg>
-                    English
-                  </span>
-                  <span class="main-content-top__subtext-content">
-                    <svg
-                      class="main-content-top__inner-logo"
-                      width="14"
-                      height="17"
-                      viewBox="0 0 14 17"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M1.93372 3.57961C0.785085 5.24178 0.519571 7.34653 1.22281 9.20652C1.41165 9.71637 1.71142 10.2107 2.11087 10.6731C2.11091 10.6731 2.11095 10.6732 2.11099 10.6732L6.51634 15.8478C6.62548 15.9761 6.78538 16.05 6.95372 16.05C7.12205 16.05 7.28196 15.9761 7.39109 15.8478L11.7952 10.6746C11.7953 10.6746 11.7953 10.6746 11.7953 10.6745C12.1965 10.2095 12.4959 9.7157 12.6832 9.20984C13.3879 7.34652 13.1223 5.24178 11.9737 3.57961C10.8192 1.90874 8.98898 0.95 6.95372 0.95C4.91846 0.95 3.08821 1.90874 1.93372 3.57961ZM11.6075 8.8073L11.6074 8.80764C11.4673 9.18614 11.2382 9.56173 10.9258 9.92418C10.9246 9.9254 10.9228 9.92735 10.9209 9.92979L6.95372 14.5895L2.98304 9.92563L2.98282 9.92538C2.66997 9.56286 2.44049 9.18684 2.29884 8.80415L2.29872 8.80382C1.72791 7.29416 1.94436 5.58531 2.87876 4.23297L2.8386 4.20523L2.87876 4.23297C3.81589 2.87661 5.30084 2.09895 6.95372 2.09895C8.60656 2.09895 10.0913 2.87657 11.0285 4.23297L11.0696 4.20455L11.0285 4.23298C11.9631 5.58529 12.1797 7.29415 11.6075 8.8073Z"
-                        fill="#4F4F4F"
-                        stroke="#4F4F4F"
-                        stroke-width="0.1"
-                      />
-                      <path
-                        d="M6.95367 4.06188C5.30665 4.06188 3.9666 5.40174 3.9666 7.04895C3.9666 8.69615 5.30647 10.036 6.95367 10.036C8.60088 10.036 9.94074 8.69615 9.94074 7.04895C9.94074 5.40192 8.6007 4.06188 6.95367 4.06188ZM6.95367 8.88704C5.94019 8.88704 5.11555 8.0624 5.11555 7.04892C5.11555 6.03544 5.94019 5.21079 6.95367 5.21079C7.96715 5.21079 8.7918 6.03544 8.7918 7.04892C8.7918 8.0624 7.96715 8.88704 6.95367 8.88704Z"
-                        fill="#4F4F4F"
-                        stroke="#4F4F4F"
-                        stroke-width="0.1"
-                      />
-                    </svg>
-                    Nigeria
-                  </span>
                 </div>
               </div>
             </div>
@@ -262,12 +226,7 @@
                       90.1K
                     </div>
                     <div class="stats-card__count-secondary danger-stats">
-                      <span
-                        class="iconify"
-                        data-icon="bi-arrow-down-square-fill"
-                        data-inline="false"
-                      ></span
-                      >-2%
+                      <span class="iconify" data-icon="bi-arrow-down-square-fill" data-inline="false"></span>-2%
                     </div>
                   </div>
                 </div>
@@ -282,12 +241,7 @@
                       7.33
                     </div>
                     <div class="stats-card__count-secondary">
-                      <span
-                        class="iconify"
-                        data-icon="bi:arrow-up-square-fill"
-                        data-inline="false"
-                      ></span
-                      >+28%
+                      <span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>+28%
                     </div>
                   </div>
                 </div>
@@ -302,12 +256,7 @@
                       39k
                     </div>
                     <div class="stats-card__count-secondary">
-                      <span
-                        class="iconify"
-                        data-icon="bi:arrow-up-square-fill"
-                        data-inline="false"
-                      ></span
-                      >+18%
+                      <span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>+18%
                     </div>
                   </div>
                 </div>
@@ -322,12 +271,7 @@
                       3
                     </div>
                     <div class="stats-card__count-secondary">
-                      <span
-                        class="iconify"
-                        data-icon="bi:arrow-up-square-fill"
-                        data-inline="false"
-                      ></span
-                      >+18%
+                      <span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>+18%
                     </div>
                   </div>
                 </div>
@@ -336,19 +280,13 @@
 
             <!-- Keyword Ranking Table Section -->
             <div class="keyword-table-section mb-4">
-              <div
-                class="keyword-table-section__header f-secondary f-20 font-weight-bold mb-4 d-flex"
-              >
+              <div class="keyword-table-section__header f-secondary f-20 font-weight-bold mb-4 d-flex">
                 <div class="col p-0">
                   Keyword Rankings
                 </div>
                 <div class="flex-auto">
                   <!-- <a href="#" class="compare-btn">Export</a> -->
-                  <select
-                    class="form-control shadow-none"
-                    name="type"
-                    id="exportSelects"
-                  >
+                  <select class="form-control shadow-none" name="type" id="exportSelects">
                     <option value="" disabled hidden selected>Export</option>
                     <option value="pdf">Export as PDF</option>
                     <option value="Spreadsheet">Export as Spreadsheet</option>
@@ -369,14 +307,22 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                  {% for campaign_keyword_detail in campaign_keyword_details %}
+                  <tr>
+                      <td scope="row">{{campaign_keyword_detail.keyword}}</td>
+                      <td>
+                        5<span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>
+                      </td>
+                      <td>10</td>
+                      <td>Tripadvisor</td>
+                      <td>Travlebeta</td>
+                      <td><a href="../../compare/{{campaign_keyword_detail.id}}" class="compare-btn">Compare</a></td>
+                    </tr>
+                  {% endfor %}
+                    {% comment %} <tr>
                       <td scope="row">hotels in ikeja</td>
                       <td>
-                        5<span
-                          class="iconify"
-                          data-icon="bi:arrow-up-square-fill"
-                          data-inline="false"
-                        ></span>
+                        5<span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>
                       </td>
                       <td>10</td>
                       <td>Tripadvisor</td>
@@ -386,11 +332,7 @@
                     <tr>
                       <td scope="row">hotels in abuja</td>
                       <td class="neutral">
-                        6<span
-                          class="iconify"
-                          data-icon="bi:dash-square-fill"
-                          data-inline="false"
-                        ></span>
+                        6<span class="iconify" data-icon="bi:dash-square-fill" data-inline="false"></span>
                       </td>
                       <td>6</td>
                       <td>Wakanow</td>
@@ -400,11 +342,7 @@
                     <tr>
                       <td scope="row">hotels in Uyo</td>
                       <td class="reduce">
-                        5<span
-                          class="iconify"
-                          data-icon="bi-arrow-down-square-fill"
-                          data-inline="false"
-                        ></span>
+                        5<span class="iconify" data-icon="bi-arrow-down-square-fill" data-inline="false"></span>
                       </td>
                       <td>3</td>
                       <td>Tripadvisor</td>
@@ -414,17 +352,13 @@
                     <tr>
                       <td scope="row">hotels in Osun</td>
                       <td class="reduce">
-                        2<span
-                          class="iconify"
-                          data-icon="bi-arrow-down-square-fill"
-                          data-inline="false"
-                        ></span>
+                        2<span class="iconify" data-icon="bi-arrow-down-square-fill" data-inline="false"></span>
                       </td>
                       <td>3</td>
                       <td>Tripadvisor</td>
                       <td>Tripadvisor</td>
                       <td><a href="#" class="compare-btn">Compare</a></td>
-                    </tr>
+                    </tr> {% endcomment %}
                   </tbody>
                 </table>
               </div>
@@ -434,32 +368,345 @@
         </section>
       </main>
     </div>
+
+    <!-- Edit Campaign Modal -->
+    <div class="modal fade" id="editCampaignModal" tabindex="-1" role="dialog" aria-labelledby="editCampaignModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="editCampaignModalLabel">Edit Campaign</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+            {% csrf_token %}
+              <div class="form-group">
+                <label class="text-dark" for="campaignName">Campaign name</label>
+                <input type="text" class="form-control" id="edit_campaign_campaignName" placeholder="Hotels NG" value="{{index_campaign}}">
+              </div>
+              <div class="form-group">
+                <label class="text-dark" for="websiteLink">Website's baselink</label>
+                <input type="url" class="form-control" id="edit_campaign_websiteLink" data-default="{{index_language}}" placeholder="https://hotels.ng" value="{{index_link}}">
+              </div>
+              <div class="form-group">
+                <label for="language" class="text-dark">Select Language</label>
+                <select class="form-control selectpicker" data-live-search="true" id="edit_campaign_language" data-flag="true">
+                  <option value="" selected>{{index_language}}</option>
+                  <option value="AF">Afrikaans</option>
+                  <option value="SQ">Albanian</option>
+                  <option value="AR">Arabic</option>
+                  <option value="HY">Armenian</option>
+                  <option value="EU">Basque</option>
+                  <option value="BN">Bengali</option>
+                  <option value="BG">Bulgarian</option>
+                  <option value="CA">Catalan</option>
+                  <option value="KM">Cambodian</option>
+                  <option value="ZH">Chinese (Mandarin)</option>
+                  <option value="HR">Croatian</option>
+                  <option value="CS">Czech</option>
+                  <option value="DA">Danish</option>
+                  <option value="NL">Dutch</option>
+                  <option value="EN">English</option>
+                  <option value="ET">Estonian</option>
+                  <option value="FJ">Fiji</option>
+                  <option value="FI">Finnish</option>
+                  <option value="FR">French</option>
+                  <option value="KA">Georgian</option>
+                  <option value="DE">German</option>
+                  <option value="EL">Greek</option>
+                  <option value="GU">Gujarati</option>
+                  <option value="HE">Hebrew</option>
+                  <option value="HI">Hindi</option>
+                  <option value="HU">Hungarian</option>
+                  <option value="IS">Icelandic</option>
+                  <option value="ID">Indonesian</option>
+                  <option value="GA">Irish</option>
+                  <option value="IT">Italian</option>
+                  <option value="JA">Japanese</option>
+                  <option value="JW">Javanese</option>
+                  <option value="KO">Korean</option>
+                  <option value="LA">Latin</option>
+                  <option value="LV">Latvian</option>
+                  <option value="LT">Lithuanian</option>
+                  <option value="MK">Macedonian</option>
+                  <option value="MS">Malay</option>
+                  <option value="ML">Malayalam</option>
+                  <option value="MT">Maltese</option>
+                  <option value="MI">Maori</option>
+                  <option value="MR">Marathi</option>
+                  <option value="MN">Mongolian</option>
+                  <option value="NE">Nepali</option>
+                  <option value="NO">Norwegian</option>
+                  <option value="FA">Persian</option>
+                  <option value="PL">Polish</option>
+                  <option value="PT">Portuguese</option>
+                  <option value="PA">Punjabi</option>
+                  <option value="QU">Quechua</option>
+                  <option value="RO">Romanian</option>
+                  <option value="RU">Russian</option>
+                  <option value="SM">Samoan</option>
+                  <option value="SR">Serbian</option>
+                  <option value="SK">Slovak</option>
+                  <option value="SL">Slovenian</option>
+                  <option value="ES">Spanish</option>
+                  <option value="SW">Swahili</option>
+                  <option value="SV">Swedish </option>
+                  <option value="TA">Tamil</option>
+                  <option value="TT">Tatar</option>
+                  <option value="TE">Telugu</option>
+                  <option value="TH">Thai</option>
+                  <option value="BO">Tibetan</option>
+                  <option value="TO">Tonga</option>
+                  <option value="TR">Turkish</option>
+                  <option value="UK">Ukrainian</option>
+                  <option value="UR">Urdu</option>
+                  <option value="UZ">Uzbek</option>
+                  <option value="VI">Vietnamese</option>
+                  <option value="CY">Welsh</option>
+                  <option value="XH">Xhosa</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="country" class="text-dark">Select Country</label>
+                <select class="form-control selectpicker countrypicker" id="edit_campaign_country" data-flag="true"
+                  data-live-search="true"></select>
+                  <input type="hidden" id="camp_main_id" value="{{index_id}}">
+              </div>
+              {% comment %} <div class="input-group">
+                <input type="text" class="form-control rounded" placeholder="Enter a keyword" aria-label="">
+                <div class="ml-2 input-group-append">
+                  <button class="btn btn-dark rounded" type="button">Add keyword</button>
+                </div>
+              </div> {% endcomment %}
+              <div class="mt-3">
+                <h6 class="text-dark">Keywords</h6>
+                <ul class="list-group">
+                {% for campaign_keyword_detail in campaign_keyword_details %}
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+                    <span>
+                      <span class="iconify" data-icon="entypo:list" data-inline="false"></span> &nbsp;
+                      {{campaign_keyword_detail.keyword}}
+                    </span>
+                    <a class="keyword-delete-button delete_a_keyword">
+                      <input type="hidden" value="{{campaign_keyword_detail.id}}">
+                      <span class="iconify text-danger" data-icon="eva:close-square-fill" data-inline="false"></span>
+                    </a>
+                  </li>
+                {% endfor  %}
+                  {% comment %} <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+                    <span>
+                      <span class="iconify" data-icon="entypo:list" data-inline="false"></span> &nbsp;
+                      hotels in ikeja
+                    </span>
+                    <a href="#" class="keyword-delete-button">
+                      <span class="iconify text-danger" data-icon="eva:close-square-fill" data-inline="false"></span>
+                    </a>
+                  </li> {% endcomment %}
+                </ul>
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-clear text-danger delete-campaign-button" id="delete_campaign_submit">Delete campaign</button>
+            <button type="button" class="btn btn-primary" id="edit_campaign_submit">Save</button>
+          </div>
+          <p class="edit_campaign_error_message" style="margin:7px; padding-top:7px; padding-bottom:7px"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Campaign Modal -->
+    <div class="modal fade" id="createCampaignModal" tabindex="-1" role="dialog"
+      aria-labelledby="createCampaignModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="createCampaignModalLabel">Add a Campaign</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+            {% csrf_token %}
+              <div class="form-group">
+                <label class="text-dark" for="campaignName">Campaign name</label>
+                <input type="text" class="form-control" id="add_campaign_campaignName" placeholder="Hotels NG">
+              </div>
+              <div class="form-group">
+                <label class="text-dark" for="websiteLink">Website's baselink</label>
+                <input type="url" class="form-control" id="add_campaign_websiteLink" placeholder="https://hotels.ng">
+              </div>
+              <div class="form-group">
+                <label for="language" class="text-dark">Select Language</label>
+                <select class="form-control selectpicker" data-live-search="true" id="add_campaign_language" data-flag="true">
+                  <option value="AF">Afrikaans</option>
+                  <option value="SQ">Albanian</option>
+                  <option value="AR">Arabic</option>
+                  <option value="HY">Armenian</option>
+                  <option value="EU">Basque</option>
+                  <option value="BN">Bengali</option>
+                  <option value="BG">Bulgarian</option>
+                  <option value="CA">Catalan</option>
+                  <option value="KM">Cambodian</option>
+                  <option value="ZH">Chinese (Mandarin)</option>
+                  <option value="HR">Croatian</option>
+                  <option value="CS">Czech</option>
+                  <option value="DA">Danish</option>
+                  <option value="NL">Dutch</option>
+                  <option value="EN" selected>English</option>
+                  <option value="ET">Estonian</option>
+                  <option value="FJ">Fiji</option>
+                  <option value="FI">Finnish</option>
+                  <option value="FR">French</option>
+                  <option value="KA">Georgian</option>
+                  <option value="DE">German</option>
+                  <option value="EL">Greek</option>
+                  <option value="GU">Gujarati</option>
+                  <option value="HE">Hebrew</option>
+                  <option value="HI">Hindi</option>
+                  <option value="HU">Hungarian</option>
+                  <option value="IS">Icelandic</option>
+                  <option value="ID">Indonesian</option>
+                  <option value="GA">Irish</option>
+                  <option value="IT">Italian</option>
+                  <option value="JA">Japanese</option>
+                  <option value="JW">Javanese</option>
+                  <option value="KO">Korean</option>
+                  <option value="LA">Latin</option>
+                  <option value="LV">Latvian</option>
+                  <option value="LT">Lithuanian</option>
+                  <option value="MK">Macedonian</option>
+                  <option value="MS">Malay</option>
+                  <option value="ML">Malayalam</option>
+                  <option value="MT">Maltese</option>
+                  <option value="MI">Maori</option>
+                  <option value="MR">Marathi</option>
+                  <option value="MN">Mongolian</option>
+                  <option value="NE">Nepali</option>
+                  <option value="NO">Norwegian</option>
+                  <option value="FA">Persian</option>
+                  <option value="PL">Polish</option>
+                  <option value="PT">Portuguese</option>
+                  <option value="PA">Punjabi</option>
+                  <option value="QU">Quechua</option>
+                  <option value="RO">Romanian</option>
+                  <option value="RU">Russian</option>
+                  <option value="SM">Samoan</option>
+                  <option value="SR">Serbian</option>
+                  <option value="SK">Slovak</option>
+                  <option value="SL">Slovenian</option>
+                  <option value="ES">Spanish</option>
+                  <option value="SW">Swahili</option>
+                  <option value="SV">Swedish </option>
+                  <option value="TA">Tamil</option>
+                  <option value="TT">Tatar</option>
+                  <option value="TE">Telugu</option>
+                  <option value="TH">Thai</option>
+                  <option value="BO">Tibetan</option>
+                  <option value="TO">Tonga</option>
+                  <option value="TR">Turkish</option>
+                  <option value="UK">Ukrainian</option>
+                  <option value="UR">Urdu</option>
+                  <option value="UZ">Uzbek</option>
+                  <option value="VI">Vietnamese</option>
+                  <option value="CY">Welsh</option>
+                  <option value="XH">Xhosa</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="country" class="text-dark">Select Country</label>
+                <select class="form-control selectpicker countrypicker" data-default="NG" id="add_campaign_country" data-flag="true"
+                  data-live-search="true"></select>
+              </div>
+              <div class="input-group">
+                <input type="text" class="form-control rounded" placeholder="Enter a keyword" aria-label="" id="add_campaign_keyword">
+                {% comment %} <div class="ml-2 input-group-append">
+                  <button class="btn btn-dark rounded" type="button">Add keyword</button>
+                </div> {% endcomment %}
+              </div>
+              {% comment %} <div class="mt-3">
+                <h6 class="text-dark">Keywords</h6>
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+                    <span>
+                      <span class="iconify" data-icon="entypo:list" data-inline="false"></span> &nbsp;
+                      hotels in ikeja
+                    </span>
+                    <a href="#" class="keyword-delete-button">
+                      <span class="iconify text-danger" data-icon="eva:close-square-fill" data-inline="false"></span>
+                    </a>
+                  </li>
+                </ul>
+              </div> {% endcomment %}
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="add_campaign_submit">Add campaign</button>
+          </div>
+          <p class="add_campaign_error_message" style="margin:7px; padding-top:7px; padding-bottom:7px"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Keyword Modal -->
+    <div class="modal fade" id="addKeywordModal" tabindex="-1" role="dialog" aria-labelledby="addKeywordModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="addKeywordModalLabel">Add a Keyword</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label class="text-dark" for="keywordName">Enter new keyword</label>
+                <input type="text" class="form-control" id="keywordName" placeholder="">
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="add_keyword_submit">
+              <svg class="add-keyword-btn__icon" width="14" height="16" viewBox="0 0 14 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13 6.5H8.5V2C8.5 1.44781 8.05219 1 7.5 1H6.5C5.94781 1 5.5 1.44781 5.5 2V6.5H1C0.447812 6.5 0 6.94781 0 7.5V8.5C0 9.05219 0.447812 9.5 1 9.5H5.5V14C5.5 14.5522 5.94781 15 6.5 15H7.5C8.05219 15 8.5 14.5522 8.5 14V9.5H13C13.5522 9.5 14 9.05219 14 8.5V7.5C14 6.94781 13.5522 6.5 13 6.5Z"
+                  fill="white" />
+              </svg>
+              Add keyword
+            </button>
+          </div>
+          <p class="add_keyword_error_message" style="margin:7px; padding-top:7px; padding-bottom:7px"></p>
+        </div>
+      </div>
+    </div>
+
     <!-- Bootstrap JS set -->
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"
-      integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"
+      integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="//unpkg.com/bootstrap-select-country@4.0.0/dist/js/bootstrap-select-country.min.js"></script>
     <!-- custom js -->
     <!-- <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script> -->
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule=""
-      src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"
-    ></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
     <script src="{% static 'api/js/campaign-dashboard.js' %}"></script>
+    <script src="{% static 'api/js/actions.js' %}"></script>
+
   </body>
+
 </html>
