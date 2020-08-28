@@ -16,7 +16,21 @@ urlpatterns = [
     path('edit_keyword/<int:pk>/', views.delete_keyword, name="Edit Keyword"),
     path('edit_keyword/', views.add_a_keyword, name="Edit Keyword"), 
 
-    path('compare/<int:pk>/', views.compare_page, name="Compare keyword"),
+    path('compare/<int:pk>/', views.compare_page, name="Compare keyword"), 
+    path('url_compare/<int:pk>/', views.url_compare_data, name="Compare keyword"),
+    path('url_compare_competitor/<int:pk>/', views.url_compare_competitor_data, name="Compare keyword"),
+
+    path('url_compare_title/<int:pk>/', views.url_compare_data_title, name="Compare keyword"),
+    path('url_compare_responsive/<int:pk>/', views.url_compare_data_responsive, name="Compare keyword"),
+    path('url_compare_sitemap/<int:pk>/', views.url_compare_data_sitemap, name="Compare keyword"),
+    path('url_compare_ssl_status/<int:pk>/', views.url_compare_data_ssl_status, name="Compare keyword"),
+    path('url_compare_run_time/<int:pk>/', views.url_compare_data_run_time, name="Compare keyword"),
+
+    path('url_compare_competitor_title/<int:pk>/', views.url_compare_competitor_title, name="Compare keyword"),
+    path('url_compare_competitorr_responsive/<int:pk>/', views.url_compare_competitor_responsive, name="Compare keyword"),
+    path('url_compare_competitor_sitemap/<int:pk>/', views.url_compare_competitor_sitemap, name="Compare keyword"),
+    path('url_compare_competitor_ssl_status/<int:pk>/', views.url_compare_competitor_ssl_status, name="Compare keyword"),
+    path('url_compare_competitor_run_time/<int:pk>/', views.url_compare_competitor_run_time, name="Compare keyword"),
 
     path('campaign/<int:pk>/', views.campaign_info_by_id, name='campaign-user-id'),
     path('campaign/', views.CampaignInfoView, name='campaign'),

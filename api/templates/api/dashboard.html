@@ -317,7 +317,9 @@
                       <td>10</td>
                       <td>Tripadvisor</td>
                       <td>Travlebeta</td>
-                      <td><a href="../../compare/{{campaign_keyword_detail.id}}" class="compare-btn">Compare</a></td>
+                      <td><a href="../../compare/{{campaign_keyword_detail.id}}" class="compare-btn">
+                      <input type="hidden" value="{{campaign_keyword_detail.id}}">
+                      Compare</a></td>
                     </tr>
                   {% endfor %}
                     {% comment %} <tr>
@@ -491,7 +493,7 @@
                       <span class="iconify" data-icon="entypo:list" data-inline="false"></span> &nbsp;
                       {{campaign_keyword_detail.keyword}}
                     </span>
-                    <a class="keyword-delete-button delete_a_keyword">
+                    <a class="keyword-delete-button delete_a_keyword" data-toggle="modal" data-target="#confirm_keyword_delete">
                       <input type="hidden" value="{{campaign_keyword_detail.id}}">
                       <span class="iconify text-danger" data-icon="eva:close-square-fill" data-inline="false"></span>
                     </a>
@@ -540,7 +542,7 @@
               </div>
               <div class="form-group">
                 <label class="text-dark" for="websiteLink">Website's baselink</label>
-                <input type="url" class="form-control" id="add_campaign_websiteLink" placeholder="https://hotels.ng">
+                <input type="url" class="form-control" id="add_campaign_websiteLink" placeholder="https://hotels.ng" value="https://www.">
               </div>
               <div class="form-group">
                 <label for="language" class="text-dark">Select Language</label>
@@ -732,7 +734,28 @@
       </div>
     </div>
 
+        <!-- confirm keyword delete Modal -->
+    <div class="modal fade" id="confirm_keyword_delete" tabindex="-1" role="dialog" aria-labelledby="addKeywordModalLabel"
+      aria-hidden="true" style"max-width:100px !important">
+      <div class="modal-dialog modal-dialog-centered" role="document" style"max-width:100px !important">
+        <div class="modal-content" style"max-width:100px !important">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="" style"color:red !important">Are you sure you want delete this keyword?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <a type="button" class="btn btn-clear text-danger delete-campaign-button" id="confirm_keyword_delete_submit">Delete</a>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancel</button>
+          </div>
+          <p class="delete_campaign_error_message" style="margin:7px; padding-top:7px; padding-bottom:7px"></p>
+        </div>
+      </div>
+    </div>
+
     <!-- Bootstrap JS set -->
+
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"

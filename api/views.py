@@ -33,7 +33,7 @@ from pysitemap import crawler
 from .sitemap import generate_sitemap
 from django.views.decorators.csrf import csrf_exempt
 from django.http import QueryDict
-from .dt_validate import campaign_test, keyword_test, edit_campaign_test
+from .dt_validate import campaign_test, keyword_test, edit_campaign_test, data_output
 
 # Create your views here.
 
@@ -343,7 +343,147 @@ def compare_page(request, pk):
 # {
 #     "url": "https://www.zarpcourier.com"
 # }
+def compare_endpoints_validate(r_user, pk):
+        keyword_details = Keywords.objects.get(pk=pk)
+        keyword_detail = KeywordsSerializer(keyword_details).data 
+        campaign_id, keyword, competitor = keyword_detail['campaign'], keyword_detail['keyword'], data_output(keyword_detail['competitor_one'])
+        # print(competitor)
+        campaigns = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
+        for k in campaigns:
+            if k['id'] == campaign_id:
+                index = k
+        index_link = index['link']
+        return {'campaign_id':campaign_id, 'keyword':keyword, 'competitor':competitor, 'index_link':index_link}
 
+@csrf_exempt
+def url_compare_data(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        base_url = compare_endpoints_validate(r_user, pk)['index_link']
+        title, responsive, site_map, ssl_status, run_time = get_title(base_url), is_responsive(base_url), has_site_map(base_url), ssl_cert(base_url), loadtime(base_url)
+        seo_data = {'title':title, 'responsive' : responsive, 'site_map' : site_map, 'ssl_cert' : ssl_status,
+				'load_time' : run_time
+				}
+        return JsonResponse(seo_data, safe=False)
+
+
+#//////////////////////////////////////multiple endpoints/////////////////////////////////////////
+@csrf_exempt
+def url_compare_data_title(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        base_url = compare_endpoints_validate(r_user, pk)['index_link']
+        title = get_title(base_url)
+        return JsonResponse("Title: {}".format(title), safe=False)
+
+@csrf_exempt
+def url_compare_data_responsive(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        base_url = compare_endpoints_validate(r_user, pk)['index_link']
+        responsive = is_responsive(base_url)
+        return JsonResponse("Responsive: {}".format(responsive), safe=False)
+
+@csrf_exempt
+def url_compare_data_sitemap(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        base_url = compare_endpoints_validate(r_user, pk)['index_link']
+        site_map = has_site_map(base_url)
+        return JsonResponse("site_map: {}".format(site_map), safe=False)
+
+@csrf_exempt
+def url_compare_data_ssl_status(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        base_url = compare_endpoints_validate(r_user, pk)['index_link']
+        ssl_status = ssl_cert(base_url)
+        return JsonResponse("ssl_status: {}".format(ssl_status), safe=False)
+
+@csrf_exempt
+def url_compare_data_run_time(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        base_url = compare_endpoints_validate(r_user, pk)['index_link']
+        run_time = loadtime(base_url)
+        return JsonResponse("run_time: {}".format(run_time), safe=False)
+
+@csrf_exempt
+def url_compare_competitor_data(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        competitor = compare_endpoints_validate(r_user, pk)['competitor']
+        if competitor == "Pending":
+            return JsonResponse("Pending", safe=False)
+        else:
+            base_url = "https://" + competitor
+            title, responsive, site_map, ssl_status, run_time = get_title(base_url), is_responsive(base_url), has_site_map(base_url), ssl_cert(base_url), loadtime(base_url)
+            seo_data = {'title':title, 'responsive' : responsive, 'site_map' : site_map, 'ssl_cert' : ssl_status,
+                    'load_time' : run_time
+                    }
+            return JsonResponse(seo_data, safe=False)
+
+@csrf_exempt
+def url_compare_competitor_title(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        competitor = compare_endpoints_validate(r_user, pk)['competitor']
+        if competitor == "Pending":
+            return JsonResponse("Pending", safe=False)
+        else:
+            base_url = "https://" + competitor
+            title = get_title(base_url)
+            return JsonResponse("Title: {}".format(title), safe=False)
+
+@csrf_exempt
+def url_compare_competitor_responsive(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        competitor = compare_endpoints_validate(r_user, pk)['competitor']
+        if competitor == "Pending":
+            return JsonResponse("Pending", safe=False)
+        else:
+            base_url = "https://" + competitor
+            responsive = is_responsive(base_url)
+            return JsonResponse("Responsive: {}".format(responsive), safe=False)
+
+@csrf_exempt
+def url_compare_competitor_sitemap(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        competitor = compare_endpoints_validate(r_user, pk)['competitor']
+        if competitor == "Pending":
+            return JsonResponse("Pending", safe=False)
+        else:
+            base_url = "https://" + competitor
+            site_map = has_site_map(base_url)
+            return JsonResponse("site_map: {}".format(site_map), safe=False)
+
+@csrf_exempt
+def url_compare_competitor_ssl_status(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        competitor = compare_endpoints_validate(r_user, pk)['competitor']
+        if competitor == "Pending":
+            return JsonResponse("Pending", safe=False)
+        else:
+            base_url = "https://" + competitor
+            ssl_status = ssl_cert(base_url)
+            return JsonResponse("ssl_status: {}".format(ssl_status), safe=False)
+
+@csrf_exempt
+def url_compare_competitor_run_time(request, pk):
+    if request.method == 'POST':
+        r_user = request.user
+        competitor = compare_endpoints_validate(r_user, pk)['competitor']
+        if competitor == "Pending":
+            return JsonResponse("Pending", safe=False)
+        else:
+            base_url = "https://" + competitor
+            run_time = loadtime(base_url)
+            return JsonResponse("run_time: {}".format(run_time), safe=False)
+        
+#//////////////////////////////////////End multiple endpoints/////////////////////////////////////////
 @api_view(['POST', ])
 def test(request):
     if request.method == 'POST':

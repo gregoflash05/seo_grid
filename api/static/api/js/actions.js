@@ -186,7 +186,7 @@ $(".add_campaign_error_message").html(response);
         event.preventDefault();
         var keyword =  $("#keywordName").val();
         var campaign =  $("#camp_main_id").val();
-        console.log(keyword + ' ' + campaign);
+        // console.log(keyword + ' ' + campaign);
             if(keyword ==''){
               $("#keywordName").css({"background-color": "transparent", "border-color": "red"});
               $(".add_keyword_error_message").html("<p style='' class='error-alert' style='padding:7px'>Enter keyword</p>");
@@ -223,14 +223,18 @@ $(".add_campaign_error_message").html(response);
 
 
 
-
+       
        $(".delete_a_keyword").click(function(event){
         event.preventDefault();
+        
         // var keyword_id = $(".delete_a_keyword").attr("href");
         // var keyword_id = $(this).find("input")[0].val();
         var keyword_id = $(this).find("input").val();
         var campaign =  $("#camp_main_id").val();
         console.log(keyword_id + ' ' + campaign);
+        $('.delete_a_keyword'). unbind('click');
+        $("#confirm_keyword_delete_submit").one('click', function(e) {
+            console.log(keyword_id + ' ' + campaign);
          $(".edit_campaign_error_message").html("<p style='padding:7px' class='success-alert'>Please wait...</p>");
   $.ajax({
   
@@ -254,8 +258,170 @@ $(".add_campaign_error_message").html(response);
   
   
   
-  
+});
        }); 
+
+
+
+       
+
+       $(".compare-btn").click(function(event){
+        event.preventDefault();
+        var response1;
+        var response2;
+        var keyword_id = $(this).find("input").val();
+        $(this).html("Processing...");
+        console.log(keyword_id);
+        // $('.delete_a_keyword'). unbind('click');
+        //  $(".edit_campaign_error_message").html("<p style='padding:7px' class='success-alert'>Please wait...</p>");
+        var completed = 0;
+
+///////////////////////////////////////////////////first///////////////////////////////////////////
+        $.ajax({
+            type: "POST",
+            url: window.location.protocol + "//" + window.location.host +"/url_compare_title/" + keyword_id + "/",
+            success: function(response) {
+      console.log(response);
+      completed = completed +1;
+      console.log(completed);  
+            },
+            error: function(response) {
+         console.log(response);
+             }      
+                    });
+                    $.ajax({
+                        type: "POST",
+                        url: window.location.protocol + "//" + window.location.host +"/url_compare_responsive/" + keyword_id + "/",
+                        success: function(response) {
+                  console.log(response);
+                  completed = completed +1;
+                  console.log(completed);  
+                        },
+                        error: function(response) {
+                     console.log(response);
+                         }      
+                                });
+                                $.ajax({
+                                    type: "POST",
+                                    url: window.location.protocol + "//" + window.location.host +"/url_compare_sitemap/" + keyword_id + "/",
+                                    success: function(response) {
+                              console.log(response);
+                              completed = completed +1;
+                              console.log(completed);  
+                                    },
+                                    error: function(response) {
+                                 console.log(response);
+                                     }      
+                                            });
+                                            $.ajax({
+                                                type: "POST",
+                                                url: window.location.protocol + "//" + window.location.host +"/url_compare_ssl_status/" + keyword_id + "/",
+                                                success: function(response) {
+                                          console.log(response);
+                                          completed = completed +1;
+                                          console.log(completed);  
+                                                },
+                                                error: function(response) {
+                                             console.log(response);
+                                                 }      
+                                                        });
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: window.location.protocol + "//" + window.location.host +"/url_compare_run_time/" + keyword_id + "/",
+                                                            success: function(response) {
+                                                      console.log(response);
+                                                      completed = completed +1;
+                                                      console.log(completed);  
+                                                            },
+                                                            error: function(response) {
+                                                         console.log(response);
+                                                             }      
+                                                                    });
+///////////////////////////////////////////////////End first///////////////////////////////////////////
+///////////////////////////////////////////////////second///////////////////////////////////////////
+
+            $.ajax({
+
+                type: "POST",
+                url: window.location.protocol + "//" + window.location.host +"/url_compare_competitor_title/" + keyword_id + "/",
+                success: function(response) {
+        console.log(response);
+        completed = completed +1;
+        console.log(completed);     
+                },
+                error: function(response) {
+        console.log(response);
+                }      
+                        });
+                        $.ajax({
+
+                            type: "POST",
+                            url: window.location.protocol + "//" + window.location.host +"/url_compare_competitorr_responsive/" + keyword_id + "/",
+                            success: function(response) {
+                    console.log(response);
+                    completed = completed +1;
+                    console.log(completed);     
+                            },
+                            error: function(response) {
+                    console.log(response);
+                            }      
+                                    });
+                                    $.ajax({
+
+                                        type: "POST",
+                                        url: window.location.protocol + "//" + window.location.host +"/url_compare_competitor_sitemap/" + keyword_id + "/",
+                                        success: function(response) {
+                                console.log(response);
+                                completed = completed +1;
+                                console.log(completed);     
+                                        },
+                                        error: function(response) {
+                                console.log(response);
+                                        }      
+                                                });
+                                                $.ajax({
+
+                                                    type: "POST",
+                                                    url: window.location.protocol + "//" + window.location.host +"/url_compare_competitor_ssl_status/" + keyword_id + "/",
+                                                    success: function(response) {
+                                            console.log(response);
+                                            completed = completed +1;
+                                            console.log(completed);     
+                                                    },
+                                                    error: function(response) {
+                                            console.log(response);
+                                                    }      
+                                                            });
+                                                            $.ajax({
+
+                                                                type: "POST",
+                                                                url: window.location.protocol + "//" + window.location.host +"/url_compare_competitor_run_time/" + keyword_id + "/",
+                                                                success: function(response) {
+                                                        console.log(response);
+                                                        completed = completed +1;
+                                                        console.log(completed);     
+                                                                },
+                                                                error: function(response) {
+                                                        console.log(response);
+                                                                }      
+                                                                        });
+
+ ///////////////////////////////////////////////////End second///////////////////////////////////////////
+                        var request_interval = window.setInterval(function(){
+                            if(completed == 10){
+                                console.log("complete");
+                                clearInterval(request_interval);
+                            }else{
+                                console.log("not yet"); 
+                            }
+                          }, 1000);
+  
+                        // $('.compare-btn'). unbind('click');
+
+       });
+
+
+
 
 
     });

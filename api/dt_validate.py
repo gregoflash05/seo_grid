@@ -30,3 +30,9 @@ def edit_campaign_test(pk, link, campaign_name, user_campaign_details):
 #                 if i['keyword'] == keyword:
 #                     return 'TrueK'
 #                     break
+
+def data_output(data):
+    if data == None:
+        return "Pending"
+    else:
+        return data

@@ -58,7 +58,7 @@
       <nav class="nav side-navbar flex-column">
       {% for campaign in campaigns %}
         {% if campaign.campaign_name == index_campaign %}
-        <a class="nav-link side-navbar-link active">{{campaign.campaign_name}}</a>
+        <a class="nav-link side-navbar-link active" href="../../dashboard/{{campaign.id}}">{{campaign.campaign_name}}</a>
         {% else %}
         <a class="nav-link side-navbar-link" href="../../dashboard/{{campaign.id}}">{{campaign.campaign_name}}</a>
         {% endif %}
