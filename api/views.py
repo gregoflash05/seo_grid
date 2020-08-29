@@ -26,14 +26,15 @@ import random, time
 from .d_scrapers import get_competitors
 from .ranker import rank
 from .compare import get_title, url_check, has_site_map, ssl_cert
-from .compare import loadtime, ssl_cert, out_of_bound, is_responsive
+from .compare import loadtime, ssl_cert, out_of_bound, is_responsive,get_competitor_links
 import sys
 import logging
 from pysitemap import crawler
 from .sitemap import generate_sitemap
 from django.views.decorators.csrf import csrf_exempt
 from django.http import QueryDict
-from .dt_validate import campaign_test, keyword_test, edit_campaign_test, data_output
+from .dt_validate import campaign_test, keyword_test, edit_campaign_test, data_output, validate_language
+from json import dumps
 
 # Create your views here.
 
@@ -253,7 +254,7 @@ def dashboard(request):
                 'campaign_keyword_details' : campaign_keyword_details
 
             }
-            
+            dataJSON = dumps(context)
             return render(request, "api/dashboard.html", context)
         else:
             return redirect("/create_campaign")
@@ -329,7 +330,7 @@ def compare_page(request, pk):
         'name' : name,
         'campaigns' : campaigns,
         'index_campaign' : index_campaign, 'index_link' : index_link, 'index_language' : index_language, 'index_country' : index_country, 'index_id':index_id,
-        'keyword' : keyword, 'trimmed_index_link' : trimmed_index_link
+        'keyword' : keyword, 'trimmed_index_link' : trimmed_index_link, 'keyword_details' : keyword_details
 
     }
     
@@ -346,14 +347,17 @@ def compare_page(request, pk):
 def compare_endpoints_validate(r_user, pk):
         keyword_details = Keywords.objects.get(pk=pk)
         keyword_detail = KeywordsSerializer(keyword_details).data 
-        campaign_id, keyword, competitor = keyword_detail['campaign'], keyword_detail['keyword'], data_output(keyword_detail['competitor_one'])
+        campaign_id, keyword, competitor, competitor_time = keyword_detail['campaign'], keyword_detail['keyword'], data_output(keyword_detail['competitor_one']), keyword_detail['competitor_time']
+        competitor2 = data_output(keyword_detail['competitor_two'])
         # print(competitor)
         campaigns = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
         for k in campaigns:
             if k['id'] == campaign_id:
                 index = k
-        index_link = index['link']
-        return {'campaign_id':campaign_id, 'keyword':keyword, 'competitor':competitor, 'index_link':index_link}
+        index_link, location, language = index['link'], index['country'], index['language']
+        abv_language = validate_language(language)
+        return {'campaign_id':campaign_id, 'keyword':keyword, 'competitor':competitor, 'index_link':index_link,
+        'location':location, 'language': language, 'abv_language':abv_language, 'competitor_time':competitor_time, 'competitor2':competitor2}
 
 @csrf_exempt
 def url_compare_data(request, pk):
@@ -368,12 +372,22 @@ def url_compare_data(request, pk):
 
 
 #//////////////////////////////////////multiple endpoints/////////////////////////////////////////
+
+def save_to_keyword(data, pk):
+    keywords_details = Keywords.objects.get(pk=pk)
+    serializer = KeywordsSerializer(keywords_details, data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return True
+    return False
+
 @csrf_exempt
 def url_compare_data_title(request, pk):
     if request.method == 'POST':
         r_user = request.user
         base_url = compare_endpoints_validate(r_user, pk)['index_link']
         title = get_title(base_url)
+        save_to_keyword({"id": pk,"page_title": title}, pk)
         return JsonResponse("Title: {}".format(title), safe=False)
 
 @csrf_exempt
@@ -382,6 +396,7 @@ def url_compare_data_responsive(request, pk):
         r_user = request.user
         base_url = compare_endpoints_validate(r_user, pk)['index_link']
         responsive = is_responsive(base_url)
+        save_to_keyword({"id": pk,"mobile_responsiveness": responsive}, pk)
         return JsonResponse("Responsive: {}".format(responsive), safe=False)
 
 @csrf_exempt
@@ -390,6 +405,7 @@ def url_compare_data_sitemap(request, pk):
         r_user = request.user
         base_url = compare_endpoints_validate(r_user, pk)['index_link']
         site_map = has_site_map(base_url)
+        save_to_keyword({"id": pk,"site_map": site_map}, pk)
         return JsonResponse("site_map: {}".format(site_map), safe=False)
 
 @csrf_exempt
@@ -398,6 +414,7 @@ def url_compare_data_ssl_status(request, pk):
         r_user = request.user
         base_url = compare_endpoints_validate(r_user, pk)['index_link']
         ssl_status = ssl_cert(base_url)
+        save_to_keyword({"id": pk,"ssl_certificate": ssl_status}, pk)
         return JsonResponse("ssl_status: {}".format(ssl_status), safe=False)
 
 @csrf_exempt
@@ -405,7 +422,8 @@ def url_compare_data_run_time(request, pk):
     if request.method == 'POST':
         r_user = request.user
         base_url = compare_endpoints_validate(r_user, pk)['index_link']
-        run_time = loadtime(base_url)
+        run_time = round(loadtime(base_url), 3)
+        save_to_keyword({"id": pk,"page_load_time": run_time}, pk)
         return JsonResponse("run_time: {}".format(run_time), safe=False)
 
 @csrf_exempt
@@ -433,6 +451,7 @@ def url_compare_competitor_title(request, pk):
         else:
             base_url = "https://" + competitor
             title = get_title(base_url)
+            save_to_keyword({"id": pk,"competitor_page_title": title}, pk)
             return JsonResponse("Title: {}".format(title), safe=False)
 
 @csrf_exempt
@@ -445,6 +464,7 @@ def url_compare_competitor_responsive(request, pk):
         else:
             base_url = "https://" + competitor
             responsive = is_responsive(base_url)
+            save_to_keyword({"id": pk,"competitor_mobile_responsiveness": responsive}, pk)
             return JsonResponse("Responsive: {}".format(responsive), safe=False)
 
 @csrf_exempt
@@ -457,6 +477,7 @@ def url_compare_competitor_sitemap(request, pk):
         else:
             base_url = "https://" + competitor
             site_map = has_site_map(base_url)
+            save_to_keyword({"id": pk,"competitor_site_map": site_map}, pk)
             return JsonResponse("site_map: {}".format(site_map), safe=False)
 
 @csrf_exempt
@@ -469,6 +490,7 @@ def url_compare_competitor_ssl_status(request, pk):
         else:
             base_url = "https://" + competitor
             ssl_status = ssl_cert(base_url)
+            save_to_keyword({"id": pk,"competitor_ssl_certificate": ssl_status}, pk)
             return JsonResponse("ssl_status: {}".format(ssl_status), safe=False)
 
 @csrf_exempt
@@ -480,10 +502,33 @@ def url_compare_competitor_run_time(request, pk):
             return JsonResponse("Pending", safe=False)
         else:
             base_url = "https://" + competitor
-            run_time = loadtime(base_url)
+            run_time = round(loadtime(base_url), 3)
+            save_to_keyword({"id": pk,"competitor_page_load_time": run_time}, pk)
             return JsonResponse("run_time: {}".format(run_time), safe=False)
         
 #//////////////////////////////////////End multiple endpoints/////////////////////////////////////////
+
+#//////////////////////////////////////Dashboard Keyword endpoints/////////////////////////////////////////
+@csrf_exempt
+def top_2_competitors(request, pk):
+    if request.method == 'POST':
+        wait_time = 86400
+        r_user = request.user
+        k_data = compare_endpoints_validate(r_user, pk)
+        keyword, location, language, competitor_time = k_data['keyword'] , k_data['location'], k_data['abv_language'], k_data['competitor_time']
+        competitor, competitor2 = k_data['competitor'], k_data['competitor2']
+        if competitor_time == None:
+            com = get_competitor_links(keyword, location, language)  
+            save_to_keyword({"id": pk,"competitor_one": com['competitor1'],"competitor_two": com['competitor2'],"competitor_time": time.time()}, pk)
+            return JsonResponse({"id": pk,"competitor_one": com['competitor1'],"competitor_two": com['competitor2'],"competitor_time": time.time()}, safe=False)
+        elif  (time.time() - competitor_time)  > wait_time:
+              com = get_competitor_links(keyword, location, language)  
+              save_to_keyword({"id": pk,"competitor_one": com['competitor1'],"competitor_two": com['competitor2'],"competitor_time": time.time()}, pk)
+              return JsonResponse({"id": pk,"competitor_one": com['competitor1'],"competitor_two": com['competitor2'],"competitor_time": time.time()}, safe=False)
+        else:
+            return JsonResponse({"id": pk,"competitor_one": competitor,"competitor_two": competitor2,"competitor_time": competitor_time}, safe=False)
+
+#//////////////////////////////////////End Dashboard Keyword endpoints/////////////////////////////////////////
 @api_view(['POST', ])
 def test(request):
     if request.method == 'POST':

@@ -32,6 +32,8 @@ urlpatterns = [
     path('url_compare_competitor_ssl_status/<int:pk>/', views.url_compare_competitor_ssl_status, name="Compare keyword"),
     path('url_compare_competitor_run_time/<int:pk>/', views.url_compare_competitor_run_time, name="Compare keyword"),
 
+    path('top_2_competitors/<int:pk>/', views.top_2_competitors, name="Competitors"),
+
     path('campaign/<int:pk>/', views.campaign_info_by_id, name='campaign-user-id'),
     path('campaign/', views.CampaignInfoView, name='campaign'),
     path('campaign_user/', views.CampaignInfoByUser, name='campaign'),

@@ -3,7 +3,41 @@
         var main_country = $("#index_country").val();
         $("#edit_campaign_country option:selected").html(main_country);
         var csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+        // $(this).siblings(".bidbutton")
+        var all_keyword_ids = $(".all_keyword_ids");
+        for(var i = 0; i < all_keyword_ids.length; i++){
+            console.log($(all_keyword_ids[i]).val());
+            var  k_id = $(all_keyword_ids[i]).val();
+            var c_1 = $(all_keyword_ids[i]).siblings(".Competitor_1"+k_id);
+            var c_2 = $(all_keyword_ids[i]).siblings(".Competitor_2"+k_id);
+            // c_1.html('Pending...');
+            // c_2.html('Pending...');
 
+
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + "//" + window.location.host +"/top_2_competitors/" + k_id + "/",
+                success: function(response) {
+                    let json = null;
+                    try {
+                        json = JSON.parse(response); 
+                    } catch (e) {
+                        json = response;
+                    }
+                    console.log(json);
+                    console.log(json.competitor_one);
+                    console.log(json.competitor_two);
+                    c_1.html(json.competitor_one);
+                    c_2.html(json.competitor_two);
+          console.log(response); 
+                },
+                error: function(response) {
+             console.log(response);
+                 }      
+                        });
+
+
+        }
 
 
 
@@ -410,6 +444,7 @@ $(".add_campaign_error_message").html(response);
                         var request_interval = window.setInterval(function(){
                             if(completed == 10){
                                 console.log("complete");
+                                window.location.href = "../../compare/" + keyword_id + "/";
                                 clearInterval(request_interval);
                             }else{
                                 console.log("not yet"); 
