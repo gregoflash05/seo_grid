@@ -25,10 +25,10 @@
                         json = response;
                     }
                     console.log(json);
-                    console.log(json.competitor_one);
-                    console.log(json.competitor_two);
-                    c_1.html(json.competitor_one);
-                    c_2.html(json.competitor_two);
+                    console.log(json.competitor_one + k_id);
+                    console.log(json.competitor_two + k_id);
+                    c_1.html(json.competitor_one + k_id);
+                    c_2.html(json.competitor_two + k_id);
           console.log(response); 
                 },
                 error: function(response) {

@@ -387,7 +387,14 @@ def url_compare_data_title(request, pk):
         r_user = request.user
         base_url = compare_endpoints_validate(r_user, pk)['index_link']
         title = get_title(base_url)
+        if title == None:
+                title = get_title(base_url)
         save_to_keyword({"id": pk,"page_title": title}, pk)
+        data = {"id": pk,"page_title": title}
+        keywords_details = Keywords.objects.get(pk=pk)
+        serializer = KeywordsSerializer(keywords_details, data=data)
+        if serializer.is_valid():
+            serializer.save()
         return JsonResponse("Title: {}".format(title), safe=False)
 
 @csrf_exempt
@@ -396,7 +403,14 @@ def url_compare_data_responsive(request, pk):
         r_user = request.user
         base_url = compare_endpoints_validate(r_user, pk)['index_link']
         responsive = is_responsive(base_url)
+        if responsive == None:
+                responsive = is_responsive(base_url)
         save_to_keyword({"id": pk,"mobile_responsiveness": responsive}, pk)
+        data = {"id": pk,"mobile_responsiveness": responsive}
+        keywords_details = Keywords.objects.get(pk=pk)
+        serializer = KeywordsSerializer(keywords_details, data=data)
+        if serializer.is_valid():
+            serializer.save()
         return JsonResponse("Responsive: {}".format(responsive), safe=False)
 
 @csrf_exempt
@@ -406,6 +420,11 @@ def url_compare_data_sitemap(request, pk):
         base_url = compare_endpoints_validate(r_user, pk)['index_link']
         site_map = has_site_map(base_url)
         save_to_keyword({"id": pk,"site_map": site_map}, pk)
+        data = {"id": pk,"site_map": site_map}
+        keywords_details = Keywords.objects.get(pk=pk)
+        serializer = KeywordsSerializer(keywords_details, data=data)
+        if serializer.is_valid():
+            serializer.save()
         return JsonResponse("site_map: {}".format(site_map), safe=False)
 
 @csrf_exempt
@@ -415,6 +434,11 @@ def url_compare_data_ssl_status(request, pk):
         base_url = compare_endpoints_validate(r_user, pk)['index_link']
         ssl_status = ssl_cert(base_url)
         save_to_keyword({"id": pk,"ssl_certificate": ssl_status}, pk)
+        data = {"id": pk,"ssl_certificate": ssl_status}
+        keywords_details = Keywords.objects.get(pk=pk)
+        serializer = KeywordsSerializer(keywords_details, data=data)
+        if serializer.is_valid():
+            serializer.save()
         return JsonResponse("ssl_status: {}".format(ssl_status), safe=False)
 
 @csrf_exempt
@@ -424,6 +448,11 @@ def url_compare_data_run_time(request, pk):
         base_url = compare_endpoints_validate(r_user, pk)['index_link']
         run_time = round(loadtime(base_url), 3)
         save_to_keyword({"id": pk,"page_load_time": run_time}, pk)
+        data = {"id": pk,"page_load_time": run_time}
+        keywords_details = Keywords.objects.get(pk=pk)
+        serializer = KeywordsSerializer(keywords_details, data=data)
+        if serializer.is_valid():
+            serializer.save()
         return JsonResponse("run_time: {}".format(run_time), safe=False)
 
 @csrf_exempt
@@ -451,7 +480,14 @@ def url_compare_competitor_title(request, pk):
         else:
             base_url = "https://" + competitor
             title = get_title(base_url)
+            if title == None:
+                title = get_title(base_url)
             save_to_keyword({"id": pk,"competitor_page_title": title}, pk)
+            data = {"id": pk,"competitor_page_title": title}
+            keywords_details = Keywords.objects.get(pk=pk)
+            serializer = KeywordsSerializer(keywords_details, data=data)
+            if serializer.is_valid():
+                serializer.save()
             return JsonResponse("Title: {}".format(title), safe=False)
 
 @csrf_exempt
@@ -464,7 +500,14 @@ def url_compare_competitor_responsive(request, pk):
         else:
             base_url = "https://" + competitor
             responsive = is_responsive(base_url)
+            if responsive == None:
+                responsive = is_responsive(base_url)
             save_to_keyword({"id": pk,"competitor_mobile_responsiveness": responsive}, pk)
+            data = {"id": pk,"competitor_mobile_responsiveness": responsive}
+            keywords_details = Keywords.objects.get(pk=pk)
+            serializer = KeywordsSerializer(keywords_details, data=data)
+            if serializer.is_valid():
+                serializer.save()
             return JsonResponse("Responsive: {}".format(responsive), safe=False)
 
 @csrf_exempt
@@ -478,6 +521,11 @@ def url_compare_competitor_sitemap(request, pk):
             base_url = "https://" + competitor
             site_map = has_site_map(base_url)
             save_to_keyword({"id": pk,"competitor_site_map": site_map}, pk)
+            data = {"id": pk,"competitor_site_map": site_map}
+            keywords_details = Keywords.objects.get(pk=pk)
+            serializer = KeywordsSerializer(keywords_details, data=data)
+            if serializer.is_valid():
+                serializer.save()
             return JsonResponse("site_map: {}".format(site_map), safe=False)
 
 @csrf_exempt
@@ -491,6 +539,11 @@ def url_compare_competitor_ssl_status(request, pk):
             base_url = "https://" + competitor
             ssl_status = ssl_cert(base_url)
             save_to_keyword({"id": pk,"competitor_ssl_certificate": ssl_status}, pk)
+            data = {"id": pk,"competitor_ssl_certificate": ssl_status}
+            keywords_details = Keywords.objects.get(pk=pk)
+            serializer = KeywordsSerializer(keywords_details, data=data)
+            if serializer.is_valid():
+                serializer.save()
             return JsonResponse("ssl_status: {}".format(ssl_status), safe=False)
 
 @csrf_exempt
@@ -504,6 +557,11 @@ def url_compare_competitor_run_time(request, pk):
             base_url = "https://" + competitor
             run_time = round(loadtime(base_url), 3)
             save_to_keyword({"id": pk,"competitor_page_load_time": run_time}, pk)
+            data = {"id": pk,"competitor_page_load_time": run_time}
+            keywords_details = Keywords.objects.get(pk=pk)
+            serializer = KeywordsSerializer(keywords_details, data=data)
+            if serializer.is_valid():
+                serializer.save()
             return JsonResponse("run_time: {}".format(run_time), safe=False)
         
 #//////////////////////////////////////End multiple endpoints/////////////////////////////////////////
@@ -526,7 +584,7 @@ def top_2_competitors(request, pk):
               save_to_keyword({"id": pk,"competitor_one": com['competitor1'],"competitor_two": com['competitor2'],"competitor_time": time.time()}, pk)
               return JsonResponse({"id": pk,"competitor_one": com['competitor1'],"competitor_two": com['competitor2'],"competitor_time": time.time()}, safe=False)
         else:
-            return JsonResponse({"id": pk,"competitor_one": competitor,"competitor_two": competitor2,"competitor_time": competitor_time}, safe=False)
+            return JsonResponse({"id{}".format(pk): pk,"competitor_one{}".format(pk): competitor,"competitor_two{}".format(pk): competitor2,"competitor_time{}".format(pk): competitor_time}, safe=False)
 
 #//////////////////////////////////////End Dashboard Keyword endpoints/////////////////////////////////////////
 @api_view(['POST', ])
