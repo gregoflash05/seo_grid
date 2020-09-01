@@ -92,9 +92,26 @@
       var name = $("#name").val();
       var email = $("#email").val();
       var password = $("#psw1").val();
+      var password_len = $("#psw1").val().length;
       var password2 = $("#psw2").val();
       var company = $("#company").val();
       var submit =    $("#submit").val();
+      function checkStringForNumbers(input){
+
+
+   //var validate = function(input){
+             let str = String(input);
+            for( let i = 0; i < str.length; i++){
+                  //   console.log(str.charAt(i));
+               if(!isNaN(str.charAt(i))){           //if the string is a number, do the following
+                     return true;
+                     break;
+               }
+            }
+        // }
+   }
+
+
     if(name==''){
         $("#name").css({"background-color": "transparent", "border-color": "red"});
         $(".error_message").html("<p style='' class='error-alert'>Name field is empty</p>");
@@ -106,6 +123,18 @@
             $("#email").css({"border-color": "green"});
                 if(password==''){
                    $(".error_message").html("<p style='' class='error-alert'>Password field is empty</p>");
+                  $("#psw1").css({"background-color": "transparent", "border-color": "red"});
+    }else{
+                $("#psw1").css({"border-color": "green"});
+
+                if(password_len < 8){
+                   $(".error_message").html("<p style='' class='error-alert'>Password must be at least 8 characters</p>");
+                  $("#psw1").css({"background-color": "transparent", "border-color": "red"});
+    }else{
+                $("#psw1").css({"border-color": "green"});
+
+                  if(checkStringForNumbers(password) != true){
+                   $(".error_message").html("<p style='' class='error-alert'>Password must contain a number</p>");
                   $("#psw1").css({"background-color": "transparent", "border-color": "red"});
     }else{
                 $("#psw1").css({"border-color": "green"});
@@ -158,6 +187,8 @@ $(".error_message").html(response);
               }
             }
           }
+    }
+    }
       }
     }
 

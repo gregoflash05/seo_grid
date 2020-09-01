@@ -17,6 +17,7 @@ django-allauth==0.42.0
 django-heroku==0.3.1
 djangorestframework==3.11.1
 fake-headers==1.0.2
+google-search-results==1.8.3
 gunicorn==20.0.4
 html5lib==1.1
 idna==2.10

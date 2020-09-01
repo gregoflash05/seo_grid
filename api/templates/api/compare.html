@@ -58,7 +58,7 @@
       <nav class="nav side-navbar flex-column">
       {% for campaign in campaigns %}
         {% if campaign.campaign_name == index_campaign %}
-        <a class="nav-link side-navbar-link active">{{campaign.campaign_name}}</a>
+        <a class="nav-link side-navbar-link active" href="../../dashboard/{{campaign.id}}">{{campaign.campaign_name}}</a>
         {% else %}
         <a class="nav-link side-navbar-link" href="../../dashboard/{{campaign.id}}">{{campaign.campaign_name}}</a>
         {% endif %}
@@ -98,7 +98,7 @@
                 </span>
               </a> {% endcomment %}
               <span class="d-inline-block avatar-section">
-                <a id="dropdownBtn" href="#">
+                <a id="dropdownBtn">
                   <span class="d-inline-block" style="
                       height: 40px;
                       width: 40px;
@@ -108,7 +108,7 @@
                     <img style="height: 100%; width: 100%; object-fit: cover;" src="https://seogrid.thepuredev.net/assets/images/avatar.png" alt="">
                   </span>
                   <span class="avatar-name">
-                    Mark Spencer
+                {{name}}
                   </span>
                   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" class="iconify caret" data-icon="carbon:caret-down" data-inline="false" style="transform: rotate(360deg);"><path d="M24 12l-8 10l-8-10z" fill="currentColor"></path></svg>
                 </a>
@@ -255,7 +255,11 @@
 
                   <th class="unsee" scope="col"></th>
                   <th class="compare1" scope="col">{{trimmed_index_link}}</th>
-                  <th class="compare2" scope="col">tripsadvisor</th>
+                  <th class="compare2" scope="col">{% if keyword_details.competitor_one == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.competitor_one}}
+                  {% endif %}</th>
                   <th class="unsee" scope="col"></th>
                 </tr>
               </thead>
@@ -270,65 +274,148 @@
               <tbody class="table-light">
                 <tr>
                   <th scope="row">Page Title</th>
-                  <td class="border-green">Top Hotels in Ikeja | Hotels.ng</td>
-                  <td>Read reviews, compare and book</td>
+                  {% comment %} <td class="border-green">Top Hotels in Ikeja | Hotels.ng</td> {% endcomment %}
+                  <td class="border-green">{% if keyword_details.page_title == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.page_title}}
+                  {% endif %}
+                  </td>
+                  <td>{% if keyword_details.competitor_page_title == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.competitor_page_title}}
+                  {% endif %}</td>
                   <td>Keep your titles under 60 characters</td>
                 </tr>
                 <tr>
                   <th scope="row">Search Engine Indexed Pages</th>
-                  <td class="border-green">56</td>
-                  <td>643</td>
+                  <td class="border-green">{% if keyword_details.indexed_pages == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.indexed_pages}}
+                  {% endif %}
+                  </td>
+                  <td>{% if keyword_details.competitor_indexed_pages == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.competitor_indexed_pages}}
+                  {% endif %}</td>
                   <td>Make your site links followable to boost your site
                     visibility.</td>
                 </tr>
                 <tr>
                   <th scope="row">Site Map</th>
-                  <td class="border-green">No</td>
-                  <td>Yes</td>
+                  <td class="border-green">{% if keyword_details.site_map == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.site_map}}
+                  {% endif %}</td>
+                  <td>{% if keyword_details.competitor_site_map == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.competitor_site_map}}
+                  {% endif %}</td>
                   <td>Add a sitemap to make it easy for search engines to crawl your site.</td>
                 </tr>
                 <tr>
                   <th scope="row">Page Load Time</th>
-                  <td class="border-green">40 seconds</td>
-                  <td>3 seconds</td>
+                  <td class="border-green">{% if keyword_details.page_load_time == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.page_load_time}}
+                  {% endif %} seconds</td>
+                  <td>{% if keyword_details.competitor_page_load_time == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.competitor_page_load_time}}
+                  {% endif %} seconds</td>
                   <td>Optimize your website Images and Scripts to increase site load time.</td>
                 </tr>
                 <tr>
                   <th scope="row">SSL Certificate</th>
-                  <td class="border-green">No</td>
-                  <td>Yes</td>
+                  <td class="border-green">{% if keyword_details.ssl_certificate == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.ssl_certificate}}
+                  {% endif %}</td>
+                  <td>{% if keyword_details.competitor_ssl_certificate == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.competitor_ssl_certificate}}
+                  {% endif %}</td>
                   <td>SSL is a great ranking signal for search engines, consider getting one.</td>
                 </tr>
-                <tr>
+                {% comment %} <tr>
                   <th scope="row">Backlinks</th>
-                  <td class="border-green">231</td>
-                  <td>6326</td>
+                  <td class="border-green">{% if keyword_details.back_links == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.back_links}}
+                  {% endif %}</td>
+                  <td>{% if keyword_details.competitor_back_links == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.competitor_back_links}}
+                  {% endif %}</td>
                   <td>Backlinks are a very important signal for ranking, the more the better.</td>
-                </tr>
+                </tr> {% endcomment %}
                 <tr>
                   <th scope="row">Outbound Links</th>
-                  <td class="border-green">1287</td>
-                  <td>34</td>
+                  <td class="border-green">{% if keyword_details.broken_links == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.broken_links}}
+                  {% endif %}</td>
+                  <td>{% if keyword_details.competitor_broken_links == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.competitor_broken_links}}
+                  {% endif %}</td>
                   <td>Consider making your outbound links no-follow</td>
                 </tr>
                 <tr>
                   <th scope="row">Mobile Responsiveness</th>
-                  <td class="border-green">No</td>
-                  <td>Yes</td>
+                  <td class="border-green">{% if keyword_details.mobile_responsiveness == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.mobile_responsiveness}}
+                  {% endif %}</td>
+                  <td>{% if keyword_details.competitor_mobile_responsiveness == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.competitor_mobile_responsiveness}}
+                  {% endif %}</td>
                   <td>Mobile responsive website makes your website accessible on any device.</td>
                 </tr>
                 <tr>
-                  <th scope="row">Brokeb Links</th>
-                  <td class="border-green">5</td>
-                  <td>0</td>
+                  <th scope="row">Broken Links</th>
+                  <td class="border-green">{% if keyword_details.broken_links == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.broken_links}}
+                  {% endif %}</td>
+                  <td>{% if keyword_details.competitor_broken_links == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.competitor_broken_links}}
+                  {% endif %}</td>
                   <td>Broken links leak your site SEO juice, find and link or remove them.</td>
                 </tr>
-                <tr>
+                {% comment %} <tr>
                   <th scope="row">Organic Search Traffic</th>
-                  <td class="border-green border-bottom-green">633</td>
-                  <td>588</td>
+                  <td class="border-green border-bottom-green">{% if keyword_details.organic_search_traffic == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.organic_search_traffic}}
+                  {% endif %}</td>
+                  <td>{% if keyword_details.competitor_organic_search_traffic == None %}
+                  Please wait...
+                  {% else %}
+                  {{keyword_details.competitor_organic_search_traffic}}
+                  {% endif %}</td>
                   <td>Submitting your sitemap and making your site crawlable is recommended.</td>
-                </tr>
+                </tr> {% endcomment %}
               </tbody>
             </table>
           </div>
@@ -341,9 +428,7 @@
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
     integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
     crossorigin="anonymous"></script>

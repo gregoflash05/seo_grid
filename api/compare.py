@@ -14,6 +14,7 @@ from pysitemap import crawler
 import urllib
 from fake_headers import Headers
 import datetime
+from serpapi.google_search_results import GoogleSearchResults
 
 
 
@@ -155,9 +156,9 @@ def loadtime(url):
 def ssl_cert(domain):
     try:
         requests.get(domain, verify=True)
-        return True
+        return "Yes"
     except:
-        return False
+        return "No"
     
 def out_of_bound(base_url, filepath):
     count = sum(1 for line in open(filepath))
@@ -192,4 +193,20 @@ def is_responsive(url):
 line = "https://www.momandpopgems.com"
 query = {'q': 'site:' + line}
 google = "https://www.google.com/search?" + urlencode(query)
-print(google)
+# print(google)
+
+
+def get_competitor_links(keyword, location, language):
+    params = {
+    "q": keyword,
+    "location": location,
+    "hl": language,
+    "google_domain": "google.com",
+    "api_key": "ffb9f3380b1b82906050962f2e588fe61d26901de3546c862a848dd65941d418"
+}
+    client = GoogleSearchResults(params)
+    results = client.get_dict()['organic_results']
+#    print(results)
+#    results = results['organic_results']
+    competitor1, competitor2 = results[0]['link'].split('/')[2] , results[1]['link'].split('/')[2]
+    return {'competitor1' : competitor1, 'competitor2' : competitor2}

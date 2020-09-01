@@ -26,7 +26,7 @@ class Keywords(models.Model):
     page_title = models.CharField(max_length=255, blank=True, null=True)
     indexed_pages = models.IntegerField(blank=True, null=True)
     site_map = models.CharField(max_length=255, blank=True, null=True)
-    page_load_time = models.IntegerField(blank=True, null=True)
+    page_load_time =models.FloatField(blank=True, null=True)
     ssl_certificate = models.CharField(max_length=255, blank=True, null=True)
     back_links = models.IntegerField(blank=True, null=True)
     outbound_links = models.IntegerField(blank=True, null=True)
@@ -36,14 +36,15 @@ class Keywords(models.Model):
     competitor_page_title = models.CharField(max_length=255, blank=True, null=True)
     competitor_indexed_pages = models.IntegerField(blank=True, null=True)
     competitor_site_map = models.CharField(max_length=255, blank=True, null=True)
-    competitor_page_load_time = models.IntegerField(blank=True, null=True)
+    competitor_page_load_time = models.FloatField(blank=True, null=True)
     competitor_ssl_certificate = models.CharField(max_length=255, blank=True, null=True)
     competitor_back_links = models.IntegerField(blank=True, null=True)
     competitor_outbound_links = models.IntegerField(blank=True, null=True)
     competitor_broken_links = models.IntegerField(blank=True, null=True)
     competitor_organic_search_traffic = models.IntegerField(blank=True, null=True)
     competitor_mobile_responsiveness = models.CharField(max_length=255, blank=True, null=True)
-    time = models.IntegerField(blank=True, null=True)
+    competitor_time = models.FloatField(blank=True, null=True)
+    rank_time = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.campaign.campaign_name

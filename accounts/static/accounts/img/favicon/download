@@ -1,4 +1,4 @@
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +18,7 @@
       type="text/css" />
 
     <!-- custom css -->
-    <link rel="stylesheet" href="{% static 'api/css/campaign-dashboard-v2.css' %}" />
+    <link rel="stylesheet" href="/static/api/css/campaign-dashboard-v2.css" />
     <title>SEO Grid | Campaign Dashboard</title>
   </head>
 
@@ -27,7 +27,7 @@
     <div class="d-flex collapsed-sidebar">
       <aside class="flex-auto sidebar sticky-top bg-main" style="width: 315px; height: 100vh;">
         <div class="brand-logo">
-          <img class="brand-logo__img" src="{% static 'accounts/img/log.PNG' %}" alt="" />
+          <img class="brand-logo__img" src="/static/accounts/img/log.PNG" alt="" />
           <span style="right: 3rem;" class="sidebar-toggler flex-auto position-absolute">
             <ion-icon name="menu-outline"></ion-icon>
           </span>
@@ -54,27 +54,22 @@
                 align-items: center;
                 justify-content: center;
               ">
-              <img style="height: 60%; width: 60%;" src="{% static 'api/images/add.svg' %}" alt="" />
+              <img style="height: 60%; width: 60%;" src="/static/api/images/add.svg" alt="" />
             </span>
           </a>
         </div>
-        <input type="hidden" id="index_country" value="{{index_country}}">
+        <input type="hidden" id="index_country" value="Nigeria">
         <nav class="nav side-navbar flex-column">
-        {% for campaign in campaigns %}
-        {% if campaign.campaign_name == index_campaign %}
-        <a class="nav-link side-navbar-link active">{{campaign.campaign_name}}</a>
-        {% else %}
-        <a class="nav-link side-navbar-link" href="../../dashboard/{{campaign.id}}">{{campaign.campaign_name}}</a>
-        {% endif %}
-        {% endfor %}
-          {% comment %} <a class="nav-link side-navbar-link active" href="#">hotels.ng</a>
-          <a class="nav-link side-navbar-link" href="#">hng.tech</a>
-          <a class="nav-link side-navbar-link" href="#">zuri.tech</a>
-          <a class="nav-link side-navbar-link" href="#" aria-disabled="true">start.ng</a> {% endcomment %}
+        
+        
+        <a class="nav-link side-navbar-link active">zarpcourier.com</a>
+        
+        
+          
         </nav>
       </aside>
       <main class="col px-0">
-      <input type="hidden" id="index_id" value="{{index_id}}">
+      <input type="hidden" id="index_id" value="9">
       
         <nav class="navbar top-navbar py-3 px-0">
           <div class="container-fluid px-2rem">
@@ -97,12 +92,7 @@
             <div class="" id="topNav">
               <!--collapse navbar-collapse-->
               <div class="ml-auto my-0">
-                {% comment %} <a href="#" class="notification-section mr-4 d-inline-block">
-                  <img src="{% static 'api/images/bell-icon.svg' %}" alt="" />
-                  <span class="notification-section__badge d-flex align-items-center justify-content-center text-white">
-                    2
-                  </span>
-                </a> {% endcomment %}
+                
 
                 <span class="d-inline-block avatar-section">
                   <a id="dropdownBtn" href="#">
@@ -112,11 +102,11 @@
                         border-radius: 50%;
                         vertical-align: middle;
                       ">
-                      <img style="height: 100%; width: 100%; object-fit: cover;" src="{% static 'api/images/avatar.png' %}"
+                      <img style="height: 100%; width: 100%; object-fit: cover;" src="/static/api/images/avatar.png"
                         alt="" />
                     </span>
                     <span class="avatar-name">
-                      {{name}}
+                      INVATOR
                     </span>
                     <span class="iconify caret" data-icon="carbon:caret-down" data-inline="false"></span>
                   </a>
@@ -154,17 +144,17 @@
               <div class="main-content-top align-items-center d-flex justify-content-between">
                 <div>
                   <div class="f-28 main-content-top__header font-weight-bold mb-3">
-                    {% comment %} Hotels.ng {% endcomment %}
-                    {{company}}
+                    
+                    FORWARD DIGITAL
                   </div>
                   <div class="main-content-top__subtext mb-4">
-                    <a href="{{index_link}}" class="main-content-top__subtext-content"><svg class="main-content-top__inner-logo"
+                    <a href="https://www.zarpcourier.com" class="main-content-top__subtext-content"><svg class="main-content-top__inner-logo"
                         width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                           d="M9.86041 3.1143C10.0141 2.95516 10.198 2.82822 10.4013 2.7409C10.6046 2.65357 10.8232 2.6076 11.0444 2.60568C11.2657 2.60376 11.4851 2.64592 11.6899 2.7297C11.8947 2.81348 12.0807 2.9372 12.2371 3.09365C12.3936 3.2501 12.5173 3.43614 12.6011 3.64092C12.6849 3.84569 12.727 4.0651 12.7251 4.28635C12.7232 4.50759 12.6772 4.72624 12.5899 4.92952C12.5026 5.13281 12.3756 5.31668 12.2165 5.47038L9.71711 7.96976C9.40464 8.28213 8.9809 8.45761 8.53907 8.45761C8.09724 8.45761 7.6735 8.28213 7.36104 7.96976C7.20391 7.818 6.99346 7.73402 6.77501 7.73592C6.55657 7.73782 6.34761 7.82544 6.19315 7.97991C6.03868 8.13437 5.95106 8.34333 5.94916 8.56177C5.94726 8.78022 6.03124 8.99067 6.183 9.1478C6.80793 9.77254 7.65541 10.1235 8.53907 10.1235C9.42273 10.1235 10.2702 9.77254 10.8952 9.1478L13.3945 6.64842C14.0016 6.0199 14.3375 5.17811 14.3299 4.30434C14.3223 3.43057 13.9718 2.59473 13.3539 1.97686C12.7361 1.35899 11.9002 1.00851 11.0265 1.00092C10.1527 0.993327 9.31089 1.32922 8.68237 1.93627L7.43268 3.18595C7.35311 3.26281 7.28964 3.35474 7.24598 3.45638C7.20232 3.55803 7.17933 3.66735 7.17837 3.77797C7.17741 3.88859 7.19849 3.9983 7.24038 4.10069C7.28227 4.20307 7.34413 4.29609 7.42236 4.37432C7.50058 4.45254 7.5936 4.51441 7.69599 4.5563C7.79838 4.59819 7.90808 4.61927 8.01871 4.6183C8.12933 4.61734 8.23865 4.59436 8.34029 4.5507C8.44194 4.50703 8.53387 4.44356 8.61072 4.36399L9.86041 3.1143ZM5.69479 7.27993C6.00725 6.96756 6.43099 6.79207 6.87282 6.79207C7.31465 6.79207 7.73839 6.96756 8.05086 7.27993C8.12772 7.3595 8.21965 7.42297 8.32129 7.46663C8.42294 7.5103 8.53226 7.53328 8.64288 7.53424C8.7535 7.5352 8.86321 7.51412 8.9656 7.47223C9.06798 7.43034 9.161 7.36848 9.23923 7.29026C9.31745 7.21203 9.37931 7.11901 9.4212 7.01662C9.46309 6.91424 9.48417 6.80453 9.48321 6.69391C9.48225 6.58329 9.45927 6.47396 9.41561 6.37232C9.37194 6.27067 9.30847 6.17874 9.2289 6.10189C8.60397 5.47714 7.75648 5.12618 6.87282 5.12618C5.98917 5.12618 5.14168 5.47714 4.51675 6.10189L2.01737 8.60127C1.69909 8.90868 1.44521 9.2764 1.27056 9.68298C1.0959 10.0896 1.00397 10.5268 1.00013 10.9693C0.996281 11.4118 1.0806 11.8506 1.24816 12.2602C1.41572 12.6697 1.66317 13.0418 1.97607 13.3547C2.28896 13.6676 2.66104 13.9151 3.0706 14.0826C3.48015 14.2502 3.91897 14.3345 4.36146 14.3307C4.80394 14.3268 5.24123 14.2349 5.64781 14.0602C6.05439 13.8856 6.42211 13.6317 6.72953 13.3134L7.97921 12.0637C8.05879 11.9869 8.12225 11.8949 8.16592 11.7933C8.20958 11.6917 8.23256 11.5823 8.23353 11.4717C8.23449 11.3611 8.21341 11.2514 8.17152 11.149C8.12963 11.0466 8.06776 10.9536 7.98954 10.8754C7.91132 10.7971 7.8183 10.7353 7.71591 10.6934C7.61352 10.6515 7.50381 10.6304 7.39319 10.6314C7.28257 10.6323 7.17325 10.6553 7.0716 10.699C6.96996 10.7427 6.87803 10.8061 6.80118 10.8857L5.55149 12.1354C5.39778 12.2945 5.21392 12.4215 5.01063 12.5088C4.80734 12.5961 4.5887 12.6421 4.36745 12.644C4.14621 12.6459 3.9268 12.6038 3.72202 12.52C3.51725 12.4362 3.33121 12.3125 3.17476 12.156C3.01831 11.9996 2.89459 11.8135 2.8108 11.6088C2.72702 11.404 2.68487 11.1846 2.68679 10.9633C2.68871 10.7421 2.73468 10.5235 2.822 10.3202C2.90933 10.1169 3.03627 9.93301 3.19541 9.7793L5.69479 7.27993Z"
                           fill="#4F4F4F" />
                       </svg>
-                      {{index_campaign}}
+                      zarpcourier.com
                     </a>
                     <span class="main-content-top__subtext-content">
                       <svg class="main-content-top__inner-logo" width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -173,7 +163,7 @@
                           d="M2.83512 6.66695C2.72322 7.10255 2.66678 7.55054 2.66712 8.00028C2.66712 8.46028 2.72579 8.90695 2.83512 9.33362H4.73379C4.64391 8.447 4.64391 7.55357 4.73379 6.66695H2.83512ZM3.38045 5.33362H4.94445C5.12179 4.52228 5.37779 3.79562 5.69179 3.19095C4.72391 3.65723 3.9186 4.40377 3.38045 5.33362ZM13.1658 6.66695H11.2671C11.357 7.55357 11.357 8.447 11.2671 9.33362H13.1658C13.3902 8.4589 13.3902 7.54167 13.1658 6.66695ZM12.6205 5.33362C12.0823 4.40377 11.277 3.65723 10.3091 3.19095C10.6238 3.79562 10.8791 4.52228 11.0565 5.33362H12.6205ZM6.07512 6.66695C6.02517 7.10964 6.00024 7.55479 6.00045 8.00028C6.00045 8.45695 6.02579 8.90362 6.07512 9.33362H9.92579C10.0262 8.44756 10.0262 7.553 9.92579 6.66695H6.07512ZM6.31379 5.33362H9.68712C9.56579 4.83248 9.39078 4.34589 9.16512 3.88228C8.74645 3.04562 8.29845 2.66695 8.00045 2.66695C7.70179 2.66695 7.25445 3.04562 6.83579 3.88228C6.62579 4.30362 6.44912 4.79362 6.31379 5.33362ZM3.38045 10.667C3.9186 11.5968 4.72391 12.3433 5.69179 12.8096C5.37712 12.205 5.12179 11.4783 4.94445 10.667H3.38045ZM12.6205 10.667H11.0565C10.8791 11.4783 10.6231 12.205 10.3091 12.8096C11.277 12.3433 12.0823 11.5968 12.6205 10.667ZM6.31379 10.667C6.44912 11.207 6.62579 11.697 6.83579 12.1183C7.25445 12.955 7.70245 13.3336 8.00045 13.3336C8.29912 13.3336 8.74645 12.955 9.16512 12.1183C9.37512 11.697 9.55179 11.207 9.68712 10.667H6.31379ZM8.00045 14.667C4.31845 14.667 1.33379 11.6823 1.33379 8.00028C1.33379 4.31828 4.31845 1.33362 8.00045 1.33362C11.6825 1.33362 14.6671 4.31828 14.6671 8.00028C14.6671 11.6823 11.6825 14.667 8.00045 14.667Z"
                           fill="#4F4F4F" />
                       </svg>
-                      {{index_language}}
+                      English
                     </span>
                     <span class="main-content-top__subtext-content">
                       <svg class="main-content-top__inner-logo" width="14" height="17" viewBox="0 0 14 17" fill="none"
@@ -185,7 +175,7 @@
                           d="M6.95367 4.06188C5.30665 4.06188 3.9666 5.40174 3.9666 7.04895C3.9666 8.69615 5.30647 10.036 6.95367 10.036C8.60088 10.036 9.94074 8.69615 9.94074 7.04895C9.94074 5.40192 8.6007 4.06188 6.95367 4.06188ZM6.95367 8.88704C5.94019 8.88704 5.11555 8.0624 5.11555 7.04892C5.11555 6.03544 5.94019 5.21079 6.95367 5.21079C7.96715 5.21079 8.7918 6.03544 8.7918 7.04892C8.7918 8.0624 7.96715 8.88704 6.95367 8.88704Z"
                           fill="#4F4F4F" stroke="#4F4F4F" stroke-width="0.1" />
                       </svg>
-                      {{index_country}}
+                      Nigeria
                     </span>
                   </div>
                 </div>
@@ -308,84 +298,34 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for campaign_keyword_detail in campaign_keyword_details %}
+                  
                   <tr>
-                      <td scope="row">{{campaign_keyword_detail.keyword}}</td>
-                      <td>
-                        5<span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>
-                      </td>
-                      <td>10</td>
-                      <td class="Competitor_1{{campaign_keyword_detail.id}}">
-                      {% if campaign_keyword_detail.competitor_one == None %}
-                      Pending
-                      {% else %}
-                      {{campaign_keyword_detail.competitor_one}}
-                      {% endif %}
-                      </td>
-                      <td class="Competitor_2{{campaign_keyword_detail.id}}">
-                      {% if campaign_keyword_detail.competitor_two == None %}
-                      Pending
-                      {% else %}
-                      {{campaign_keyword_detail.competitor_two}}
-                      {% endif %}
-                      </td>
-                      <input class="all_keyword_ids" type="hidden" value="{{campaign_keyword_detail.id}}">
-                      {% if campaign_keyword_detail.competitor_one == None %}
-                      <td><a href="../../compare/{{campaign_keyword_detail.id}}" class="compare-btn">
-                      <input type="hidden" value="{{campaign_keyword_detail.id}}">
-                      Compare</a></td>
-                      {% else %}
-                      <td><a href="../../compare/{{campaign_keyword_detail.id}}" class="compare-btn">
-                      <input type="hidden" value="{{campaign_keyword_detail.id}}">
-                      Compare</a></td>
-                      {% endif %}
-                      
-                    </tr>
-                  {% endfor %}
-                  {% comment %} {% for campaign_keyword_detail in campaign_keyword_details %}
-                      <input class="all_keyword_ids" type="hidden" value="{{campaign_keyword_detail.id}}">
-                  {% endfor %} {% endcomment %}
-
-                    {% comment %} <tr>
-                      <td scope="row">hotels in ikeja</td>
+                      <td scope="row">zarpcourier</td>
                       <td>
                         5<span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>
                       </td>
                       <td>10</td>
                       <td>Tripadvisor</td>
                       <td>Travlebeta</td>
-                      <td><a href="#" class="compare-btn">Compare</a></td>
+                      <td><a href="../../compare/13" class="compare-btn">
+                      <input type="hidden" value="13">
+                      Compare</a></td>
                     </tr>
-                    <tr>
-                      <td scope="row">hotels in abuja</td>
-                      <td class="neutral">
-                        6<span class="iconify" data-icon="bi:dash-square-fill" data-inline="false"></span>
+                  
+                  <tr>
+                      <td scope="row">gregory</td>
+                      <td>
+                        5<span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>
                       </td>
-                      <td>6</td>
-                      <td>Wakanow</td>
-                      <td>Travelstart</td>
-                      <td><a href="#" class="compare-btn">Compare</a></td>
+                      <td>10</td>
+                      <td>Tripadvisor</td>
+                      <td>Travlebeta</td>
+                      <td><a href="../../compare/14" class="compare-btn">
+                      <input type="hidden" value="14">
+                      Compare</a></td>
                     </tr>
-                    <tr>
-                      <td scope="row">hotels in Uyo</td>
-                      <td class="reduce">
-                        5<span class="iconify" data-icon="bi-arrow-down-square-fill" data-inline="false"></span>
-                      </td>
-                      <td>3</td>
-                      <td>Tripadvisor</td>
-                      <td>Tripadvisor</td>
-                      <td><a href="#" class="compare-btn">Compare</a></td>
-                    </tr>
-                    <tr>
-                      <td scope="row">hotels in Osun</td>
-                      <td class="reduce">
-                        2<span class="iconify" data-icon="bi-arrow-down-square-fill" data-inline="false"></span>
-                      </td>
-                      <td>3</td>
-                      <td>Tripadvisor</td>
-                      <td>Tripadvisor</td>
-                      <td><a href="#" class="compare-btn">Compare</a></td>
-                    </tr> {% endcomment %}
+                  
+                    
                   </tbody>
                 </table>
               </div>
@@ -409,19 +349,19 @@
           </div>
           <div class="modal-body">
             <form>
-            {% csrf_token %}
+            <input type="hidden" name="csrfmiddlewaretoken" value="jVvuLCyunGKDHxUFgRaFRIsEN2I4ay5Nwx9n8hYM8bMvFvD3k1d9kM3H78imVe7l">
               <div class="form-group">
                 <label class="text-dark" for="campaignName">Campaign name</label>
-                <input type="text" class="form-control" id="edit_campaign_campaignName" placeholder="Hotels NG" value="{{index_campaign}}">
+                <input type="text" class="form-control" id="edit_campaign_campaignName" placeholder="Hotels NG" value="zarpcourier.com">
               </div>
               <div class="form-group">
                 <label class="text-dark" for="websiteLink">Website's baselink</label>
-                <input type="url" class="form-control" id="edit_campaign_websiteLink" data-default="{{index_language}}" placeholder="https://hotels.ng" value="{{index_link}}">
+                <input type="url" class="form-control" id="edit_campaign_websiteLink" data-default="English" placeholder="https://hotels.ng" value="https://www.zarpcourier.com">
               </div>
               <div class="form-group">
                 <label for="language" class="text-dark">Select Language</label>
                 <select class="form-control selectpicker" data-live-search="true" id="edit_campaign_language" data-flag="true">
-                  <option value="" selected>{{index_language}}</option>
+                  <option value="" selected>English</option>
                   <option value="AF">Afrikaans</option>
                   <option value="SQ">Albanian</option>
                   <option value="AR">Arabic</option>
@@ -500,38 +440,36 @@
                 <label for="country" class="text-dark">Select Country</label>
                 <select class="form-control selectpicker countrypicker" id="edit_campaign_country" data-flag="true"
                   data-live-search="true"></select>
-                  <input type="hidden" id="camp_main_id" value="{{index_id}}">
+                  <input type="hidden" id="camp_main_id" value="9">
               </div>
-              {% comment %} <div class="input-group">
-                <input type="text" class="form-control rounded" placeholder="Enter a keyword" aria-label="">
-                <div class="ml-2 input-group-append">
-                  <button class="btn btn-dark rounded" type="button">Add keyword</button>
-                </div>
-              </div> {% endcomment %}
+              
               <div class="mt-3">
                 <h6 class="text-dark">Keywords</h6>
                 <ul class="list-group">
-                {% for campaign_keyword_detail in campaign_keyword_details %}
+                
                 <li class="list-group-item d-flex justify-content-between align-items-center border-0">
                     <span>
                       <span class="iconify" data-icon="entypo:list" data-inline="false"></span> &nbsp;
-                      {{campaign_keyword_detail.keyword}}
+                      zarpcourier
                     </span>
                     <a class="keyword-delete-button delete_a_keyword" data-toggle="modal" data-target="#confirm_keyword_delete">
-                      <input type="hidden" value="{{campaign_keyword_detail.id}}">
+                      <input type="hidden" value="13">
                       <span class="iconify text-danger" data-icon="eva:close-square-fill" data-inline="false"></span>
                     </a>
                   </li>
-                {% endfor  %}
-                  {% comment %} <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+                
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0">
                     <span>
                       <span class="iconify" data-icon="entypo:list" data-inline="false"></span> &nbsp;
-                      hotels in ikeja
+                      gregory
                     </span>
-                    <a href="#" class="keyword-delete-button">
+                    <a class="keyword-delete-button delete_a_keyword" data-toggle="modal" data-target="#confirm_keyword_delete">
+                      <input type="hidden" value="14">
                       <span class="iconify text-danger" data-icon="eva:close-square-fill" data-inline="false"></span>
                     </a>
-                  </li> {% endcomment %}
+                  </li>
+                
+                  
                 </ul>
               </div>
             </form>
@@ -559,7 +497,7 @@
           </div>
           <div class="modal-body">
             <form>
-            {% csrf_token %}
+            <input type="hidden" name="csrfmiddlewaretoken" value="jVvuLCyunGKDHxUFgRaFRIsEN2I4ay5Nwx9n8hYM8bMvFvD3k1d9kM3H78imVe7l">
               <div class="form-group">
                 <label class="text-dark" for="campaignName">Campaign name</label>
                 <input type="text" class="form-control" id="add_campaign_campaignName" placeholder="Hotels NG">
@@ -652,24 +590,9 @@
               </div>
               <div class="input-group">
                 <input type="text" class="form-control rounded" placeholder="Enter a keyword" aria-label="" id="add_campaign_keyword">
-                {% comment %} <div class="ml-2 input-group-append">
-                  <button class="btn btn-dark rounded" type="button">Add keyword</button>
-                </div> {% endcomment %}
+                
               </div>
-              {% comment %} <div class="mt-3">
-                <h6 class="text-dark">Keywords</h6>
-                <ul class="list-group">
-                  <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                    <span>
-                      <span class="iconify" data-icon="entypo:list" data-inline="false"></span> &nbsp;
-                      hotels in ikeja
-                    </span>
-                    <a href="#" class="keyword-delete-button">
-                      <span class="iconify text-danger" data-icon="eva:close-square-fill" data-inline="false"></span>
-                    </a>
-                  </li>
-                </ul>
-              </div> {% endcomment %}
+              
             </form>
           </div>
 
@@ -729,26 +652,9 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          {% comment %} <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label class="text-dark" for="keywordName">Enter new keyword</label>
-                <input type="text" class="form-control" id="keywordName" placeholder="">
-              </div>
-            </form>
-          </div> delete_campaign_submit{% endcomment %}
+          
 
-          {% comment %} <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="add_keyword_submit">
-              <svg class="add-keyword-btn__icon" width="14" height="16" viewBox="0 0 14 16" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M13 6.5H8.5V2C8.5 1.44781 8.05219 1 7.5 1H6.5C5.94781 1 5.5 1.44781 5.5 2V6.5H1C0.447812 6.5 0 6.94781 0 7.5V8.5C0 9.05219 0.447812 9.5 1 9.5H5.5V14C5.5 14.5522 5.94781 15 6.5 15H7.5C8.05219 15 8.5 14.5522 8.5 14V9.5H13C13.5522 9.5 14 9.05219 14 8.5V7.5C14 6.94781 13.5522 6.5 13 6.5Z"
-                  fill="white" />
-              </svg>
-              Add keyword
-            </button>
-          </div> {% endcomment %}
+          
           <div class="modal-footer d-flex justify-content-between">
             <a type="button" class="btn btn-clear text-danger delete-campaign-button" id="delete_campaign_submit">Delete</a>
             <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">Cancel</button>
@@ -794,8 +700,8 @@
     <!-- <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script> -->
     <script type="module" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
-    <script src="{% static 'api/js/campaign-dashboard.js' %}"></script>
-    <script src="{% static 'api/js/actions.js' %}"></script>
+    <script src="/static/api/js/campaign-dashboard.js"></script>
+    <script src="/static/api/js/actions.js"></script>
 
   </body>
 
