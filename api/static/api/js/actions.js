@@ -40,6 +40,41 @@
         }
 
 
+        for(var i = 0; i < all_keyword_ids.length; i++){
+            console.log($(all_keyword_ids[i]).val());
+            var  k_id = $(all_keyword_ids[i]).val();
+            var r_1 = $(all_keyword_ids[i]).siblings("#ranking"+k_id);
+            var t_1 = $(all_keyword_ids[i]).siblings("#top_ranking"+k_id);
+            // c_1.html('Pending...');
+            // c_2.html('Pending...');
+
+
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + "//" + window.location.host +"/get_rank/" + k_id + "/",
+                success: function(response) {
+                    let json = null;
+                    try {
+                        json = JSON.parse(response); 
+                    } catch (e) {
+                        json = response;
+                    }
+                    console.log(json);
+                    console.log(json.ranking);
+                    console.log(json.top_rank); 
+                    r_1.html(json.ranking+k_id + "<span class='iconify' data-icon='" + json.rank_data_icon+k_id +"' data-inline='false'></span>");
+                    t_1.html(json.top_rank+k_id);
+          console.log(response); 
+                },
+                error: function(response) {
+             console.log(response);
+                 }      
+                        });
+
+
+        }
+
+
 
      $("#add_campaign_submit").click(function(event){
       event.preventDefault();

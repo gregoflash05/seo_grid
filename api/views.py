@@ -35,6 +35,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import QueryDict
 from .dt_validate import campaign_test, keyword_test, edit_campaign_test, data_output, validate_language
 from json import dumps
+from .serp import get_rank
 
 # Create your views here.
 
@@ -227,14 +228,24 @@ def delete_keyword(request, pk):
         # return Response('keyword deleted')
         return JsonResponse("<p class='success-alert' style='text-align:center'>keyword deleted<p><script>window.location.href = '../../dashboard/{}';</script>".format(campaign), safe=False)
 #//////////////////////////////////////End Edit keyword /////////////////////////////////////////
-
+def save_campaign_data(data, pk, user):
+    campaign_details = Campaign.objects.get(pk=pk)
+    serializer = CampaignSerializer(campaign_details, data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return True
+    else:
+        return False
 
 #//////////////////////////////////////dashboard/////////////////////////////////////////
-def dashboard(request):
 
+            
+def dashboard(request):
     r_user = request.user
     if r_user.is_authenticated:
         if Campaign.objects.filter(user=r_user).exists():
+            wait_time = 604800
+            wait_time = 120
             user = User()
             name = r_user.first_name
             name = name.upper()
@@ -243,15 +254,56 @@ def dashboard(request):
             index_campaign, index_link, index_language, index_country, index_id = index['campaign_name'], index['link'], index['language'], index['country'], index['id'] 
             # print(name)
             campaign_keyword_details = KeywordsSerializer(Keywords.objects.filter(campaign=index_id), many=True).data
+            av_position, av_increase = index['average_position'], index['average_position_percentage_increase']
+            all_ranks = []
+            try:
+                for i in campaign_keyword_details:
+                    if i['ranking'] != 0:
+                        all_ranks.append(i['ranking'])
+                average_position = round(sum(all_ranks)/len(all_ranks), 2)
+                if av_increase == None or index['avp_data_icon'] == None:
+                    av_data = {"user" : r_user.id,"average_position": average_position,"average_position_percentage_increase": 100,"avp_data_icon":'bi:arrow-up-square-fill'}
+                    save_campaign_data(av_data, index['id'], r_user)
+                else:
+                    pect_change = round(((average_position - av_position)/av_position) * 100)
+                    if pect_change < 0:
+                        percent_increase = -pect_change
+                        avp_data_icon = 'bi:arrow-up-square-fill'
+                    elif pect_change > 0:
+                        percent_increase = -pect_change
+                        avp_data_icon = 'bi-arrow-down-square-fill'
+                    else:
+                        percent_increase = pect_change
+                        avp_data_icon = 'bi:dash-square-fill'
+                    av_data = {"user" : r_user.id,"average_position": average_position,"average_position_percentage_increase": percent_increase,"avp_data_icon":avp_data_icon}
+                    save_campaign_data(av_data, index['id'], r_user)
+            except:
+                safe = 1
+            keyword_count, kwv_inc, kwc_icon = len(campaign_keyword_details), index['keyword_count_percentage_increase'], index['kwc_data_icon']
+            if kwv_inc == None or kwc_icon == None:
+                data = {"user" : r_user.id,"keyword_count": keyword_count,"keyword_count_percentage_increase": 100,"kwc_data_icon":'bi:arrow-up-square-fill', 'kwc_update_time':time.time()}
+                save_campaign_data(data, index['id'], r_user)
+            elif (time.time() - index['kwc_update_time'])  > wait_time:
+                percentage_change = round(((keyword_count - index['keyword_count'])/index['keyword_count']) * 100)
+                if percentage_change > 0:
+                    kwc_data_icon = 'bi:arrow-up-square-fill'
+                elif percentage_change < 0:
+                    kwc_data_icon = 'bi-arrow-down-square-fill'
+                else:
+                    kwc_data_icon = 'bi:dash-square-fill'
+                data = {"user" : r_user.id, "keyword_count": keyword_count,"keyword_count_percentage_increase": percentage_change,"kwc_data_icon":kwc_data_icon, 'kwc_update_time':time.time()}
+                save_campaign_data(data, index['id'], r_user)
+            else:
+                pass
             profile = Profile.objects.get(user=r_user)
             company = profile.company
             company =  company.upper()
             context ={
                 'company' : company,
                 'name' : name,
-                'campaigns' : campaigns,
+                'campaigns' : campaigns,'index':index,
                 'index_campaign' : index_campaign, 'index_link' : index_link, 'index_language' : index_language, 'index_country' : index_country, 'index_id':index_id,
-                'campaign_keyword_details' : campaign_keyword_details
+                'campaign_keyword_details' : campaign_keyword_details, 'keyword_count':keyword_count
 
             }
             dataJSON = dumps(context)
@@ -264,6 +316,8 @@ def camp_dashboard(request, pk):
     r_user = request.user
     if r_user.is_authenticated:
         if Campaign.objects.filter(user=r_user).exists():
+            wait_time = 604800
+            wait_time = 120
             user = User()
             name = r_user.first_name
             name = name.upper()
@@ -276,15 +330,56 @@ def camp_dashboard(request, pk):
             index_campaign, index_link, index_language, index_country, index_id = index['campaign_name'], index['link'], index['language'], index['country'], index['id'], 
             # print(name)
             campaign_keyword_details = KeywordsSerializer(Keywords.objects.filter(campaign=index_id), many=True).data
+            av_position, av_increase = index['average_position'], index['average_position_percentage_increase']
+            all_ranks = []
+            try:
+                for i in campaign_keyword_details:
+                    if i['ranking'] != 0:
+                        all_ranks.append(i['ranking'])
+                average_position = round(sum(all_ranks)/len(all_ranks), 2)
+                if av_increase == None or index['avp_data_icon'] == None:
+                    av_data = {"user" : r_user.id,"average_position": average_position,"average_position_percentage_increase": 100,"avp_data_icon":'bi:arrow-up-square-fill'}
+                    save_campaign_data(av_data, index['id'], r_user)
+                else:
+                    pect_change = round(((average_position - av_position)/av_position) * 100)
+                    if pect_change < 0:
+                        percent_increase = -pect_change
+                        avp_data_icon = 'bi:arrow-up-square-fill'
+                    elif pect_change > 0:
+                        percent_increase = -pect_change
+                        avp_data_icon = 'bi-arrow-down-square-fill'
+                    else:
+                        percent_increase = pect_change
+                        avp_data_icon = 'bi:dash-square-fill'
+                    av_data = {"user" : r_user.id,"average_position": average_position,"average_position_percentage_increase": percent_increase,"avp_data_icon":avp_data_icon}
+                    save_campaign_data(av_data, index['id'], r_user)
+            except:
+                safe = 1
+            keyword_count, kwv_inc, kwc_icon = len(campaign_keyword_details), index['keyword_count_percentage_increase'], index['kwc_data_icon']
+            if kwv_inc == None or kwc_icon == None:
+                data = {"user" : r_user.id,"keyword_count": keyword_count,"keyword_count_percentage_increase": 100,"kwc_data_icon":'bi:arrow-up-square-fill', 'kwc_update_time':time.time()}
+                save_campaign_data(data, index['id'], r_user)
+            elif (time.time() - index['kwc_update_time'])  > wait_time:
+                percentage_change = round(((keyword_count - index['keyword_count'])/index['keyword_count']) * 100)
+                if percentage_change > 0:
+                    kwc_data_icon = 'bi:arrow-up-square-fill'
+                elif percentage_change < 0:
+                    kwc_data_icon = 'bi-arrow-down-square-fill'
+                else:
+                    kwc_data_icon = 'bi:dash-square-fill'
+                data = {"user" : r_user.id, "keyword_count": keyword_count,"keyword_count_percentage_increase": percentage_change,"kwc_data_icon":kwc_data_icon, 'kwc_update_time':time.time()}
+                save_campaign_data(data, index['id'], r_user)
+            else:
+                pass
             profile = Profile.objects.get(user=r_user)
             company = profile.company
             company =  company.upper()
             context ={
                 'company' : company,
                 'name' : name,
-                'campaigns' : campaigns,
+                'campaigns' : campaigns,'index':index,
                 'index_campaign' : index_campaign, 'index_link' : index_link, 'index_language' : index_language, 'index_country' : index_country, 'index_id':index_id,
-                'campaign_keyword_details' : campaign_keyword_details 
+                'campaign_keyword_details' : campaign_keyword_details, 'keyword_count':keyword_count
 
             }
         
@@ -346,9 +441,9 @@ def compare_page(request, pk):
 # }
 def compare_endpoints_validate(r_user, pk):
         keyword_details = Keywords.objects.get(pk=pk)
-        keyword_detail = KeywordsSerializer(keyword_details).data 
+        keyword_detail = KeywordsSerializer(keyword_details).data
         campaign_id, keyword, competitor, competitor_time = keyword_detail['campaign'], keyword_detail['keyword'], data_output(keyword_detail['competitor_one']), keyword_detail['competitor_time']
-        competitor2 = data_output(keyword_detail['competitor_two'])
+        competitor2, rank_time, ranking, top_rank = data_output(keyword_detail['competitor_two']), keyword_detail['rank_time'], keyword_detail['ranking'] , keyword_detail['top_rank']  
         # print(competitor)
         campaigns = CampaignSerializer(Campaign.objects.filter(user=r_user), many=True).data
         for k in campaigns:
@@ -357,7 +452,8 @@ def compare_endpoints_validate(r_user, pk):
         index_link, location, language = index['link'], index['country'], index['language']
         abv_language = validate_language(language)
         return {'campaign_id':campaign_id, 'keyword':keyword, 'competitor':competitor, 'index_link':index_link,
-        'location':location, 'language': language, 'abv_language':abv_language, 'competitor_time':competitor_time, 'competitor2':competitor2}
+        'location':location, 'language': language, 'abv_language':abv_language, 'competitor_time':competitor_time, 'competitor2':competitor2,
+        'rank_time':rank_time, 'ranking':ranking, 'top_rank':top_rank}
 
 @csrf_exempt
 def url_compare_data(request, pk):
@@ -585,6 +681,49 @@ def top_2_competitors(request, pk):
               return JsonResponse({"id": pk,"competitor_one": com['competitor1'],"competitor_two": com['competitor2'],"competitor_time": time.time()}, safe=False)
         else:
             return JsonResponse({"id{}".format(pk): pk,"competitor_one{}".format(pk): competitor,"competitor_two{}".format(pk): competitor2,"competitor_time{}".format(pk): competitor_time}, safe=False)
+
+
+@csrf_exempt
+def get_keyword_rank(request, pk):
+    if request.method == 'POST':
+        wait_time = 86400
+        # wait_time = 60
+        r_user = request.user
+        k_data = compare_endpoints_validate(r_user, pk)
+        keyword, location, language, rank_time = k_data['keyword'] , k_data['location'], k_data['abv_language'], k_data['rank_time']
+        old_ranking, top_rank, domain = k_data['ranking'], k_data['top_rank'], k_data['index_link']
+        if rank_time == None:
+            ranking = get_rank(keyword, location, language, domain)
+            if ranking == 0:
+                rank_data_icon = 'bi:dash-square-fill'
+            else:
+                rank_data_icon = "bi:arrow-up-square-fill"
+            save_to_keyword({"id": pk,"ranking": ranking,"top_rank": ranking,"rank_data_icon": rank_data_icon,"rank_time": time.time()}, pk)
+            return JsonResponse({"id{}".format(pk): pk,"ranking{}".format(pk): ranking,"top_rank{}".format(pk): ranking,"rank_data_icon{}".format(pk): rank_data_icon,"rank_time{}".format(pk): time.time()}, safe=False)
+        elif (time.time() - rank_time)  > wait_time:
+            ranking = get_rank(keyword, location, language, domain)
+            if   top_rank == None or top_rank == 0:
+                if ranking > top_rank:
+                    rank_data_icon = 'bi:arrow-up-square-fill'
+                else:
+                    rank_data_icon = 'bi:dash-square-fill'
+                save_to_keyword({"id": pk,"ranking": ranking,"top_rank": ranking,"rank_data_icon": rank_data_icon,"rank_time": time.time()}, pk)
+                return JsonResponse({"id{}".format(pk): pk,"ranking{}".format(pk): ranking,"top_rank{}".format(pk): ranking,"rank_data_icon{}".format(pk): "bi:arrow-up-square-fill","rank_time{}".format(pk): time.time()}, safe=False)
+            elif ranking < top_rank and ranking > 0:
+                # ranking = get_rank(keyword, location, language, domain)
+                save_to_keyword({"id": pk,"ranking": ranking,"top_rank": ranking,"rank_data_icon": "bi:arrow-up-square-fill","rank_time": time.time()}, pk)
+                return JsonResponse({"id{}".format(pk): pk,"ranking{}".format(pk): ranking,"top_rank{}".format(pk): ranking,"rank_data_icon{}".format(pk): "bi:arrow-up-square-fill","rank_time{}".format(pk): time.time()}, safe=False)
+            elif top_rank < ranking and top_rank > 0:
+                save_to_keyword({"id": pk,"ranking": ranking,"rank_data_icon": 'bi:dash-square-fill',"rank_time": time.time()}, pk)
+                return JsonResponse({"id{}".format(pk): pk,"ranking{}".format(pk): ranking,"top_rank{}".format(pk): top_rank,"rank_data_icon{}".format(pk): 'bi:dash-square-fill',"rank_time{}".format(pk): time.time()}, safe=False)
+                # save_to_keyword({"id": pk,"ranking": ranking,"rank_time": time.time()}, pk)
+                # return JsonResponse({"id": pk,"ranking": ranking,"top_rank": top_rank,"rank_time": time.time()}, safe=False)
+            else:
+                return JsonResponse({"id": pk,"ranking": ranking,"top_rank": top_rank,"rank_time": time.time(), 'condition':'critical'}, safe=False)
+            
+        else:
+            return JsonResponse({"id": pk,"ranking": old_ranking,"top_rank": top_rank,"rank_time": time.time()}, safe=False)
+
 
 #//////////////////////////////////////End Dashboard Keyword endpoints/////////////////////////////////////////
 @api_view(['POST', ])

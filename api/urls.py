@@ -33,6 +33,7 @@ urlpatterns = [
     path('url_compare_competitor_run_time/<int:pk>/', views.url_compare_competitor_run_time, name="Compare keyword"),
 
     path('top_2_competitors/<int:pk>/', views.top_2_competitors, name="Competitors"),
+    path('get_rank/<int:pk>/', views.get_keyword_rank, name="Ranking"),
 
     path('campaign/<int:pk>/', views.campaign_info_by_id, name='campaign-user-id'),
     path('campaign/', views.CampaignInfoView, name='campaign'),
