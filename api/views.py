@@ -442,6 +442,7 @@ def compare_page(request, pk):
 def compare_endpoints_validate(r_user, pk):
         keyword_details = Keywords.objects.get(pk=pk)
         keyword_detail = KeywordsSerializer(keyword_details).data
+        site_map_testtime, competitor_site_map_testtime = keyword_detail['site_map_testtime'], keyword_detail['competitor_site_map_testtime']
         campaign_id, keyword, competitor, competitor_time = keyword_detail['campaign'], keyword_detail['keyword'], data_output(keyword_detail['competitor_one']), keyword_detail['competitor_time']
         competitor2, rank_time, ranking, top_rank = data_output(keyword_detail['competitor_two']), keyword_detail['rank_time'], keyword_detail['ranking'] , keyword_detail['top_rank']  
         # print(competitor)
@@ -453,7 +454,8 @@ def compare_endpoints_validate(r_user, pk):
         abv_language = validate_language(language)
         return {'campaign_id':campaign_id, 'keyword':keyword, 'competitor':competitor, 'index_link':index_link,
         'location':location, 'language': language, 'abv_language':abv_language, 'competitor_time':competitor_time, 'competitor2':competitor2,
-        'rank_time':rank_time, 'ranking':ranking, 'top_rank':top_rank}
+        'rank_time':rank_time, 'ranking':ranking, 'top_rank':top_rank, 'site_map_testtime':site_map_testtime,
+        'competitor_site_map_testtime':competitor_site_map_testtime}
 
 @csrf_exempt
 def url_compare_data(request, pk):
@@ -550,6 +552,35 @@ def url_compare_data_run_time(request, pk):
         if serializer.is_valid():
             serializer.save()
         return JsonResponse("run_time: {}".format(run_time), safe=False)
+
+@csrf_exempt
+def ob_br_compare(request, pk):
+    if request.method == 'POST':
+        wait_time = 120
+        wait_time = 7200
+        r_user = request.user
+        kw_data = compare_endpoints_validate(r_user, pk)
+        base_url, sm_testtime = kw_data['index_link'], kw_data['site_map_testtime']
+        
+        if sm_testtime == None:
+            r_data = generate_sitemap(base_url, 22)
+            data = {"id": pk,"outbound_links": r_data['outbound'], 'broken_links': r_data['broken'], 'site_map_testtime': time.time()}
+            keywords_details = Keywords.objects.get(pk=pk)
+            serializer = KeywordsSerializer(keywords_details, data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return JsonResponse({"id": pk,'url':base_url,"outbound_links": r_data['outbound'], 'broken_links': r_data['broken']}, safe=False)
+        elif (float(time.time()) - float(sm_testtime)) > float(wait_time):
+            r_data = generate_sitemap(base_url, 22)
+            data = {"id": pk,"outbound_links": r_data['outbound'], 'broken_links': r_data['broken'], 'site_map_testtime': time.time()}
+            keywords_details = Keywords.objects.get(pk=pk)
+            serializer = KeywordsSerializer(keywords_details, data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return JsonResponse({"id": pk,'url':base_url,"outbound_links": r_data['outbound'], 'broken_links': r_data['broken']}, safe=False)
+        else:
+            return JsonResponse("Not time", safe=False)
+
 
 @csrf_exempt
 def url_compare_competitor_data(request, pk):
@@ -659,7 +690,40 @@ def url_compare_competitor_run_time(request, pk):
             if serializer.is_valid():
                 serializer.save()
             return JsonResponse("run_time: {}".format(run_time), safe=False)
-        
+
+@csrf_exempt
+def ob_br_compare_competitor(request, pk):
+    if request.method == 'POST':
+        wait_time = 120
+        wait_time = 7200
+        r_user = request.user
+        kw_data = compare_endpoints_validate(r_user, pk)
+        competitor = kw_data['competitor']
+        if competitor == "Pending":
+            return JsonResponse("Pending", safe=False)
+        else:
+            base_url, smc_testtime = "https://" + competitor,  kw_data['competitor_site_map_testtime']
+            if smc_testtime == None:
+                r_data = generate_sitemap(base_url, 22)
+                data = {"id": pk,'url':base_url,"competitor_outbound_links": r_data['outbound'], 'competitor_broken_links': r_data['broken'], 'competitor_site_map_testtime': time.time()}
+                keywords_details = Keywords.objects.get(pk=pk)
+                serializer = KeywordsSerializer(keywords_details, data=data)
+                if serializer.is_valid():
+                    serializer.save()
+                return JsonResponse({"id": pk,"competitor_outbound_links": r_data['outbound'], 'competitor_broken_links': r_data['broken']}, safe=False)
+            elif (float(time.time()) - float(smc_testtime)) > float(wait_time):
+                r_data = generate_sitemap(base_url, 22)
+                data = {"id": pk,'url':base_url,"competitor_outbound_links": r_data['outbound'], 'competitor_broken_links': r_data['broken'], 'competitor_site_map_testtime': time.time()}
+                keywords_details = Keywords.objects.get(pk=pk)
+                serializer = KeywordsSerializer(keywords_details, data=data)
+                if serializer.is_valid():
+                    serializer.save()
+                return JsonResponse({"id": pk,'url':base_url,"competitor_outbound_links": r_data['outbound'], 'competitor_broken_links': r_data['broken']}, safe=False)
+            else:
+                return JsonResponse("Not time", safe=False)
+
+
+
 #//////////////////////////////////////End multiple endpoints/////////////////////////////////////////
 
 #//////////////////////////////////////Dashboard Keyword endpoints/////////////////////////////////////////

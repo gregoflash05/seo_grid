@@ -256,7 +256,7 @@
                   <th class="unsee" scope="col"></th>
                   <th class="compare1" scope="col">{{trimmed_index_link}}</th>
                   <th class="compare2" scope="col">{% if keyword_details.competitor_one == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.competitor_one}}
                   {% endif %}</th>
@@ -276,13 +276,13 @@
                   <th scope="row">Page Title</th>
                   {% comment %} <td class="border-green">Top Hotels in Ikeja | Hotels.ng</td> {% endcomment %}
                   <td class="border-green">{% if keyword_details.page_title == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.page_title}}
                   {% endif %}
                   </td>
                   <td>{% if keyword_details.competitor_page_title == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.competitor_page_title}}
                   {% endif %}</td>
@@ -291,13 +291,13 @@
                 <tr>
                   <th scope="row">Search Engine Indexed Pages</th>
                   <td class="border-green">{% if keyword_details.indexed_pages == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.indexed_pages}}
                   {% endif %}
                   </td>
                   <td>{% if keyword_details.competitor_indexed_pages == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.competitor_indexed_pages}}
                   {% endif %}</td>
@@ -307,12 +307,12 @@
                 <tr>
                   <th scope="row">Site Map</th>
                   <td class="border-green">{% if keyword_details.site_map == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.site_map}}
                   {% endif %}</td>
                   <td>{% if keyword_details.competitor_site_map == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.competitor_site_map}}
                   {% endif %}</td>
@@ -321,12 +321,12 @@
                 <tr>
                   <th scope="row">Page Load Time</th>
                   <td class="border-green">{% if keyword_details.page_load_time == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.page_load_time}}
                   {% endif %} seconds</td>
                   <td>{% if keyword_details.competitor_page_load_time == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.competitor_page_load_time}}
                   {% endif %} seconds</td>
@@ -335,26 +335,27 @@
                 <tr>
                   <th scope="row">SSL Certificate</th>
                   <td class="border-green">{% if keyword_details.ssl_certificate == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.ssl_certificate}}
                   {% endif %}</td>
                   <td>{% if keyword_details.competitor_ssl_certificate == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.competitor_ssl_certificate}}
                   {% endif %}</td>
                   <td>SSL is a great ranking signal for search engines, consider getting one.</td>
                 </tr>
+                <input id="keyword_id" type="hidden" value="{{keyword_details.id}}">
                 {% comment %} <tr>
                   <th scope="row">Backlinks</th>
                   <td class="border-green">{% if keyword_details.back_links == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.back_links}}
                   {% endif %}</td>
                   <td>{% if keyword_details.competitor_back_links == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.competitor_back_links}}
                   {% endif %}</td>
@@ -362,22 +363,22 @@
                 </tr> {% endcomment %}
                 <tr>
                   <th scope="row">Outbound Links</th>
-                  <td class="border-green">{% if keyword_details.broken_links == None %}
-                  Please wait...
+                  <td class="border-green">{% if keyword_details.outbound_links == None %}
+                  Pending
                   {% else %}
-                  {{keyword_details.broken_links}}
+                  {{keyword_details.outbound_links}}
                   {% endif %}</td>
-                  <td>{% if keyword_details.competitor_broken_links == None %}
-                  Please wait...
+                  <td>{% if keyword_details.competitor_outbound_links == None %}
+                  Pending
                   {% else %}
-                  {{keyword_details.competitor_broken_links}}
+                  {{keyword_details.competitor_outbound_links}}
                   {% endif %}</td>
                   <td>Consider making your outbound links no-follow</td>
                 </tr>
                 <tr>
                   <th scope="row">Mobile Responsiveness</th>
                   <td class="border-green">{% if keyword_details.mobile_responsiveness == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.mobile_responsiveness}}
                   {% endif %}</td>
@@ -391,12 +392,12 @@
                 <tr>
                   <th scope="row">Broken Links</th>
                   <td class="border-green">{% if keyword_details.broken_links == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.broken_links}}
                   {% endif %}</td>
                   <td>{% if keyword_details.competitor_broken_links == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.competitor_broken_links}}
                   {% endif %}</td>
@@ -405,12 +406,12 @@
                 {% comment %} <tr>
                   <th scope="row">Organic Search Traffic</th>
                   <td class="border-green border-bottom-green">{% if keyword_details.organic_search_traffic == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.organic_search_traffic}}
                   {% endif %}</td>
                   <td>{% if keyword_details.competitor_organic_search_traffic == None %}
-                  Please wait...
+                  Pending
                   {% else %}
                   {{keyword_details.competitor_organic_search_traffic}}
                   {% endif %}</td>
@@ -441,6 +442,7 @@
   <script nomodule="" src="https://unpkg.com/ionicons@5.1.2/dist/ionicons/ionicons.js"></script>
   <!-- custom js -->
   <script type="text/javascript" src="{% static 'api/js/compare/campaign-dashboard.js' %}"></script>
+  <script type="text/javascript" src="{% static 'api/js/compare/compare_action.js' %}"></script>
 </body>
 
 </html>

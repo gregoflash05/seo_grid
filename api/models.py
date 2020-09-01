@@ -53,7 +53,8 @@ class Keywords(models.Model):
     competitor_time = models.FloatField(blank=True, null=True)
     rank_time = models.FloatField(blank=True, null=True)
     rank_data_icon = models.CharField(max_length=255, blank=True, null=True)
-    
+    site_map_testtime = models.CharField(max_length=255, blank=True, null=True)
+    competitor_site_map_testtime = models.CharField(max_length=255, blank=True, null=True)
 
 
     def __str__(self):
