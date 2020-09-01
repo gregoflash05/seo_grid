@@ -423,7 +423,7 @@ def compare_page(request, pk):
     context ={
         'company' : company,
         'name' : name,
-        'campaigns' : campaigns,
+        'campaigns' : campaigns, 'index':index,
         'index_campaign' : index_campaign, 'index_link' : index_link, 'index_language' : index_language, 'index_country' : index_country, 'index_id':index_id,
         'keyword' : keyword, 'trimmed_index_link' : trimmed_index_link, 'keyword_details' : keyword_details
 
