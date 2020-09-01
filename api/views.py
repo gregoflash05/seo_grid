@@ -674,11 +674,11 @@ def top_2_competitors(request, pk):
         if competitor_time == None:
             com = get_competitor_links(keyword, location, language)  
             save_to_keyword({"id": pk,"competitor_one": com['competitor1'],"competitor_two": com['competitor2'],"competitor_time": time.time()}, pk)
-            return JsonResponse({"id": pk,"competitor_one": com['competitor1'],"competitor_two": com['competitor2'],"competitor_time": time.time()}, safe=False)
+            return JsonResponse({"id{}".format(pk): pk,"competitor_one{}".format(pk): com['competitor1'],"competitor_two{}".format(pk): com['competitor2'],"competitor_time": time.time()}, safe=False)
         elif  (time.time() - competitor_time)  > wait_time:
               com = get_competitor_links(keyword, location, language)  
               save_to_keyword({"id": pk,"competitor_one": com['competitor1'],"competitor_two": com['competitor2'],"competitor_time": time.time()}, pk)
-              return JsonResponse({"id": pk,"competitor_one": com['competitor1'],"competitor_two": com['competitor2'],"competitor_time": time.time()}, safe=False)
+              return JsonResponse({"id": pk,"competitor_one{}".format(pk): com['competitor1'],"competitor_two{}".format(pk): com['competitor2'],"competitor_time": time.time()}, safe=False)
         else:
             return JsonResponse({"id{}".format(pk): pk,"competitor_one{}".format(pk): competitor,"competitor_two{}".format(pk): competitor2,"competitor_time{}".format(pk): competitor_time}, safe=False)
 
@@ -719,10 +719,10 @@ def get_keyword_rank(request, pk):
                 # save_to_keyword({"id": pk,"ranking": ranking,"rank_time": time.time()}, pk)
                 # return JsonResponse({"id": pk,"ranking": ranking,"top_rank": top_rank,"rank_time": time.time()}, safe=False)
             else:
-                return JsonResponse({"id": pk,"ranking": ranking,"top_rank": top_rank,"rank_time": time.time(), 'condition':'critical'}, safe=False)
+                return JsonResponse({"id": pk, 'condition':'critical'}, safe=False)
             
         else:
-            return JsonResponse({"id": pk,"ranking": old_ranking,"top_rank": top_rank,"rank_time": time.time()}, safe=False)
+            return JsonResponse({"id": pk,"condition": "stable"}, safe=False)
 
 
 #//////////////////////////////////////End Dashboard Keyword endpoints/////////////////////////////////////////

@@ -261,7 +261,7 @@
                     <div class="stats-card__count-secondary">
                       <span class="iconify" data-icon="{% if index.avp_data_icon == None %}bi:dash-square-fill{% else %}{{index.avp_data_icon | safe }}{% endif %}" data-inline="false"></span>{% if index.average_position_percentage_increase == None %}
                     0
-                    {% elif index.average_position_percentage_increase < 0  %}
+                    {% elif index.average_position_percentage_increase > 0  %}
                     +{{index.average_position_percentage_increase}}
                     {% else %} 
                       {{index.average_position_percentage_increase}}
@@ -360,7 +360,7 @@
                       Pending
                       {% else %}
                       {{campaign_keyword_detail.ranking}}
-                      {% endif %}<span class="iconify" data-icon="{% if index.rank_data_icon == None %}bi:dash-square-fill{% else %}{{index.rank_data_icon}}{% endif %}" data-inline="false"></span>
+                      {% endif %}<span class="iconify" data-icon="{% if index.rank_data_icon == None %}{% else %}{{index.rank_data_icon}}{% endif %}" data-inline="false"></span>
                       </td>
                       <td id="top_ranking{{campaign_keyword_detail.id}}">{% if campaign_keyword_detail.top_rank == None %}
                       Pending

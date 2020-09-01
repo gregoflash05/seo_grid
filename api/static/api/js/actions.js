@@ -24,11 +24,11 @@
                     } catch (e) {
                         json = response;
                     }
-                    console.log(json);
-                    console.log(json.competitor_one + k_id);
-                    console.log(json.competitor_two + k_id);
-                    c_1.html(json.competitor_one + k_id);
-                    c_2.html(json.competitor_two + k_id);
+                    // console.log(json);
+                    // console.log(json.competitor_one + k_id);
+                    // console.log(json.competitor_two + k_id);
+                    // c_1.html(json.competitor_one + k_id);
+                    // c_2.html(json.competitor_two + k_id);
           console.log(response); 
                 },
                 error: function(response) {
@@ -59,11 +59,11 @@
                     } catch (e) {
                         json = response;
                     }
-                    console.log(json);
-                    console.log(json.ranking);
-                    console.log(json.top_rank); 
-                    r_1.html(json.ranking+k_id + "<span class='iconify' data-icon='" + json.rank_data_icon+k_id +"' data-inline='false'></span>");
-                    t_1.html(json.top_rank+k_id);
+                    // console.log(json);
+                    // console.log(json.ranking);
+                    // console.log(json.top_rank); 
+                    // r_1.html(json.ranking+k_id + "<span class='iconify' data-icon='" + json.rank_data_icon+k_id +"' data-inline='false'></span>");
+                    // t_1.html(json.top_rank+k_id);
           console.log(response); 
                 },
                 error: function(response) {
