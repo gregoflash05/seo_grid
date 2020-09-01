@@ -217,7 +217,7 @@
 
             <!-- Stats Cards Section -->
             <div class="row mb-5">
-              <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
+              {% comment %} <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
                 <div class="stats-card w-100 p-3">
                   <div class="stats-card__header f-16 mb-4">
                     Est. Traffic Per Day
@@ -231,9 +231,9 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> {% endcomment %}
               <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
-                <div class="stats-card w-100 p-3">
+                {% comment %} <div class="stats-card w-100 p-3">
                   <div class="stats-card__header f-16 mb-4">
                     avg. position
                   </div>
@@ -245,9 +245,32 @@
                       <span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>+28%
                     </div>
                   </div>
+                </div> {% endcomment %}
+                <div class="stats-card w-100 p-3">
+                  <div class="stats-card__header f-16 mb-4">
+                    avg. position
+                  </div>
+                  <div class="stats-card__counts">
+                    <div class="stats-card__count-main mb-4">
+                    {% if index.average_position == None %}
+                    0
+                    {% else %} 
+                      {{index.average_position}}
+                    {% endif %}
+                    </div>
+                    <div class="stats-card__count-secondary">
+                      <span class="iconify" data-icon="{% if index.avp_data_icon == None %}bi:dash-square-fill{% else %}{{index.avp_data_icon | safe }}{% endif %}" data-inline="false"></span>{% if index.average_position_percentage_increase == None %}
+                    0
+                    {% elif index.average_position_percentage_increase < 0  %}
+                    +{{index.average_position_percentage_increase}}
+                    {% else %} 
+                      {{index.average_position_percentage_increase}}
+                    {% endif %}%
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
+              {% comment %} <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
                 <div class="stats-card w-100 p-3">
                   <div class="stats-card__header f-16 mb-4">
                     Backlinks
@@ -261,8 +284,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
+              </div> {% endcomment %}
+              {% comment %} <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
                 <div class="stats-card w-100 p-3">
                   <div class="stats-card__header f-16 mb-4">
                     keywords
@@ -273,6 +296,27 @@
                     </div>
                     <div class="stats-card__count-secondary">
                       <span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>+18%
+                    </div>
+                  </div>
+                </div>
+              </div> {% endcomment %}
+              <div class="col-12 col-md-6 col-lg-3 mb-3 d-flex">
+                <div class="stats-card w-100 p-3">
+                  <div class="stats-card__header f-16 mb-4">
+                    keywords
+                  </div>
+                  <div class="stats-card__counts">
+                    <div class="stats-card__count-main mb-4">
+                      {{keyword_count}}
+                    </div>
+                    <div class="stats-card__count-secondary">
+                      <span class="iconify" data-icon="{% if index.kwc_data_icon == None %}bi:dash-square-fill{% else %}{{index.kwc_data_icon}}{% endif %}" data-inline="false"></span>{% if index.keyword_count_percentage_increase == None %}
+                    0
+                    {% elif index.keyword_count_percentage_increase > 0  %}
+                    +{{index.keyword_count_percentage_increase}}
+                    {% else %} 
+                      {{index.keyword_count_percentage_increase}}
+                    {% endif %}%
                     </div>
                   </div>
                 </div>
@@ -311,10 +355,18 @@
                   {% for campaign_keyword_detail in campaign_keyword_details %}
                   <tr>
                       <td scope="row">{{campaign_keyword_detail.keyword}}</td>
-                      <td>
-                        5<span class="iconify" data-icon="bi:arrow-up-square-fill" data-inline="false"></span>
+                      <td id="ranking{{campaign_keyword_detail.id}}">
+                        {% if campaign_keyword_detail.ranking == None %}
+                      Pending
+                      {% else %}
+                      {{campaign_keyword_detail.ranking}}
+                      {% endif %}<span class="iconify" data-icon="{% if index.rank_data_icon == None %}bi:dash-square-fill{% else %}{{index.rank_data_icon}}{% endif %}" data-inline="false"></span>
                       </td>
-                      <td>10</td>
+                      <td id="top_ranking{{campaign_keyword_detail.id}}">{% if campaign_keyword_detail.top_rank == None %}
+                      Pending
+                      {% else %}
+                      {{campaign_keyword_detail.top_rank}}
+                      {% endif %}</td>
                       <td class="Competitor_1{{campaign_keyword_detail.id}}">
                       {% if campaign_keyword_detail.competitor_one == None %}
                       Pending

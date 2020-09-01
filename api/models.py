@@ -12,6 +12,13 @@ class Campaign(models.Model):
     est_traffic = models.FloatField(blank=True, null=True)
     avg_position = models.FloatField(blank=True, null=True)
     backlinks = models.FloatField(blank=True, null=True)
+    average_position = models.FloatField(blank=True, null=True)
+    average_position_percentage_increase = models.IntegerField(blank=True, null=True)
+    avp_data_icon = models.CharField(max_length=255, blank=True, null=True)
+    keyword_count = models.IntegerField(blank=True, null=True)
+    keyword_count_percentage_increase = models.IntegerField(blank=True, null=True)
+    kwc_data_icon = models.CharField(max_length=255, blank=True, null=True)
+    kwc_update_time = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.user.fullname
@@ -45,6 +52,9 @@ class Keywords(models.Model):
     competitor_mobile_responsiveness = models.CharField(max_length=255, blank=True, null=True)
     competitor_time = models.FloatField(blank=True, null=True)
     rank_time = models.FloatField(blank=True, null=True)
+    rank_data_icon = models.CharField(max_length=255, blank=True, null=True)
+    
+
 
     def __str__(self):
         return self.campaign.campaign_name
