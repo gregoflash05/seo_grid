@@ -27,12 +27,15 @@ urlpatterns = [
     path('url_compare_run_time/<int:pk>/', views.url_compare_data_run_time, name="Compare keyword"),
     path('ob_br_compare/<int:pk>/', views.ob_br_compare, name="Compare keyword"),
 
+    path('indexed_pages/<int:pk>/', views.indexed_pages, name="Compare keyword"),
+
     path('url_compare_competitor_title/<int:pk>/', views.url_compare_competitor_title, name="Compare keyword"),
     path('url_compare_competitorr_responsive/<int:pk>/', views.url_compare_competitor_responsive, name="Compare keyword"),
     path('url_compare_competitor_sitemap/<int:pk>/', views.url_compare_competitor_sitemap, name="Compare keyword"),
     path('url_compare_competitor_ssl_status/<int:pk>/', views.url_compare_competitor_ssl_status, name="Compare keyword"),
     path('url_compare_competitor_run_time/<int:pk>/', views.url_compare_competitor_run_time, name="Compare keyword"),
     path('ob_br_compare_competitor/<int:pk>/', views.ob_br_compare_competitor, name="Compare keyword"),
+    path('competitor_indexed_pages/<int:pk>/', views.competitor_indexed_pages, name="Compare keyword"),
 
     path('top_2_competitors/<int:pk>/', views.top_2_competitors, name="Competitors"),
     path('get_rank/<int:pk>/', views.get_keyword_rank, name="Ranking"),

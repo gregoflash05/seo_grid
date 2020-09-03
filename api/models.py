@@ -19,6 +19,8 @@ class Campaign(models.Model):
     keyword_count_percentage_increase = models.IntegerField(blank=True, null=True)
     kwc_data_icon = models.CharField(max_length=255, blank=True, null=True)
     kwc_update_time = models.FloatField(blank=True, null=True)
+    indexed_pages = models.IntegerField(blank=True, null=True)
+    indexed_check_time = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.user.fullname
@@ -31,7 +33,6 @@ class Keywords(models.Model):
     competitor_one = models.CharField(max_length=1000, blank=True, null=True)
     competitor_two = models.CharField(max_length=1000, blank=True, null=True)
     page_title = models.CharField(max_length=255, blank=True, null=True)
-    indexed_pages = models.IntegerField(blank=True, null=True)
     site_map = models.CharField(max_length=255, blank=True, null=True)
     page_load_time =models.FloatField(blank=True, null=True)
     ssl_certificate = models.CharField(max_length=255, blank=True, null=True)
@@ -55,6 +56,7 @@ class Keywords(models.Model):
     rank_data_icon = models.CharField(max_length=255, blank=True, null=True)
     site_map_testtime = models.CharField(max_length=255, blank=True, null=True)
     competitor_site_map_testtime = models.CharField(max_length=255, blank=True, null=True)
+    competitor_indexed_check_time = models.FloatField(blank=True, null=True)
 
 
     def __str__(self):

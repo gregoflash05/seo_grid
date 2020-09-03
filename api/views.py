@@ -36,6 +36,7 @@ from django.http import QueryDict
 from .dt_validate import campaign_test, keyword_test, edit_campaign_test, data_output, validate_language
 from json import dumps
 from .serp import get_rank
+from .indexed import get_indexed_pages, clean_link
 
 # Create your views here.
 
@@ -450,12 +451,14 @@ def compare_endpoints_validate(r_user, pk):
         for k in campaigns:
             if k['id'] == campaign_id:
                 index = k
-        index_link, location, language = index['link'], index['country'], index['language']
+        index_link, location, language, indexed_check_time = index['link'], index['country'], index['language'], index['indexed_check_time']
+        competitor_indexed_check_time = keyword_detail['competitor_indexed_check_time']
         abv_language = validate_language(language)
         return {'campaign_id':campaign_id, 'keyword':keyword, 'competitor':competitor, 'index_link':index_link,
         'location':location, 'language': language, 'abv_language':abv_language, 'competitor_time':competitor_time, 'competitor2':competitor2,
         'rank_time':rank_time, 'ranking':ranking, 'top_rank':top_rank, 'site_map_testtime':site_map_testtime,
-        'competitor_site_map_testtime':competitor_site_map_testtime}
+        'competitor_site_map_testtime':competitor_site_map_testtime, 'indexed_check_time':indexed_check_time, 
+        'competitor_indexed_check_time':competitor_indexed_check_time}
 
 @csrf_exempt
 def url_compare_data(request, pk):
@@ -722,6 +725,32 @@ def ob_br_compare_competitor(request, pk):
             else:
                 return JsonResponse("Not time", safe=False)
 
+@csrf_exempt
+def competitor_indexed_pages(request, pk):
+    if request.method == 'POST':
+        wait_time = 120
+        r_user = request.user
+        kw_data = compare_endpoints_validate(r_user, pk)
+        competitor_indexed_check_time, c_link = kw_data['competitor_indexed_check_time'], kw_data['competitor']
+        link = clean_link(c_link)
+        if competitor_indexed_check_time == None:
+            n_indexed = get_indexed_pages(link)
+            data = {"id": pk, "competitor_indexed_pages": n_indexed, "competitor_indexed_check_time": time.time()}
+            keywords_details = Keywords.objects.get(pk=pk)
+            serializer = KeywordsSerializer(keywords_details, data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return JsonResponse({"competitor_indexed_pages": n_indexed, "competitor_indexed_check_time": time.time()}, safe=False)
+        elif  (time.time() - competitor_indexed_check_time)  > wait_time:
+            n_indexed = get_indexed_pages(link)
+            data = {"id": pk, "competitor_indexed_pages": n_indexed, "competitor_indexed_check_time": time.time()}
+            keywords_details = Keywords.objects.get(pk=pk)
+            serializer = KeywordsSerializer(keywords_details, data=data)
+            if serializer.is_valid():
+                serializer.save()
+            return JsonResponse({"competitor_indexed_pages": n_indexed, "competitor_indexed_check_time": time.time()}, safe=False)
+        else:
+            return JsonResponse("n done", safe=False)
 
 
 #//////////////////////////////////////End multiple endpoints/////////////////////////////////////////
@@ -787,6 +816,28 @@ def get_keyword_rank(request, pk):
             
         else:
             return JsonResponse({"id": pk,"condition": "stable"}, safe=False)
+
+@csrf_exempt
+def indexed_pages(request, pk):
+    if request.method == 'POST':
+        wait_time = 120
+        r_user = request.user
+        campaign_details = CampaignSerializer(Campaign.objects.get(pk=pk)).data
+        indexed_check_time, c_link, c_id = campaign_details['indexed_check_time'],  campaign_details['link'], campaign_details['id']
+        link = clean_link(c_link)
+        if indexed_check_time == None:
+            n_indexed = get_indexed_pages(link)
+            indexed_data = {"user" : r_user.id, "indexed_pages": n_indexed, "indexed_check_time": time.time()}
+            save_campaign_data(indexed_data, c_id, r_user)
+            return JsonResponse({"indexed_pages": n_indexed, "indexed_check_time": time.time()}, safe=False)
+        elif  (time.time() - indexed_check_time)  > wait_time:
+            n_indexed = get_indexed_pages(link)
+            indexed_data = {"user" : r_user.id, "indexed_pages": n_indexed, "indexed_check_time": time.time()}
+            save_campaign_data(indexed_data, c_id, r_user)
+            return JsonResponse({"indexed_pages": n_indexed, "indexed_check_time": time.time()}, safe=False)
+        else:
+            return JsonResponse("n done", safe=False)
+
 
 
 #//////////////////////////////////////End Dashboard Keyword endpoints/////////////////////////////////////////

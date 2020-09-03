@@ -14,6 +14,7 @@ from pysitemap import crawler
 import urllib
 from fake_headers import Headers
 import datetime
+from django.conf import settings
 from serpapi.google_search_results import GoogleSearchResults
 
 
@@ -202,7 +203,7 @@ def get_competitor_links(keyword, location, language):
     "location": location,
     "hl": language,
     "google_domain": "google.com",
-    "api_key": "ffb9f3380b1b82906050962f2e588fe61d26901de3546c862a848dd65941d418"
+    "api_key": settings.SERP_API_KEY
 }
     client = GoogleSearchResults(params)
     results = client.get_dict()['organic_results']

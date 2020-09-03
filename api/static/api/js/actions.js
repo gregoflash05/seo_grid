@@ -1,6 +1,7 @@
 
     $(document).ready(function(){
-        var main_country = $("#index_country").val();
+        var main_country = $("#index_country").val(); 
+        var campaign_id = $("#campaign_id").val();
         $("#edit_campaign_country option:selected").html(main_country);
         var csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
         // $(this).siblings(".bidbutton")
@@ -74,7 +75,17 @@
 
         }
 
-
+        $.ajax({
+            type: "POST",
+            url: window.location.protocol + "//" + window.location.host +"/indexed_pages/" + campaign_id + "/",
+            success: function(response) {
+      console.log(response);
+      console.log("Done");  
+            },
+            error: function(response) {
+         console.log(response);
+             }      
+                    });
 
      $("#add_campaign_submit").click(function(event){
       event.preventDefault();

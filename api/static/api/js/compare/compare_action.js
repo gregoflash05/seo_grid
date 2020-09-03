@@ -25,5 +25,17 @@
                          }      
                                 });
 
+                                $.ajax({
+                                    type: "POST",
+                                    url: window.location.protocol + "//" + window.location.host +"/competitor_indexed_pages/" + keyword_id + "/",
+                                    success: function(response) {
+                              console.log(response);
+                              console.log("done");  
+                                    },
+                                    error: function(response) {
+                                 console.log(response);
+                                     }      
+                                            });
+
                                 
     });

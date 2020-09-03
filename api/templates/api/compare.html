@@ -309,10 +309,10 @@
                 </tr>
                 <tr>
                   <th scope="row">Search Engine Indexed Pages</th>
-                  <td class="border-green">{% if keyword_details.indexed_pages == None %}
+                  <td class="border-green">{% if index.indexed_pages == None %}
                   Pending
                   {% else %}
-                  {{keyword_details.indexed_pages}}
+                  {{index.indexed_pages}}
                   {% endif %}
                   </td>
                   <td>{% if keyword_details.competitor_indexed_pages == None %}

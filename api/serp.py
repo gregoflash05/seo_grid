@@ -1,5 +1,6 @@
 from serpapi.google_search_results import GoogleSearchResults
 import requests
+from django.conf import settings
 
 
 #params = {
@@ -8,7 +9,7 @@ import requests
 #    "hl": "en",
 #    "gl": "us",
 #    "google_domain": "google.com",
-#    "api_key": "ffb9f3380b1b82906050962f2e588fe61d26901de3546c862a848dd65941d418"
+#    "api_key": settings.SERP_API_KEY
 #}
 #pip install google-search-results
 params = {
@@ -16,7 +17,7 @@ params = {
     "location": "Nigeria",
     "hl": "en",
     "google_domain": "google.com",
-    "api_key": "ffb9f3380b1b82906050962f2e588fe61d26901de3546c862a848dd65941d418"
+    "api_key": settings.SERP_API_KEY
 }
 
 #client = GoogleSearchResults(params)
@@ -52,7 +53,7 @@ def get_competitor_links(keyword, location, language):
     "location": location,
     "hl": language,
     "google_domain": "google.com",
-    "api_key": "ffb9f3380b1b82906050962f2e588fe61d26901de3546c862a848dd65941d418"
+    "api_key": settings.SERP_API_KEY
 }
     client = GoogleSearchResults(params)
     results = client.get_dict()['organic_results']
@@ -76,8 +77,8 @@ def first_page(keyword, location, language, domain):
     domain1 = strip_url(domain)
     domain, domain2 = domain1['1'], domain1['2']
     params = {
-  "api_key": "ffb9f3380b1b82906050962f2e588fe61d26901de3546c862a848dd65941d418",
-  "api_key": "ffb9f3380b1b82906050962f2e588fe61d26901de3546c862a848dd65941d418",
+  "api_key": settings.SERP_API_KEY,
+  "api_key": settings.SERP_API_KEY,
   "engine": "google",
   "q": keyword,
   "location": location,
@@ -140,7 +141,7 @@ url = 'https://serpapi.com/search.json?device=desktop&engine=google&gl=US&google
 def next(url, domain):
     domain1 = strip_url(domain)
     domain, domain2 = domain1['1'], domain1['2']
-    key_ext = '&api_key=ffb9f3380b1b82906050962f2e588fe61d26901de3546c862a848dd65941d418'
+    key_ext = '&api_key={}'.format(settings.SERP_API_KEY)
     url = url + key_ext
     res = requests.get(url).json()
     links_r = []
